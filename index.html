@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilgi Bahçesi & Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4edd9;
+      --card-bg: #fffbf0;
+      --border: #1a1714;
+      --accent: #d97736;
+      --text: #1a1714;
+      --subtext: #59534c;
+      --shadow: 4px 4px 0px var(--border);
+      --shadow-hover: 6px 6px 0px var(--border);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    header {
+      text-align: center;
+      border: 3px solid var(--border);
+      background: var(--card-bg);
+      padding: 28px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--subtext);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .motto {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--subtext);
+      background: #e9e0c7;
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px dashed var(--border);
+    }
+
+    .cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-hover);
+      background: #fffef7;
+    }
+
+    .card:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--border);
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--subtext);
+    }
+
+    .card-arrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.2rem;
+      border: 2px solid var(--border);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9e0c7;
+      border-radius: 4px;
+    }
+
+    footer {
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--subtext);
+      margin-top: 10px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(26, 23, 20, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="meta-tag">— BİLGİ DİZİNİ —</div>
+      <h1>Kişisel Kütüphane</h1>
+      <div class="motto">&gt; araştırma, notlar ve pratikler</div>
+    </header>
+
+    <main class="cards-list">
+      <!-- 1. Diller -->
+      <a href="#diller" class="card">
+        <div class="card-content">
+          <span class="card-num">01 / DİZİN</span>
+          <span class="card-title">DİLLER</span>
+          <span class="card-desc">Dil öğrenim günlükleri, fonetik, sözlük ve çeviri çalışmaları</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+
+      <!-- 2. Felsefe -->
+      <a href="#felsefe" class="card">
+        <div class="card-content">
+          <span class="card-num">02 / DİZİN</span>
+          <span class="card-title">FELSEFE</span>
+          <span class="card-desc">Epistemoloji, normatiflik, argüman haritaları ve metin tahlilleri</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+
+      <!-- 3. Doğa Bilimleri -->
+      <a href="#doga-bilimleri" class="card">
+        <div class="card-content">
+          <span class="card-num">03 / DİZİN</span>
+          <span class="card-title">DOĞA BİLİMLERİ</span>
+          <span class="card-desc">Fiziksel evren, biyoloji, evrimsel süreçler ve deneysel gözlemler</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+
+      <!-- 4. Formel Bilimler -->
+      <a href="#formel-bilimler" class="card">
+        <div class="card-content">
+          <span class="card-num">04 / DİZİN</span>
+          <span class="card-title">FORMEL BİLİMLER</span>
+          <span class="card-desc">Mantık sistemleri, matematik, algoritmalar ve hesaplama kuramı</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+
+      <!-- 5. Sosyal Bilimler -->
+      <a href="#sosyal-bilimler" class="card">
+        <div class="card-content">
+          <span class="card-num">05 / DİZİN</span>
+          <span class="card-title">SOSYAL BİLİMLER</span>
+          <span class="card-desc">Toplumsal yapılar, tarih, iktisat ve insan davranışları</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+
+      <!-- 6. Estetik -->
+      <a href="#estetik" class="card">
+        <div class="card-content">
+          <span class="card-num">06 / DİZİN</span>
+          <span class="card-title">ESTETİK</span>
+          <span class="card-desc">Sanat kuramı, tasarım ilkeleri, görsel analiz ve edebiyat</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+
+      <!-- 7. Beceriler -->
+      <a href="#beceriler" class="card">
+        <div class="card-content">
+          <span class="card-num">07 / DİZİN</span>
+          <span class="card-title">BECERİLER</span>
+          <span class="card-desc">Uygulamalı el işçiliği, atölye pratikleri, araçlar ve teknikler</span>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </a>
+    </main>
+
+    <footer>
+      <span>ARCHIVE · 2026</span>
+    </footer>
+  </div>
+
+</body>
+</html>
