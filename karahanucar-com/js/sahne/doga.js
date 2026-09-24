@@ -148,7 +148,7 @@
         "<h4>Mikrobiyoloji</h4><ul><li><b>Leeuwenhoek</b> (1670'ler): kendi yaptığı merceklerle mikroorganizmaları ilk gözlemledi</li><li><b>Pasteur</b> ve <b>Koch</b> (19. yüzyıl): hastalıkların mikroplardan kaynaklandığını gösteren mikrop kuramı</li><li><b>Fleming</b> (1928): bir küf mantarının (<i>Penicillium</i>) bakterileri öldürdüğünü fark etti: penisilin</li></ul>" },
       { x: 91, y: 38, ad: "Ağaç", panel:
         "<h3>Biyolojinin dalları</h3><p>Bir ağaç gibi: kökler ortak, dallar ayrı yönlere uzanıyor.</p><div class=\"pn-etiketler\"><span>Moleküler biyoloji</span><span>Hücre biyolojisi</span><span>Genetik</span><span>Evrim biyolojisi</span><span>Ekoloji</span><span>Botanik</span><span>Zooloji</span><span>Mikrobiyoloji</span><span>Biyokimya</span><span>Fizyoloji</span><span>Nörobiyoloji</span><span>Biyoloji felsefesi</span></div>" +
-        "<h4>Biyoloji felsefesi</h4><p>Canlı olmak ne demek? Tür gerçek bir şey mi, yoksa bizim çizdiğimiz bir sınır mı? Bir organın “işlevi” olduğunu söylemek, doğaya amaç yüklemek mi? Bu soruları sunumumda ele alıyorum.</p><a class=\"pn-bag\" href=\"sunumlar/biyoloji-felsefesi/index.html\" target=\"_blank\" rel=\"noopener\">Yaşamın sınırları sunumunu aç →</a>" }
+        "<h4>Biyoloji felsefesi</h4><p>Canlı olmak ne demek? Tür gerçek bir şey mi, yoksa bizim çizdiğimiz bir sınır mı? Bir organın “işlevi” olduğunu söylemek, doğaya amaç yüklemek mi? Bu soruları sunumumda ele alıyorum.</p><a class=\"pn-bag\" href='sunumlar/biyoloji-felsefesi/index.html' target=\"_blank\" rel=\"noopener\">Yaşamın sınırları sunumunu aç →</a>" }
     ]
   });
 
@@ -209,7 +209,7 @@
         "<ul><li><b>1927–1929</b>: Lemaître ve Hubble, uzak galaksilerin bizden uzaklaştığını, uzaklaştıkça daha hızlı kaçtığını gösterdi: evren genişliyor.</li><li><b>1965</b>: Penzias ve Wilson, Büyük Patlama'nın ardında kalan kozmik mikrodalga arka plan ışımasını buldu.</li><li>Bugünkü ölçümlere göre evren yaklaşık <b>13,8 milyar yaşında</b>.</li></ul>" +
         "<p>Evrenin yalnızca yaklaşık %5'i bildiğimiz sıradan maddedir; gerisi, doğası hâlâ bilinmeyen karanlık madde (yaklaşık %27) ve karanlık enerjidir (yaklaşık %68).</p>" +
         "<div class=\"pn-etiketler\"><span>Astrofizik</span><span>Kozmoloji</span><span>Gezegen bilimi</span><span>Astrobiyoloji</span><span>Gök mekaniği</span><span>Radyo astronomi</span></div>" +
-        "<a class=\"pn-bag\" href=\"bilgi/matematiksel-evren.html\">Okuma: Evren bir matematiksel yapı mı? →</a>" },
+        "<a class=\"pn-bag\" href='bilgi/matematiksel-evren.html'>Okuma: Evren bir matematiksel yapı mı? →</a>" },
       { x: 78, y: 62, ad: "Gözlemevi", panel:
         "<h3>Gözlemin tarihi</h3><ul><li><b>1420'ler, Semerkant</b>: Uluğ Bey'in gözlemevi; bin kadar yıldızın konumunu veren <i>Zîc-i Uluğ Bey</i> kataloğu.</li><li><b>1577, İstanbul</b>: Takiyüddin'in gözlemevi kuruldu; birkaç yıl sonra, 1580'de yıktırıldı.</li><li><b>1609–1610</b>: Galileo teleskobunu göğe çevirdi: Ay'daki dağlar, Jüpiter'in dört büyük uydusu, Samanyolu'nun sayısız yıldızdan oluştuğu. Hepsini <i>Sidereus Nuncius</i>'ta (Yıldız Habercisi) yayımladı.</li><li><b>1990</b>: Hubble Uzay Teleskobu yörüngeye yerleşti.</li><li><b>2021</b>: James Webb Uzay Teleskobu fırlatıldı; kızılötesinde evrenin ilk galaksilerine bakıyor.</li></ul>" },
       { x: 92, y: 12, ad: "Ay", panel:
