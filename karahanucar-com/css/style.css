@@ -303,6 +303,9 @@ html.ruzgarli { --rw: 1.9; }
 .kabin::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--bg), transparent 12%, transparent 88%, var(--bg)); }
 .kabin img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 46rem) { .kabin { height: auto; aspect-ratio: 1916 / 821; } .kabin-in { position: relative; top: auto; left: auto; width: 100%; transform: none; } }
+.kabin-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+.kabin-in.oynuyor .kabin-video { opacity: 1; }
+.kabin-in.oynuyor .k-somine, .kabin-in.oynuyor .k-lamba, .kabin-in.oynuyor .k-kar { opacity: 0; transition: opacity 1.4s ease; }
 .k-somine, .k-lamba, .k-kar { position: absolute; pointer-events: none; }
 .k-somine { left: 4%; top: 46%; width: 17%; height: 32%; animation: somine 3.6s linear infinite;
   background: radial-gradient(closest-side, rgba(255, 150, 50, .42), rgba(255, 120, 30, .14) 60%, transparent 100%); }

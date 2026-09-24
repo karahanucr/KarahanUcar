@@ -43,7 +43,7 @@
   }
   </script>
   <link rel="preload" as="image" href="assets/gpt/maskotlu-kutuphane.webp" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=20260927c">
+  <link rel="stylesheet" href="css/style.css?v=20260927d">
   <link rel="stylesheet" href="css/sahne.css?v=20260927a">
   <script>document.documentElement.classList.add("js");
     /* Tema: ay/güneş tıklamasıyla seçilen gündüz hâli, boyamadan önce uygulanır (yanıp sönme olmasın) */
@@ -142,6 +142,10 @@
     <div class="kabin" role="img" aria-label="Ormanın ortasında kitaplıklı bir kabin: kuzgun maskot şöminenin önündeki deri koltukta kitap okuyor, kemerli pencerenin ardında karlı çam ormanı ve dolunay görünüyor">
       <div class="kabin-in">
         <img src="assets/gpt/kabin-maskot-koltuk-v3.webp" alt="" width="1915" height="821" loading="lazy" decoding="async">
+        <!-- Seedance animasyonu: maskot sayfa çevirir, şömine/mumlar titrer, gramofondan notalar çıkar.
+             Görünür olunca yüklenir; önce yerel dosya, yoksa Higgsfield bağlantısı. Hareket azaltılmışsa durağan görsel kalır. -->
+        <video class="kabin-video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
+               data-kaynaklar="assets/video/kabin-maskot-gramofon.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3Jcviuh0jli0uOYsJXGfqvG22US/hf_20260924_161510_b9a9c692-dc50-4e9f-8244-5417730091d6.mp4"></video>
         <div class="k-somine"></div>
         <div class="k-lamba"></div>
         <div class="k-kar"></div>
@@ -429,6 +433,7 @@
 <script src="js/tema.js?v=20260927a"></script>
 <script src="js/logo-ciz.js?v=20260927b" defer></script>
 <script src="js/randevu.js?v=20260927a" defer></script>
+<script src="js/kabin-video.js?v=20260927a" defer></script>
 <script src="js/kutuphane.js?v=20260927a"></script>
 <script src="js/arsiv.js?v=20260927a"></script>
 <script src="js/sozlukce.js?v=20260927a"></script>
