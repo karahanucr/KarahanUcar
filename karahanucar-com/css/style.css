@@ -1217,3 +1217,7 @@ html.gunduz .randevu-takvim { background: var(--kagit); border-color: rgba(118, 
 html.gunduz .rt-cerceve { box-shadow: 0 0 0 1px rgba(118, 75, 12, .4), 0 0 0 5px #f5eddc, 0 0 0 6px rgba(118, 75, 12, .25); }
 @media (max-width: 40rem) { .rt-cerceve { margin: .5rem; min-height: 720px; } .rt-cerceve iframe { height: 820px; } .rt-bas { flex-wrap: wrap; } }
 @media (prefers-reduced-motion: reduce) { .randevu-takvim { transition: none; translate: none; } .rt-simge { animation: none; } }
+
+/* 2026-09-27 · Bölüm simgelerinin (ayraç) iki yanındaki çizgiler kaldırıldı; simge tek başına durur */
+.ayrac::before, .ayrac::after, html.gunduz .ayrac::before, html.gunduz .ayrac::after { content: none; }
+.ayrac { justify-content: center; }
