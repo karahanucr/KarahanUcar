@@ -624,6 +624,11 @@ html[dir="rtl"] .kart-ust, html[lang="grc"] .kart-ust { letter-spacing: .04em; t
 .cilt:focus-visible { outline-offset: 4px; }
 .cilt.bos { filter: saturate(.55) brightness(.78); }
 .cilt.bos:hover, .cilt.bos[aria-pressed="true"] { filter: none; }
+/* Sahneye açılan ciltler: üst yaldızın altında nabız gibi atan küçük bir kor; üzerine gelince cilt biraz daha çekilir */
+.cilt-isik { position: absolute; top: .95rem; left: 50%; width: .42rem; height: .42rem; margin-left: -.21rem; border-radius: 50%; background: #FFE2A0; box-shadow: 0 0 6px #FFE2A0, 0 0 14px rgba(232, 189, 98, .8); animation: titre 2.6s ease-in-out infinite; }
+.cilt-sahne { padding-top: 1.55rem; }
+.cilt-sahne::before { top: .35rem; }
+.cilt-sahne:hover, .cilt-sahne:focus-visible { transform: translateY(-1rem) rotate(-1.5deg); box-shadow: inset 0 0 0 1px rgba(232, 189, 98, .5), 0 0 26px rgba(232, 189, 98, .45); }
 .raf-tahta { height: .85rem; border-radius: 3px; background: linear-gradient(#634128, #3b2717 70%, #2a1b10);
   box-shadow: 0 10px 22px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 220, 160, .22); }
 .raf-ipucu { font-size: .85rem; color: var(--muted); margin-bottom: .4rem; }

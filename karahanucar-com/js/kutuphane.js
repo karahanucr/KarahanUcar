@@ -19,7 +19,7 @@
     });
 
     var sec = function (alan) {
-      ciltler.forEach(function (c) { c.setAttribute("aria-pressed", String(c.dataset.alan === alan)); });
+      ciltler.forEach(function (c) { if (!c.dataset.sahne) c.setAttribute("aria-pressed", String(c.dataset.alan === alan)); });
       var gorunen = 0;
       kayitlar.forEach(function (k, i) {
         var uygun = alan === "hepsi" || alanlar(k).indexOf(alan) > -1;
@@ -34,6 +34,7 @@
     };
     ciltler.forEach(function (c) {
       c.addEventListener("click", function () {
+        if (c.dataset.sahne && window.SAHNE && window.SAHNE.var(c.dataset.sahne)) { window.SAHNE.ac(c.dataset.sahne, c); return; }
         var zaten = c.getAttribute("aria-pressed") === "true";
         sec(zaten ? "hepsi" : c.dataset.alan);
       });

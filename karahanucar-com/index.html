@@ -43,7 +43,8 @@
   }
   </script>
   <link rel="preload" as="image" href="assets/gpt/maskotlu-kutuphane.webp" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=20260924a">
+  <link rel="stylesheet" href="css/style.css?v=20260924b">
+  <link rel="stylesheet" href="css/sahne.css?v=20260924b">
   <script>document.documentElement.classList.add("js");
     /* Tema: ay/güneş tıklamasıyla seçilen gündüz hâli, boyamadan önce uygulanır (yanıp sönme olmasın) */
     try { if (localStorage.getItem("tema") === "gunduz") document.documentElement.classList.add("gunduz"); } catch (e) {}</script>
@@ -302,9 +303,9 @@
       <div class="raf-kap">
         <div class="raf" role="group" aria-label="Alanlara göre süz">
           <button type="button" class="cilt" data-alan="hepsi" aria-pressed="true" style="--c:#3a2a1d;--h:86%"><span class="cilt-ad">Tümü</span><span class="cilt-sayi" data-sabit></span></button>
-          <button type="button" class="cilt" data-alan="diller" aria-pressed="false" style="--c:#2b3a52;--h:78%"><span class="cilt-ad">Diller</span><span class="cilt-sayi" data-sabit></span></button>
-          <button type="button" class="cilt" data-alan="felsefe" aria-pressed="false" style="--c:#5c2b25;--h:100%"><span class="cilt-ad">Felsefe</span><span class="cilt-sayi" data-sabit></span></button>
-          <button type="button" class="cilt" data-alan="doga-bilimleri" aria-pressed="false" style="--c:#2f4533;--h:92%"><span class="cilt-ad">Doğa Bilimleri</span><span class="cilt-sayi" data-sabit></span></button>
+          <button type="button" class="cilt cilt-sahne" data-alan="diller" data-sahne="diller" aria-haspopup="dialog" style="--c:#2b3a52;--h:78%"><span class="cilt-isik" aria-hidden="true"></span><span class="cilt-ad">Diller</span><span class="cilt-sayi" data-sabit></span></button>
+          <button type="button" class="cilt cilt-sahne" data-alan="felsefe" data-sahne="felsefe" aria-haspopup="dialog" style="--c:#5c2b25;--h:100%"><span class="cilt-isik" aria-hidden="true"></span><span class="cilt-ad">Felsefe</span><span class="cilt-sayi" data-sabit></span></button>
+          <button type="button" class="cilt cilt-sahne" data-alan="doga-bilimleri" data-sahne="doga-bilimleri" aria-haspopup="dialog" style="--c:#2f4533;--h:92%"><span class="cilt-isik" aria-hidden="true"></span><span class="cilt-ad">Doğa Bilimleri</span><span class="cilt-sayi" data-sabit></span></button>
           <button type="button" class="cilt" data-alan="formel-bilimler" aria-pressed="false" style="--c:#303548;--h:96%"><span class="cilt-ad">Formel Bilimler</span><span class="cilt-sayi" data-sabit></span></button>
           <button type="button" class="cilt" data-alan="sosyal-bilimler" aria-pressed="false" style="--c:#5b4521;--h:94%"><span class="cilt-ad">Sosyal Bilimler</span><span class="cilt-sayi" data-sabit></span></button>
           <button type="button" class="cilt" data-alan="estetik" aria-pressed="false" style="--c:#4a2a3d;--h:82%"><span class="cilt-ad">Estetik</span><span class="cilt-sayi" data-sabit></span></button>
@@ -312,7 +313,7 @@
         </div>
         <div class="raf-tahta" aria-hidden="true"></div>
       </div>
-      <p class="raf-ipucu">Bir cilde dokun; o alandaki içerikler aşağıda süzülür.</p>
+      <p class="raf-ipucu">Işıklı ciltler kendi dünyalarına açılır; diğerleri aşağıdaki dizini süzer.</p>
 
       <h3 class="alt-baslik">Son eklenenler</h3>
       <!-- YENİ İÇERİK EKLEMEK: listenin en üstüne bir <li class="kayit" data-alan="..."> kopyala.
@@ -459,10 +460,14 @@
   </div>
 </footer>
 
-<script src="js/hareket.js?v=20260924a"></script>
-<script src="js/diller.js?v=20260924a"></script>
-<script src="js/yazi.js?v=20260924a"></script>
-<script src="js/tema.js?v=20260924a"></script>
-<script src="js/kutuphane.js?v=20260924a"></script>
+<script src="js/hareket.js?v=20260924b"></script>
+<script src="js/diller.js?v=20260924b"></script>
+<script src="js/yazi.js?v=20260924b"></script>
+<script src="js/tema.js?v=20260924b"></script>
+<script src="js/kutuphane.js?v=20260924b"></script>
+<script src="js/sahne/motor.js?v=20260924b"></script>
+<script src="js/sahne/diller.js?v=20260924b"></script>
+<script src="js/sahne/doga.js?v=20260924b"></script>
+<script src="js/sahne/felsefe.js?v=20260924b"></script>
 </body>
 </html>
