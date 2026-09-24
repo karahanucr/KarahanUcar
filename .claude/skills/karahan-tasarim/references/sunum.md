@@ -21,6 +21,34 @@ Aydınlık salonlar/projeksiyon için gündüz teması (`T` tuşu) — krem kâ�
 | **Sözlükçe** | Sözlükçe odası | Terim kartları: serif terim, italik köken, tanım; bir terim seçilince büyür. |
 | **Kapanış** | Alt bilgi | Logo, "Teşekkürler", iletişim (· ile ayrılmış), slogan. |
 
+## KALICI KURAL: bağlama uygun başlık animasyonları (Karahan'ın özellikle beğendiği)
+Her sunumda, özellikle karşıtlık ve kavram slaytlarında, başlıkların **üstüne** konuyu anlatan küçük, sürekli hareket eden bir SVG çizim konur.
+Süs değil, **kavramın kendisini** gösterir. Örnek (Çağdaş Metafizik, 10. slayt "Nesneler zamanda nasıl sürer?"):
+- *Üç boyutçuluk* başlığının üstünde: bir zaman çizgisi boyunca **bütün hâlinde** kayan tek bir altın küre (aynı nesne her anda tümüyle var).
+- *Dört boyutçuluk* başlığının üstünde: zamana yayılmış mor bir "solucan" ve üzerinde **sırayla yanan zamansal dilimler**.
+
+Tarif: `<svg class="zaman-ciz" viewBox="0 0 520 90">` (genişlik %100, yükseklik ~70 px, `overflow: visible`) + tek bir CSS animasyonu
+(`translateX` ile kayma, `animation-delay: calc(var(--i) * .5s)` ile sıralı yanma, `stroke-dashoffset` ile çizilme, `scale` ile nabız).
+Hareket yavaş (4–8 sn), döngülü ya da `alternate`; renkler altın `#E8BD62` / açık altın `#FFE7A8` / oda vurgusu; `prefers-reduced-motion`'da durur.
+
+Konuya göre fikir bankası:
+| Kavram | Çizim |
+|---|---|
+| Değişim / süreç / tarih | zaman çizgisi üzerinde kayan nesne, sırayla yanan duraklar |
+| Parça–bütün, bileşim | dağılan noktalar (nihilizm), atan hücre (organizma), hepsini birleştiren çizgiler (evrenselcilik) |
+| Tümel / tikel | merkeze bağlı dönen düğümler / ayrı ayrı yanıp sönen noktalar |
+| Temellendirme, öncelik | alttan üste sırayla parlayan katmanlar |
+| İki görüş, tartışma | ortada salınan terazi; üzerine gelinen tarafa eğilir |
+| Söndürme, anlamsızlık | küçülüp sönen halka; kesme / eklem: kesikli çizgi akışı |
+| Nedensellik | bir topun diğerine çarpıp onu harekete geçirmesi |
+| Olanaklılık | merkez dünyadan kesikli ışınlarla uzanan küçük dünyalar |
+Kartlarda aynı dil küçük ölçekte: sağ üstte 60 px hareketli simge (`.k-simge`).
+
+Canlı katman (her sunumda): arka planda kor tozu ve ateş böcekleri (canvas), imleç ışığı, fareyle hafif paralaks,
+hafifçe dolaşan kor çerçeveli kartlar (üzerine gelince eğilir, tıklayınca argüman/eleştiri paneli), çevrilen sözlükçe kartları,
+madalyon bölüm numaraları (dönen yörünge + kıvılcım), kapakta kendini çizen logo.
+Hazır, çalışan örnek: `assets/sunum-canli-ornek.html` (bu katmanların hepsi; yeni sunumda buradan kopyala).
+
 ## Düzen ölçüleri (16:9, 1600×900 tuval)
 - Kenar boşluğu 96 px; başlık sol üstte (x 96, y 120); içerik ızgarası 12 sütun, 24 px aralık.
 - Başlık 72–96 px serif; üst etiket 18 px, `letter-spacing .3em`, altın; gövde 26–30 px, en çok 6 satır.

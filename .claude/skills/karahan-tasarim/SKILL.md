@@ -40,6 +40,10 @@ Hepsi Web Audio ile üretilir (dosya/CDN yok), kapatılabilir.
 - Metinler Türkçe; site 7 dilli (tr, en, de, fr, la, el=Attika Yunancası, ar=sağdan sola). Yeni arayüz metinleri `js/diller.js`'e 6 dilde eklenir.
 - Nesneler ekrandan taşmaz, başlık/alıntıyla çakışmaz.
 
+**Sunumlarda kalıcı kural:** başlıkların üstüne ve kartlara konuyu gösteren küçük, sürekli hareketli SVG çizimler konur
+(ör. "Nesneler zamanda nasıl sürer?": bütün hâlinde kayan küre · sırayla yanan zamansal dilimler). Ayrıntı ve fikir bankası:
+`references/sunum.md`; çalışan örnek: `assets/sunum-canli-ornek.html`.
+
 ## Hangi işte hangi dosya
 
 | İş | Oku |

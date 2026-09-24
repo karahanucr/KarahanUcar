@@ -9,3 +9,6 @@ Kesin kurallar: harici font/CDN yok · dosya silme yok · maskot ve logo değiş
 css/js değişince `index.html`'deki `?v=` sürümü artırılır · yeni arayüz metinleri `js/diller.js`'e 6 dilde eklenir.
 
 Yerelde deneme: `python3 -m http.server 8766 --directory karahanucar-com` → `http://localhost:8766/` (sahne: `#sahne-latince`).
+
+Sunumlarda (kalıcı tercih): her başlık/kavramın üstüne bağlama uygun, sürekli hareket eden küçük bir SVG animasyon ekle; kartlara hareketli simge, tıklanınca açılan panel koy.
+Tarif ve örnek: `.claude/skills/karahan-tasarim/references/sunum.md` · `assets/sunum-canli-ornek.html`.

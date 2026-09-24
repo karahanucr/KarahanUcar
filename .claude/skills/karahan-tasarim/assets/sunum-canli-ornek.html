@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Çağdaş Metafizik — Karahan Uçar</title>
+<!-- Karahan Uçar sunum şablonu. Tek dosya; harici font/CDN yok. Logo aynı klasörde (logo-seffaf.svg / logo-seffaf-gunduz.svg).
+     Tuşlar: → ← boşluk (ileri/geri) · Home/End · T (gece/gündüz) · F (tam ekran). Slaytlar 1600×900 tuvalde tasarlanır, ekrana ölçeklenir.
+     Yeni slayt: bir <section class="slayt" data-tur="..."> kopyala. Türler: kapak · bolum · sahne · alinti · harita · kartlar · karsitlik · sozluk · kapanis -->
+<style>
+:root { --bg: #16120f; --bg-2: #211b16; --line: rgba(232,189,98,.22); --gold: #E8BD62; --gold-2: #FFE2A0; --gold-3: #FFE7A8; --ivory: #EDE6D0; --ivory-2: #f6ecd2; --muted: #A9A38F;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --vurgu: #C8B0FF; }
+html.gunduz { --bg: #f5eddc; --bg-2: #ece0c7; --line: rgba(118,78,20,.24); --murekkep: #33506a; --gold: #764b0c; --gold-2: #8a5a14; --gold-3: #6b430c; --ivory: #2b2117; --ivory-2: #2b2117; --muted: #5e4e3a; --vurgu: #6a4aa8; }
+@property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@property --sp { syntax: "<percentage>"; initial-value: -20%; inherits: false; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #07060a; overflow: hidden; }
+body { font: 26px/1.55 var(--sans); color: var(--ivory); }
+html.gunduz body { background: #d8c9a8; }
+.sahne { position: fixed; inset: 0; display: grid; place-items: center; }
+.tuval { position: relative; width: 1600px; height: 900px; flex: none; transform-origin: 50% 50%; overflow: hidden; border-radius: 6px; background: var(--bg); box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+.slayt { position: absolute; inset: 0; padding: 110px 96px 90px; opacity: 0; visibility: hidden; transition: opacity .9s ease, transform 1.1s cubic-bezier(.2,.7,.2,1), filter 1s ease, visibility 0s linear 1.1s; transform: scale(.94); filter: blur(10px); }
+.slayt.aktif { opacity: 1; visibility: visible; transform: none; filter: none; transition-delay: .15s, .15s, .15s, 0s; }
+.slayt.gecmis { transform: scale(1.08); }
+/* ortak metin */
+.ust { font: 600 18px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--vurgu); }
+h1, h2 { font-family: var(--serif); font-weight: 500; color: var(--ivory-2); }
+h1 { font-size: 112px; line-height: 1.02; }
+h2 { font-size: 76px; line-height: 1.06; margin: 18px 0 22px; }
+.aktif h1, .aktif h2 { animation: harf 1.4s .25s both cubic-bezier(.2,.7,.2,1); }
+.aktif .ust, .aktif .yazi, .aktif .gel { animation: belir 1s .6s both; }
+.aktif .gel2 { animation: belir 1s 1s both; }
+@keyframes harf { from { opacity: 0; letter-spacing: .3em; filter: blur(8px); } to { opacity: 1; letter-spacing: 0; filter: blur(0); } }
+@keyframes belir { from { opacity: 0; transform: translateY(14px); } }
+.yazi { max-width: 760px; color: var(--muted); }
+.yazi b { color: var(--ivory); font-weight: 600; }
+.ayir { color: var(--gold); opacity: .6; margin-inline: .45em; }
+.kor-cizgi { height: 2px; width: 560px; border-radius: 2px; margin: 26px 0; background: radial-gradient(ellipse 9% 260% at var(--sp) 50%, rgba(218,118,46,.75), rgba(170,66,28,.3) 55%, transparent 100%), linear-gradient(90deg, transparent, rgba(232,189,98,.22) 20%, rgba(232,189,98,.22) 80%, transparent); animation: korg 12s ease-in-out infinite; }
+@keyframes korg { 0% { --sp: -20%; } 62%, 100% { --sp: 120%; } }
+/* gök ve orman (kapak, kapanış) */
+.gok { position: absolute; inset: 0; background: linear-gradient(#0b1118, #142030 40%, #263a52 70%, #40587a 88%, #2a3441); }
+html.gunduz .gok { background: linear-gradient(#8fc3e8, #b6d8ef 40%, #d9e9ef 70%, #efe6cf); }
+.yildiz { position: absolute; width: var(--b); height: var(--b); border-radius: 50%; background: #fff; box-shadow: 0 0 6px rgba(200,222,255,.8); animation: pir var(--t) ease-in-out var(--g) infinite; }
+html.gunduz .yildiz { opacity: 0 !important; }
+@keyframes pir { 0%, 100% { opacity: .2; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.2); } }
+.ay { position: absolute; right: 150px; top: 110px; width: 86px; height: 86px; border-radius: 50%; background: radial-gradient(circle at 38% 38%, #fff, #e9eff7 60%, #bccbde); box-shadow: 0 0 40px 10px rgba(232,241,255,.35); }
+html.gunduz .ay { background: radial-gradient(circle at 42% 40%, #fffbe6, #ffe28a 45%, #f7b53f); box-shadow: 0 0 40px 14px rgba(255,214,110,.6); }
+.orman { position: absolute; left: 0; right: 0; bottom: 0; height: 250px; }
+.orman path { transform-box: fill-box; transform-origin: 50% 100%; animation: ruzgar var(--d) ease-in-out infinite alternate; }
+@keyframes ruzgar { from { transform: rotate(-1.4deg); } to { transform: rotate(1.8deg); } }
+.logo { position: relative; width: 170px; margin-bottom: 26px; }
+.logo::before { content: ""; position: absolute; inset: -60%; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,189,98,.3), rgba(232,189,98,.08) 55%, transparent 75%); animation: titre 3.4s ease-in-out infinite; }
+.logo img { position: relative; width: 100%; display: block; transform-origin: 50% 90%; animation: alev 4.2s ease-in-out infinite; }
+@keyframes titre { 0%, 100% { opacity: .75; transform: scale(.94); } 30% { opacity: 1; transform: scale(1.04); } 80% { opacity: .95; transform: scale(1.06); } }
+@keyframes alev { 0%, 100% { transform: scale(1,1) skewX(0); } 25% { transform: scale(.985,1.02) skewX(.6deg); } 50% { transform: scale(1.01,.99) skewX(-.5deg); } }
+.merkez { position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.merkez .kor-cizgi { margin-inline: auto; }
+.slogan { font: 500 20px/1 var(--serif); letter-spacing: .34em; color: var(--gold); }
+/* bölüm */
+.bolum-no { display: flex; align-items: center; gap: 28px; font: 500 150px/1 var(--serif); color: var(--gold); }
+.bolum-no::after { content: ""; width: 160px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+.esik { position: relative; display: inline-block; margin-top: 40px; padding: 26px 40px; border-radius: 10px; font: italic 38px/1.35 var(--serif); color: var(--gold-3); }
+.esik::before, .kart::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--ang), transparent 0 45%, rgba(232,189,98,.35) 65%, var(--gold) 82%, var(--gold-2) 90%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: dolan 5s linear infinite; }
+@keyframes dolan { to { --ang: 360deg; } }
+/* sahne: parıldayan nesneler + panel */
+.cizim { position: absolute; right: 60px; top: 90px; width: 760px; height: 720px; }
+.cizim svg { width: 100%; height: 100%; }
+.nokta { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); translate: -50% -50%; display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: 0; color: #f6ecd2; cursor: pointer; font: inherit; }
+.halka { position: relative; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--vurgu); background: radial-gradient(closest-side, rgba(255,226,160,.35), rgba(255,226,160,.06) 70%, transparent); box-shadow: 0 0 18px rgba(232,189,98,.45); transition: transform .35s; }
+.halka::before, .halka::after { content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid var(--vurgu); opacity: 0; animation: dalga 2.8s ease-out infinite; }
+.halka::after { animation-delay: 1.4s; }
+@keyframes dalga { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.4); opacity: 0; } }
+.nokta:hover .halka, .nokta.secili .halka { transform: scale(1.18); box-shadow: 0 0 30px rgba(255,220,150,.8); }
+.nokta-ad { font-size: 17px; letter-spacing: .06em; padding: 4px 16px; border-radius: 999px; background: rgba(12,9,7,.75); border: 1px solid rgba(232,189,98,.3); white-space: nowrap; }
+.panel { position: absolute; left: 96px; bottom: 80px; width: 640px; padding: 30px 34px; border-radius: 18px; color: #efe6cf; background: linear-gradient(160deg, rgba(34,25,17,.94), rgba(14,10,8,.96)); border: 1px solid rgba(232,189,98,.35); box-shadow: 0 30px 60px rgba(0,0,0,.55); font-size: 22px; opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s; pointer-events: none; }
+.panel.acik { opacity: 1; transform: none; pointer-events: auto; }
+.panel h3 { font: 500 34px/1.2 var(--serif); color: #f6ecd2; margin-bottom: 10px; }
+.pn-ust { font-size: 14px; letter-spacing: .24em; text-transform: uppercase; color: var(--vurgu); margin-bottom: 6px; }
+/* alıntı */
+.alinti { position: absolute; left: 96px; right: 96px; top: 50%; transform: translateY(-50%); }
+.al-metin { font: italic 500 64px/1.25 var(--serif); color: var(--gold-3); min-height: 2.5em; }
+.al-metin i { font-style: normal; color: var(--vurgu); animation: imlec 1s steps(1) infinite; }
+@keyframes imlec { 50% { opacity: 0; } }
+.al-ceviri { margin-top: 18px; font-size: 28px; color: var(--ivory); }
+.al-kaynak { margin-top: 10px; font-size: 17px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.harfi { display: inline-block; white-space: pre; }
+/* harita */
+.kagit { position: absolute; left: 96px; right: 96px; top: 290px; bottom: 90px; border-radius: 14px; background: radial-gradient(ellipse 70% 60% at 50% 45%, #f1e3c2, #e2cc9c 70%, #c9ad76); box-shadow: inset 0 0 50px rgba(90,55,20,.45), inset 0 0 0 1px rgba(90,55,20,.5), 0 14px 30px rgba(0,0,0,.45); }
+.kagit svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.yol { stroke-dasharray: 9 9; }
+.maske { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.aktif .maske { animation: ciz 2.6s .4s cubic-bezier(.5,0,.3,1) forwards; }
+@keyframes ciz { to { stroke-dashoffset: 0; } }
+.durak { position: absolute; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; background: none; border: 0; cursor: pointer; font: inherit; color: #2e1c08; }
+.muhur { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font: 600 18px/1 var(--serif); color: #fff3d6; background: radial-gradient(circle at 38% 32%, #c0503a, #7a1e12 70%); box-shadow: 0 0 0 3px rgba(255,240,210,.6), 0 3px 6px rgba(60,20,10,.5); transition: transform .3s, box-shadow .3s; }
+.durak.secili .muhur { transform: scale(1.25); box-shadow: 0 0 0 3px #fff3d6, 0 0 0 7px rgba(192,80,58,.35), 0 0 22px rgba(255,160,60,.8); }
+.durak.gecildi .muhur { background: radial-gradient(circle at 38% 32%, #b88a3a, #6a4a18 70%); }
+.etiket { position: absolute; top: 46px; width: 200px; text-align: center; line-height: 1.2; }
+.durak.yukari .etiket { top: auto; bottom: 46px; }
+.etiket b { display: block; font-size: 15px; letter-spacing: .08em; color: #7a1e12; }
+.etiket span { font: 500 19px/1.2 var(--serif); }
+.durak-acik { position: absolute; left: 96px; right: 96px; top: 222px; font-size: 24px; color: var(--muted); min-height: 80px; }
+.durak-acik b { color: var(--gold-3); font: 500 30px var(--serif); margin-inline-end: 14px; }
+/* kartlar */
+.kartlar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+.kart { position: relative; padding: 34px 32px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); font-size: 22px; color: var(--muted); }
+.kart::before { opacity: 0; transition: opacity .4s; animation-duration: 2.6s; }
+.kart:hover::before { opacity: 1; }
+.kart .tur { font-size: 14px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.kart h3 { font: 500 34px/1.2 var(--serif); color: var(--ivory-2); margin: 10px 0 12px; }
+.kart .no { position: absolute; top: 18px; right: 24px; font: 500 52px/1 var(--serif); color: rgba(232,189,98,.16); }
+.aktif .kart { animation: belir .9s both; }
+.aktif .kart:nth-child(2) { animation-delay: .25s; } .aktif .kart:nth-child(3) { animation-delay: .5s; }
+/* karşıtlık */
+.karsit { display: grid; grid-template-columns: 1fr 2px 1fr; gap: 60px; margin-top: 50px; }
+.karsit > div:nth-child(2) { background: linear-gradient(transparent, var(--gold), transparent); }
+.karsit h3 { font: 500 42px/1.2 var(--serif); color: var(--gold-3); margin-bottom: 14px; }
+.karsit p { color: var(--muted); font-size: 25px; }
+/* sözlük */
+.terimler { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 40px; margin-top: 40px; }
+.terim { padding: 22px 26px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,240,200,.03); }
+.terim h3 { font: 500 34px/1.2 var(--serif); color: var(--gold-3); }
+.terim em { font: italic 19px var(--serif); color: var(--muted); }
+.terim p { font-size: 21px; color: var(--ivory); opacity: .85; margin-top: 6px; }
+/* çerçeve öğeleri */
+.ilerleme { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; transform-origin: 0 50%; background: linear-gradient(90deg, rgba(170,66,28,0), #c8642a 30%, var(--gold) 80%, var(--gold-2)); box-shadow: 0 0 10px rgba(232,189,98,.55); transition: transform .8s ease; z-index: 5; }
+.sayfa { position: absolute; right: 40px; bottom: 26px; font: 500 16px var(--serif); letter-spacing: .1em; color: var(--muted); z-index: 5; }
+.imza { position: absolute; left: 40px; bottom: 26px; font-size: 14px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); z-index: 5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .maske { stroke-dashoffset: 0; } }
+.okuma { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px 70px; margin-top: 26px; font-size: 19px; line-height: 1.42; color: var(--muted); }
+.okuma h3 { font: 500 26px/1.2 var(--serif); color: var(--gold-3); margin-bottom: 10px; }
+.okuma ol { list-style: none; counter-reset: ok; }
+.okuma li { counter-increment: ok; position: relative; padding-left: 42px; margin-bottom: 7px; }
+.okuma li::before { content: counter(ok, decimal-leading-zero); position: absolute; left: 0; top: 2px; font: 500 15px/1.4 var(--serif); color: var(--gold); letter-spacing: .06em; }
+.okuma li b { color: var(--ivory); font-weight: 600; } .okuma li i { color: var(--ivory); }
+.aktif .okuma li { animation: belir .8s both; } .aktif .okuma li:nth-child(n+4) { animation-delay: .25s; } .aktif .okuma li:nth-child(n+8) { animation-delay: .5s; }
+.kart ul { margin: 12px 0 0 18px; font-size: 19px; } .kart li { margin-bottom: 6px; }
+
+/* ── Siteyle aynı canlılık: toz ve ateş böcekleri, imleç ışığı, paralaks, dönen kor çerçeveler, madalyon numaralar ── */
+.toz { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.slayt { z-index: 1; }
+.imlec { position: absolute; left: 0; top: 0; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; z-index: 2;
+  background: radial-gradient(closest-side, rgba(255, 214, 140, .13), rgba(232, 189, 98, .05) 55%, transparent 75%); transform: translate(var(--ix, -999px), var(--iy, -999px)); mix-blend-mode: screen; transition: opacity .6s; }
+html.gunduz .imlec { mix-blend-mode: multiply; background: radial-gradient(closest-side, rgba(190, 130, 40, .16), transparent 70%); }
+.aktif .cizim, .aktif .gok .ay { translate: calc(var(--mx, 0) * -14px) calc(var(--my, 0) * -10px); transition: translate .5s ease-out; }
+.aktif .gok .yildizlar { translate: calc(var(--mx, 0) * -6px) calc(var(--my, 0) * -4px); transition: translate .6s ease-out; }
+.logo-cizen svg { width: 100%; display: block; overflow: visible; }
+.logo-cizen .lc-uc { filter: drop-shadow(0 0 70px #ffd890); opacity: 0; }
+.logo-cizen.bitti svg { animation: alev 4.2s ease-in-out infinite; transform-origin: 50% 90%; filter: drop-shadow(0 0 14px rgba(232, 189, 98, .55)); }
+.ipucu { position: absolute; right: 96px; top: 58px; font-size: 16px; letter-spacing: .08em; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.ipucu::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); animation: pir 2.4s ease-in-out infinite; }
+/* bölüm numarası: dönen yörüngeli madalyon */
+.bolum-no { position: relative; display: inline-grid; place-items: center; width: 210px; height: 210px; border-radius: 50%; font-size: 104px; gap: 0; margin: 0 0 10px 14px;
+  border: 2px solid rgba(232, 189, 98, .65); background: radial-gradient(circle at 35% 30%, rgba(255, 226, 160, .2), rgba(232, 189, 98, .05) 70%); animation: nefes 4.2s ease-in-out infinite; }
+.bolum-no::after { content: ""; position: absolute; inset: -18px; width: auto; height: auto; border-radius: 50%; border: 2px dashed rgba(232, 189, 98, .4); background: none; animation: don 30s linear infinite; }
+.bolum-no::before { content: ""; position: absolute; inset: -18px; border-radius: 50%; background: radial-gradient(circle at 50% 0, #FFE7A8 0 5px, rgba(255, 226, 160, .5) 7px, transparent 11px); animation: don 7s linear infinite; }
+.aktif .bolum-no { animation: nefes 4.2s ease-in-out infinite, doner-gel 1.3s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes don { to { transform: rotate(360deg); } }
+@keyframes nefes { 0%, 100% { box-shadow: 0 0 0 0 rgba(232, 189, 98, 0), inset 0 0 20px rgba(255, 226, 160, .08); } 50% { box-shadow: 0 0 60px 6px rgba(232, 189, 98, .22), inset 0 0 30px rgba(255, 226, 160, .2); } }
+@keyframes doner-gel { from { opacity: 0; transform: scale(.5) rotate(-140deg); } }
+[data-tur="bolum"] { display: flex; flex-direction: column; justify-content: center; }
+[data-tur="bolum"]::after { content: attr(data-arka); position: absolute; right: 60px; bottom: -80px; font: 500 520px/1 var(--serif); color: rgba(232, 189, 98, .045); pointer-events: none; }
+/* kartlar: her zaman hafifçe dolaşan kor, üstünde eğilme, tıklayınca panel */
+.kart { cursor: pointer; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s ease-out, box-shadow .4s, border-color .4s; }
+.kart::before { opacity: .38; animation-duration: 6s; }
+.kart:hover::before, .kart.secili::before { opacity: 1; animation-duration: 2.6s; }
+.kart:hover, .kart.secili { box-shadow: 0 18px 40px rgba(0, 0, 0, .35), 0 0 30px rgba(232, 189, 98, .12); border-color: rgba(232, 189, 98, .45); }
+.kart .no { top: auto; bottom: 12px; right: 22px; font-size: 40px; }
+.kart { font-size: 19.5px; line-height: 1.5; padding-bottom: 44px; }
+.k-simge { float: right; width: 60px; height: 60px; margin: -6px -6px 6px 12px; }
+.ks { width: 100%; height: 100%; overflow: visible; fill: var(--gold); stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ks path, .k-hucre, .k-sonum { fill: none; }
+.k-nabz { animation: k-nabz 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes k-nabz { 50% { transform: scale(1.35); filter: drop-shadow(0 0 6px var(--gold)); } }
+.k-don { animation: don 14s linear infinite; transform-origin: 30px 30px; }
+.k-p1, .k-p2, .k-p3 { animation: k-yan 3s ease-in-out infinite; } .k-p2 { animation-delay: -1s; } .k-p3 { animation-delay: -2s; }
+@keyframes k-yan { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.k-ciz { stroke-dasharray: 160; stroke-dashoffset: 160; animation: k-ciz 4s ease-in-out infinite; }
+@keyframes k-ciz { 40%, 70% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -160; } }
+.k-sac { animation: k-sac 5s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -.8s); }
+@keyframes k-sac { to { transform: translate(4px, -5px); opacity: .5; } }
+.k-hucre { animation: k-hucre 3.2s ease-in-out infinite; transform-origin: 30px 30px; }
+@keyframes k-hucre { 50% { transform: scale(1.08); stroke-width: 3; } }
+.k-sonum { animation: k-sonum 4s ease-in-out infinite; transform-origin: 30px 30px; }
+@keyframes k-sonum { 50% { transform: scale(.55); opacity: .35; } }
+.k-kes { stroke-dasharray: 5 5; animation: k-kes 1.6s linear infinite; }
+@keyframes k-kes { to { stroke-dashoffset: -20; } }
+.slayt[data-tur="kartlar"] .panel { left: 96px; right: 96px; width: auto; bottom: 64px; z-index: 6; box-shadow: 0 -10px 60px rgba(0, 0, 0, .55); }
+.panel h3 { font-size: 30px; } .panel p { font-size: 21px; color: #d8cfb8; margin-top: 8px; } .panel b { color: #FFE7A8; }
+.panel::after { content: "×"; position: absolute; right: 22px; top: 14px; font-size: 30px; color: var(--gold); cursor: pointer; }
+/* karşıtlık: iki yan kart ve ortada yana eğilen terazi */
+.karsit { grid-template-columns: 1fr 120px 1fr; gap: 40px; }
+.karsit > div:not(.terazi) { position: relative; padding: 30px 34px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255, 240, 200, .025); transition: border-color .4s, box-shadow .4s, background .4s; }
+.karsit > div:not(.terazi):hover { border-color: rgba(232, 189, 98, .5); background: rgba(255, 240, 200, .05); box-shadow: 0 0 40px rgba(232, 189, 98, .1); }
+.karsit > div:nth-child(2) { background: none; }
+.karsit p { font-size: 22px; }
+.terazi { color: var(--gold); align-self: stretch; display: grid; place-items: center; }
+.terazi svg { width: 100%; height: 100%; max-height: 440px; overflow: visible; }
+.terazi .kol { transform-origin: 60px 70px; transition: transform 1.2s cubic-bezier(.3, 1.6, .5, 1); animation: salin 6s ease-in-out infinite; }
+.egil-sol .terazi .kol { animation: none; transform: rotate(-9deg); } .egil-sag .terazi .kol { animation: none; transform: rotate(9deg); }
+@keyframes salin { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.zaman-ciz { width: 100%; height: 70px; margin-bottom: 10px; overflow: visible; }
+.uc-b { animation: uc-b 7s ease-in-out infinite alternate; }
+@keyframes uc-b { from { transform: translateX(30px); } to { transform: translateX(490px); } }
+.dilim { opacity: .2; animation: dilim 4.5s ease-in-out infinite; animation-delay: calc(var(--i) * .5s); }
+@keyframes dilim { 0%, 30%, 100% { opacity: .2; } 10% { opacity: 1; filter: drop-shadow(0 0 6px #FFE7A8); } }
+/* sözlükçe: çevrilen kartlar */
+.terim { position: relative; display: block; width: 100%; text-align: start; font: inherit; color: inherit; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1000px; min-height: 128px; }
+.terim-ic { position: relative; display: block; min-height: 128px; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.terim.cevrik .terim-ic { transform: rotateY(180deg); }
+.terim-on, .terim-arka { position: absolute; inset: 0; padding: 20px 26px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 240, 200, .03); backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: border-color .4s, box-shadow .4s; }
+.terim:hover .terim-on { border-color: rgba(232, 189, 98, .5); box-shadow: 0 0 30px rgba(232, 189, 98, .1); }
+.terim-arka { transform: rotateY(180deg); background: linear-gradient(160deg, rgba(60, 44, 24, .9), rgba(24, 18, 12, .95)); border-color: rgba(232, 189, 98, .45); font-size: 20px; color: #efe6cf; }
+.t-ornek { font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.terimler { grid-template-columns: repeat(2, 1fr); gap: 18px 40px; margin-top: 26px; }
+.terim h3 { font-size: 30px; } .terim p { font-size: 19px; }
+/* okuma listesi: satır üzerine gelince kehribar ışık süzülür */
+.okuma li { border-radius: 8px; padding: 4px 10px 4px 46px; transition: background .35s, color .35s; }
+.okuma li::before { left: 10px; top: 6px; }
+.okuma li:hover { background: linear-gradient(90deg, rgba(232, 189, 98, .12), transparent 80%); color: var(--ivory); }
+html.gunduz .terim-arka { background: linear-gradient(160deg, #fbf6ea, #ece0c7); color: #2b2117; }
+html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
+@media (prefers-reduced-motion: reduce) { .imlec { display: none; } .terim-ic { transition: none; } }
+</style>
+</head>
+<body>
+<div class="sahne"><div class="tuval" id="tuval"><canvas class="toz" aria-hidden="true"></canvas><div class="imlec" aria-hidden="true"></div>
+  <!-- 1 · KAPAK -->
+  <section class="slayt" data-tur="kapak">
+    <div class="gok"><div class="yildizlar"></div><div class="ay"></div>
+      <svg class="orman" viewBox="0 0 1600 250" preserveAspectRatio="none"></svg></div>
+    <div class="merkez">
+      <div class="logo logo-cizen" role="img" aria-label="Karahan Uçar logosu"><svg class="logo-ciz" viewBox="0 0 1254 1254" ><defs><mask id="kc-sol" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="kc-sag" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="kc-govde" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s3" d="M626 446 L626 985" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="butt" stroke-linejoin="round"/><path class="lc-kalem" data-seg="s4" d="M546 1046 L712 1046" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><g class="lc-yollar" fill="none" stroke="none"><path data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916"/><path data-seg="g1" d="M526 916 C570 930 670 934 716 924"/><path data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452"/><path data-seg="g2" d="M716 452 C690 444 650 440 626 446"/><path data-seg="s3" d="M626 446 L626 985"/><path data-seg="g3" d="M626 985 C600 1010 570 1030 546 1046"/><path data-seg="s4" d="M546 1046 L712 1046"/></g><path d="M521.5,928.54 C460.61,914.05 408.37,885.5 366.92,844.07 C266.74,743.95 264.28,620.33 360.29,511.33 C397.94,468.58 433.27,440.98 518.5,387.71 C549.74,368.18 581.23,347.16 597.5,334.96 C664.27,284.92 690.4,244.4 688.73,193.5 C688.12,174.79 685.81,165.64 676.28,144.06 C675.51,142.33 684.53,148.56 695.5,157.35 C761.79,210.45 774.74,287.3 729.17,357.07 C702.55,397.81 671.31,423.54 574.5,484.47 C509.55,525.34 482.59,544.82 460,567.16 C403.95,622.58 387.6,694.64 414.54,767.53 C434.71,822.11 474.3,869.49 533.57,909.96 C548.46,920.13 551.21,924.64 545.69,929.83 C542.53,932.79 538.45,932.57 521.5,928.54 Z" fill="#E8BD62" mask="url(#kc-sol)"/><path d="M705.56,929.78 C701.52,924.01 704.49,919.2 716.26,912.43 C750.14,892.94 781.56,865.09 805.86,833 C863.09,757.43 873.79,667.62 835,588.5 C811.06,539.69 762.46,488.57 715.72,463.04 C705.29,457.34 702.62,452.3 707.04,446.67 C709.94,442.98 714.07,442.56 728.85,444.44 C803.1,453.89 882.99,507.02 924.87,574.79 C962.13,635.1 970.15,703.83 946.93,764.03 C915.04,846.71 827.55,912.74 726.46,930.43 C713.33,932.72 707.49,932.54 705.56,929.78 Z" fill="#E8BD62" mask="url(#kc-sag)"/><path d="M528.45,1058.63 C525,1053.71 527.2,1049.89 536.63,1044.42 C554.39,1034.1 565.05,1018.44 569.66,995.91 C571.24,988.16 571.42,970.14 571.94,766.5 L572.5,545.5 L575.12,538.76 C582.37,520.14 596.84,504.08 628.56,479.46 C642.03,469.02 660.47,455.66 672.5,447.65 L679.5,442.99 L680.07,715.24 C680.47,905.02 680.97,989.01 681.72,992.5 C686.36,1013.9 690.56,1022.63 701.47,1033.51 C706.38,1038.41 711.93,1042.81 715.74,1044.82 C722.35,1048.3 724,1050.23 724,1054.5 C724,1061.28 732.59,1060.74 625.99,1060.72 L529.91,1060.71 L528.45,1058.63 Z" fill="#E8BD62" mask="url(#kc-govde)"/><circle class="lc-uc" cx="688" cy="152" r="46" fill="#fff3c8"/></svg></div>
+      <p class="ust">Kısa sunum <span class="ayir">·</span> Analitik felsefe <span class="ayir">·</span> Eylül 2026</p>
+      <h1>Çağdaş Metafizik</h1>
+      <div class="kor-cizgi"></div>
+      <p class="yazi" style="max-width:none">Carnap–Quine tartışmasından bugüne <span class="ayir">·</span> <b>Karahan Uçar</b></p>
+    </div>
+  </section>
+
+  <!-- 2 · BÖLÜM I -->
+  <section class="slayt" data-tur="bolum" data-arka="I" style="--vurgu:#E8BD62">
+    <p class="bolum-no gel">I</p>
+    <h2>Bir ölüm ilanı ve bir diriliş</h2>
+    <p class="esik gel2">Metafizik anlamsız mı, yoksa bilimin en genel kısmı mı?</p>
+  </section>
+
+  <!-- 3 · KARŞITLIK: Carnap / Quine -->
+  <section class="slayt" data-tur="karsitlik">
+    <p class="ust">1948 – 1951 <span class="ayir">·</span> Kurucu tartışma</p>
+    <h2>Carnap ve Quine</h2>
+    <div class="karsit">
+      <div><h3>Carnap · Çerçeveler</h3><p><b>“Deneycilik, Anlambilim ve Ontoloji” (1950).</b> Varlık soruları ya bir dil çerçevesinin <b>içinde</b> sorulur (“5’ten büyük bir asal sayı var mı?”: basit, çoğu zaman önemsiz) ya da çerçevenin <b>dışında</b> (“Sayılar gerçekten var mı?”): bu kuramsal değil, hangi dili kullanacağımıza dair <b>pratik</b> bir sorudur. Geleneksel metafizik bu ikisini karıştırır.</p></div><div class="terazi" aria-hidden="true"><svg viewBox="0 0 120 420"><path d="M60 60V400M30 400H90" stroke="currentColor" stroke-width="3"/><g class="kol"><path d="M10 70H110" stroke="currentColor" stroke-width="3"/><path d="M10 70L-4 120H24ZM110 70L96 120H124Z" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="10" cy="122" rx="16" ry="4" fill="currentColor"/><ellipse cx="110" cy="122" rx="16" ry="4" fill="currentColor"/></g><circle cx="60" cy="56" r="7" fill="currentColor"/></svg></div>
+      <div><h3>Quine · Ontolojik bağlanma</h3><p><b>“Ne Var Üzerine” (1948), “Deneyciliğin İki Dogması” (1951).</b> Analitik–sentetik ayrımı dogmadır; öyleyse iç / dış ayrımı da çöker. Ontoloji bilimin kesintisiz bir parçasıdır: en iyi kuramımızın niceleyicilerinin <b>değer aldığı</b> şeyler vardır. “Ne var?” sorusu meşrudur ve yanıtı kuram seçimiyle verilir.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 · ALINTI -->
+  <section class="slayt" data-tur="alinti" style="--vurgu:#F09A4A">
+    <p class="ust">Dört ses</p>
+    <div class="alinti"><p class="al-metin"></p><p class="al-ceviri"></p><p class="al-kaynak"></p></div>
+    <script type="application/json" class="sozler">[
+      { "metin": "To accept the thing world means nothing more than to accept a certain form of language.", "ceviri": "Şeyler dünyasını kabul etmek, belli bir dil biçimini kabul etmekten başka bir şey değildir.", "kaynak": "Rudolf Carnap · Empiricism, Semantics, and Ontology · 1950" },
+      { "metin": "To be is to be the value of a variable.", "ceviri": "Var olmak, bir değişkenin değeri olmaktır.", "kaynak": "W. V. O. Quine · On What There Is · 1948" },
+      { "metin": "I believe that there are possible worlds other than the one we happen to inhabit.", "ceviri": "İçinde yaşadığımız dünyadan başka olası dünyalar olduğuna inanıyorum.", "kaynak": "David Lewis · Counterfactuals · 1973" },
+      { "metin": "The world has a distinguished structure, a privileged description.", "ceviri": "Dünyanın ayrıcalıklı bir yapısı, imtiyazlı bir betimlemesi vardır.", "kaynak": "Theodore Sider · Writing the Book of the World · 2011" }
+    ]</script>
+  </section>
+
+  <!-- 5 · HARİTA: tarihçe -->
+  <section class="slayt" data-tur="harita">
+    <p class="ust">Tarihçe</p>
+    <h2 style="font-size:60px;margin-bottom:0">Ölümden dirilişe, dirilişten meta-soruya</h2>
+    <p class="durak-acik"></p>
+    <div class="kagit"></div>
+    <script type="application/json" class="duraklar">[
+      { "yil": "1932", "ad": "Carnap", "metin": "“Metafiziğin aşılması”: metafizik tümceler doğrulanamaz, anlamsızdır." },
+      { "yil": "1948–51", "ad": "Quine", "metin": "Ontolojik bağlanma ölçütü; analitik–sentetik ayrımının reddi: ontoloji yeniden meşru." },
+      { "yil": "1959", "ad": "Strawson", "metin": "Individuals: dünyayı nasıl düşündüğümüzü betimleyen “betimleyici metafizik”." },
+      { "yil": "1970–80", "ad": "Kripke", "metin": "Adlandırma ve Zorunluluk: a posteriori zorunluluk, özcülüğün dönüşü." },
+      { "yil": "1973–86", "ad": "Lewis", "metin": "Olası dünyalar gerçekçiliği ve Hume’cu gözetim (supervenience)." },
+      { "yil": "1978–89", "ad": "Armstrong", "metin": "Tümeller, yasalar ve olgu durumları: bilimsel gerçekçi bir ontoloji." },
+      { "yil": "1990", "ad": "van Inwagen", "metin": "Material Beings: parçalar ne zaman bir bütün oluşturur?" },
+      { "yil": "2001–09", "ad": "Fine · Schaffer", "metin": "Temellendirme (grounding): “ne var?”dan “ne neye dayanır?”a." },
+      { "yil": "2009–15", "ad": "Metametafizik", "metin": "Chalmers ve ark. derlemesi, Sider’in yapısı, Thomasson’un kolay ontolojisi." }
+    ]</script>
+  </section>
+
+  <!-- 6 · BÖLÜM II -->
+  <section class="slayt" data-tur="bolum" data-arka="II" style="--vurgu:#C8B0FF">
+    <p class="bolum-no gel">II</p>
+    <h2>Büyük tartışmalar</h2>
+    <p class="esik gel2">Olanaklılık · Özellikler · Parçalar ve bütünler · Zaman ve kalıcılık</p>
+  </section>
+
+  <!-- 7 · SAHNE: olası dünyalar -->
+  <section class="slayt" data-tur="sahne">
+    <p class="ust">Kip metafiziği · 1970’ler</p>
+    <h2>Olası dünyalar</h2>
+    <p class="ipucu" style="left:96px;right:auto">Parıldayan nesnelere dokun.</p><p class="yazi">“Sokrates filozof olmayabilirdi” ne demektir? Kripke’nin kip anlambilimi olası dünyalardan söz eder; peki bu dünyalar <b>nedir</b>? Dünyaların arasında dolaş.</p>
+    <div class="cizim">
+      <svg viewBox="0 0 760 720"><defs><radialGradient id="dw"><stop offset="0" stop-color="#ffe7a8"/><stop offset="1" stop-color="#b8862a"/></radialGradient><radialGradient id="dv"><stop offset="0" stop-color="#C8B0FF" stop-opacity=".9"/><stop offset="1" stop-color="#5a4a9a" stop-opacity=".6"/></radialGradient><radialGradient id="dh"><stop offset="0" stop-color="#C8B0FF" stop-opacity=".3"/><stop offset="1" stop-color="#C8B0FF" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="380" cy="360" r="340" fill="url(#dh)"/>
+        <g stroke="rgba(232,189,98,.35)" stroke-width="2" stroke-dasharray="4 8" fill="none"><path d="M380 360L180 200M380 360L600 190M380 360L620 520M380 360L150 540M380 360L400 620"/></g>
+        <circle cx="380" cy="360" r="70" fill="url(#dw)"><animate attributeName="r" values="68;74;68" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="180" cy="200" r="40" fill="url(#dv)"/><circle cx="600" cy="190" r="48" fill="url(#dv)"/><circle cx="620" cy="520" r="36" fill="url(#dv)"/><circle cx="150" cy="540" r="44" fill="url(#dv)"/><circle cx="400" cy="620" r="30" fill="url(#dv)"/>
+        <text x="380" y="368" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#2a1a08">@</text></svg>
+      <button class="nokta" style="--x:50;--y:44" data-panel="0"><span class="halka"></span><span class="nokta-ad">Gerçek dünya</span></button>
+      <button class="nokta" style="--x:79;--y:22" data-panel="1"><span class="halka"></span><span class="nokta-ad">Lewis</span></button>
+      <button class="nokta" style="--x:22;--y:72" data-panel="2"><span class="halka"></span><span class="nokta-ad">Vekil dünyalar</span></button>
+      <button class="nokta" style="--x:80;--y:70" data-panel="3"><span class="halka"></span><span class="nokta-ad">Özcülük</span></button>
+    </div>
+    <div class="panel"><p class="pn-ust"></p><div class="pn-ic"></div></div>
+    <template class="paneller">
+      <div data-ad="Gerçek dünya"><h3>Zorunlu ve olanaklı</h3><p>Zorunlu: bütün olası dünyalarda doğru; olanaklı: en az birinde doğru. Kripke (1959–63) kip mantığına bu anlambilimi verdi; <i>Adlandırma ve Zorunluluk</i>’ta (1980) özel adların <b>katı belirleyici</b> olduğunu savundu.</p></div>
+      <div data-ad="Lewis"><h3>Kip gerçekçiliği</h3><p>David Lewis (<i>On the Plurality of Worlds</i>, 1986): öteki dünyalar da bizimki kadar gerçek, somut ve uzay-zamansal olarak yalıtılmıştır; “gerçek” sözcüğü “burası” gibi dizinseldir. Karşılık: “inanılmaz bakış” (incredulous stare).</p></div>
+      <div data-ad="Vekil dünyalar"><h3>Aktüalizm</h3><p>Plantinga, Stalnaker, Adams: olası dünyalar bu dünyada var olan soyut nesnelerdir, örneğin tutarlı ve maksimal önerme kümeleri ya da olgu durumları. Bedel: kip kavramını ilkel almak.</p></div>
+      <div data-ad="Özcülük"><h3>Yeni özcülük</h3><p>Kit Fine (“Essence and Modality”, 1994): Sokrates’in {Sokrates} kümesinin öğesi olması zorunludur ama onun özüne ait değildir. Öz, kipliğe indirgenemez; tersine kipliğin kaynağı olabilir.</p></div>
+    </template>
+  </section>
+
+  <!-- 8 · KARTLAR: özellikler -->
+  <section class="slayt" data-tur="kartlar">
+    <p class="ust">Tümeller sorunu, yeniden</p>
+    <h2>İki kırmızı gül neyi paylaşır?</h2>
+    <div class="kartlar">
+      <article class="kart"><span class="no">01</span><p class="tur">Gerçekçilik</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><circle cx="30" cy="30" r="8" class="k-nabz"/><g class="k-don"><circle cx="30" cy="8" r="4"/><circle cx="49" cy="41" r="4"/><circle cx="11" cy="41" r="4"/><path d="M30 12V22M46 39L37 34M14 39L23 34"/></g></svg></span><h3>Tümeller</h3><template class="detay"><h3>Armstrong’un ontolojisi</h3><p><b>Temel argüman:</b> nesneler gerçekten benzer; benzerliğin açıklaması, tümüyle birden fazla yerde bulunan ortak bir öğedir. Doğa yasaları tümeller arasındaki zorunlu kılma ilişkileridir (<i>What Is a Law of Nature?</i>, 1983).</p><p><b>Eleştiri:</b> “bir şey birden çok yerde nasıl tümüyle bulunur?” ve tümeli nesneye bağlayan ilişkinin (örneklemenin) sonsuz geriletmesi (Bradley).</p></template><p>Armstrong (1978, 1989): özellikler birden çok yerde tümüyle bulunabilen “içkin” tümellerdir; hangilerinin var olduğunu a posteriori, bilim söyler.</p></article>
+      <article class="kart"><span class="no">02</span><p class="tur">Tikel özellikler</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><circle cx="16" cy="20" r="6" class="k-p1"/><circle cx="42" cy="18" r="6" class="k-p2"/><circle cx="30" cy="44" r="6" class="k-p3"/></svg></span><h3>Troplar</h3><template class="detay"><h3>Trop kuramı</h3><p><b>Temel argüman:</b> gördüğümüz, bu gülün tikel kırmızılığıdır; nedenler de tikeldir. Troplar tek bir ontolojik kategoriyle hem özellikleri hem nesneleri kurar (nesne = troplar demeti).</p><p><b>Eleştiri:</b> iki trop “tam benzer” olduğunda benzerlik ilişkisi de bir trop mudur? Demeti bir arada tutan nedir?</p></template><p>D. C. Williams (1953), K. Campbell (1990): bu gülün bu kırmızılığı tek, tikel bir özelliktir; benzerlik troplar arasındadır, nesneler trop demetleridir.</p></article>
+      <article class="kart"><span class="no">03</span><p class="tur">Adcılık</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><path d="M8 50L30 10L52 50Z" class="k-ciz"/><path d="M18 36H42" class="k-ciz"/></svg></span><h3>Doğal sınıflar</h3><template class="detay"><h3>Adcılık ve doğallık</h3><p>Quine “deve kuşu adcılığı” diye eleştirilir: benzerlik açıklanmadan bırakılır. <b>Lewis</b> (1983) ne tümellere ne troplara bağlanmadan bir ayrım ister: bazı özellikler <b>doğaldır</b> (elektrik yükü), bazıları değil (“grue”).</p><p>Doğallık; yasalar, nedensellik, benzerlik ve hatta içerik (gönderim) kuramında iş görür. Sider bunu “yapı” kavramına genelleştirir.</p></template><p>Quine’a göre “kırmızı” yalnızca bir yüklemdir. Lewis (“New Work for a Theory of Universals”, 1983): hangi kuramı seçersek seçelim <b>doğal</b> ile yapay özellikleri ayırmalıyız.</p></article>
+    </div>
+    <p class="ipucu">Kartlara dokun: argüman ve eleştiri açılır.</p><div class="panel"><p class="pn-ust"></p><div class="pn-ic"></div></div>
+  </section>
+
+  <!-- 9 · KARTLAR: bileşim -->
+  <section class="slayt" data-tur="kartlar">
+    <p class="ust">Mereoloji · van Inwagen 1990</p>
+    <h2>Özel bileşim sorusu</h2>
+    <p class="yazi" style="margin-top:-6px">Bazı şeyler <b>ne zaman</b> başka bir şeyin parçası olur? Masa var mı, yoksa yalnızca “masa biçiminde düzenlenmiş parçacıklar” mı?</p>
+    <div class="kartlar" style="margin-top:28px">
+      <article class="kart"><span class="no">01</span><p class="tur">Asla</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><circle class="k-sac" style="--i:0" cx="12" cy="14" r="3"/><circle class="k-sac" style="--i:1" cx="30" cy="10" r="3"/><circle class="k-sac" style="--i:2" cx="48" cy="20" r="3"/><circle class="k-sac" style="--i:3" cx="20" cy="38" r="3"/><circle class="k-sac" style="--i:4" cx="40" cy="44" r="3"/><circle class="k-sac" style="--i:5" cx="28" cy="30" r="3"/></svg></span><h3>Nihilizm</h3><template class="detay"><h3>Mereolojik nihilizm</h3><p><b>Argüman:</b> nedensel fazlalık (Merricks 2001): bir beyzbol topunun camı kırması, topu oluşturan parçacıkların kırmasıyla tümüyle açıklanıyorsa, top fazladır.</p><p><b>Sorun:</b> dünya “sonsuza dek bölünebilir” (gunk) ise hiç basit nesne olmayabilir; o zaman hiçbir şey yok mu olur?</p></template><p>Yalnızca parçasız basit nesneler vardır (Dorr, Sider’in bir dönemi). Gündelik dil, “yalın” bir biçimde yanlış değil, gevşek konuşmadır.</p></article>
+      <article class="kart"><span class="no">02</span><p class="tur">Yalnız yaşam</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><circle cx="30" cy="30" r="20" class="k-hucre"/><circle cx="30" cy="30" r="7" class="k-nabz"/></svg></span><h3>Organisizm</h3><template class="detay"><h3>van Inwagen’ın yanıtı</h3><p>Özel bileşim sorusu: “Hangi koşulda xler bir y’yi oluşturur?” Yanıt: xlerin etkinliği bir <b>yaşam</b> oluşturduğunda. Biz varız (düşünürüz, öyleyse varız), ama masa yoktur.</p><p><b>Eleştiri:</b> yaşamın sınırları belirsizdir; bu belirsizlik varlığı da belirsiz kılar mı? (Lewis ve Sider’e göre varlık belirsiz olamaz.)</p></template><p>van Inwagen: parçaların etkinliği bir <b>yaşam</b> oluşturuyorsa bileşim olur. Canlılar vardır; masalar ve sandalyeler yoktur.</p></article>
+      <article class="kart"><span class="no">03</span><p class="tur">Her zaman</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><path d="M10 14L50 18L40 48L16 44Z M10 14L40 48 M50 18L16 44" class="k-ciz"/><circle cx="10" cy="14" r="3.5"/><circle cx="50" cy="18" r="3.5"/><circle cx="40" cy="48" r="3.5"/><circle cx="16" cy="44" r="3.5"/></svg></span><h3>Evrenselcilik</h3><template class="detay"><h3>Sınırsız bileşim</h3><p><b>Belirsizlik argümanı</b> (Lewis 1986, Sider 2001): bileşim bazen olup bazen olmuyorsa, arada bir kesme noktası olmalı; ama keskin bir nokta keyfî, belirsiz bir nokta ise varlığı belirsizleştirir. Öyleyse bileşim ya hep ya hiç: hep.</p><p><b>Bedel:</b> tuhaf nesneler (burnum + Eyfel Kulesi). Savunucular: bunlar yalnızca ilgimizi çekmeyen nesnelerdir.</p></template><p>Lewis, Sider: herhangi nesnelerin bir toplamı vardır; burnum ile Eyfel Kulesi’nin toplamı bile. Belirsizlik argümanı sınır çizmenin keyfî olacağını söyler.</p></article>
+    </div>
+    <p class="ipucu">Kartlara dokun: argüman ve eleştiri açılır.</p><div class="panel"><p class="pn-ust"></p><div class="pn-ic"></div></div>
+  </section>
+
+  <!-- 10 · KARŞITLIK: kalıcılık ve zaman -->
+  <section class="slayt" data-tur="karsitlik">
+    <p class="ust">Zaman <span class="ayir">·</span> Kalıcılık</p>
+    <h2>Nesneler zamanda nasıl sürer?</h2>
+    <div class="karsit">
+      <div><svg class="zaman-ciz" viewBox="0 0 520 90" aria-hidden="true"><path d="M10 70H510" stroke="rgba(232,189,98,.4)" stroke-width="2"/><g class="uc-b"><circle cy="40" r="22" fill="#E8BD62"/><circle cy="40" r="32" fill="#E8BD62" opacity=".15"/></g><text x="10" y="88" font-size="12" fill="#A9A38F">t₁</text><text x="494" y="88" font-size="12" fill="#A9A38F">t₂</text></svg><h3>Üç boyutçuluk</h3><p><b>Endurantizm:</b> nesne her anda <b>bütünüyle</b> bulunur; değişim aynı nesnenin farklı zamanlarda farklı özellikler taşımasıdır. Çoğu zaman <b>şimdicilik</b> ile birlikte savunulur: yalnızca şimdiki var (Prior, Zimmerman, Markosian). Lewis’in itirazı: geçici içsel özellikler sorunu.</p></div><div class="terazi" aria-hidden="true"><svg viewBox="0 0 120 420"><path d="M60 60V400M30 400H90" stroke="currentColor" stroke-width="3"/><g class="kol"><path d="M10 70H110" stroke="currentColor" stroke-width="3"/><path d="M10 70L-4 120H24ZM110 70L96 120H124Z" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="10" cy="122" rx="16" ry="4" fill="currentColor"/><ellipse cx="110" cy="122" rx="16" ry="4" fill="currentColor"/></g><circle cx="60" cy="56" r="7" fill="currentColor"/></svg></div>
+      <div><svg class="zaman-ciz" viewBox="0 0 520 90" aria-hidden="true"><path d="M10 70H510" stroke="rgba(232,189,98,.4)" stroke-width="2"/><path d="M30 40C120 10 200 62 280 38C360 16 430 56 500 40" stroke="#C8B0FF" stroke-width="30" stroke-linecap="round" fill="none" opacity=".45"/><rect class="dilim" style="--i:0" x="40" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:1" x="96" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:2" x="152" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:3" x="208" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:4" x="264" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:5" x="320" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:6" x="376" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:7" x="432" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><rect class="dilim" style="--i:8" x="488" y="16" width="10" height="48" rx="3" fill="#FFE7A8"/><text x="10" y="88" font-size="12" fill="#A9A38F">t₁</text><text x="494" y="88" font-size="12" fill="#A9A38F">t₂</text></svg><h3>Dört boyutçuluk</h3><p><b>Perdurantizm:</b> nesne zamana yayılmış bir “solucan”dır, farklı zamanlarda farklı <b>zamansal parçaları</b> vardır (Quine, Lewis 1986, Sider 2001). Genellikle <b>ebedicilik</b> (blok evren) ve görelilik kuramıyla uyumlu görülür; McTaggart’ın B-serisi.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · BÖLÜM III -->
+  <section class="slayt" data-tur="bolum" data-arka="III" style="--vurgu:#9FD0E0">
+    <p class="bolum-no gel">III</p>
+    <h2>Metametafizik</h2>
+    <p class="esik gel2">Carnap geri döndü: bu tartışmaların gerçek bir konusu var mı?</p>
+  </section>
+
+  <!-- 12 · KARTLAR: yaklaşımlar -->
+  <section class="slayt" data-tur="kartlar">
+    <p class="ust">2000’ler · Yöntem tartışması</p>
+    <h2>Üç yaklaşım</h2>
+    <div class="kartlar">
+      <article class="kart"><span class="no">01</span><p class="tur">Söndürme</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><circle cx="30" cy="30" r="20" class="k-sonum"/><path d="M22 30H38" class="k-ciz"/></svg></span><h3>Yeni Carnapçılık</h3><template class="detay"><h3>Söndürmeci görüşler</h3><p><b>Eli Hirsch:</b> varlık niceleyicisinin birden fazla eşit meşru anlamı vardır; nihilist ile evrenselci farklı dillerde doğru konuşur. <b>Amie Thomasson:</b> gündelik kavramlarımızın kullanım kuralları, “masa var” yanıtını kolayca verir; geriye derin bir ontoloji sorusu kalmaz.</p><p><b>Eleştiri:</b> söndürmecilik kendisi de metafizik bir tez değil mi?</p></template><p>Hirsch: <b>niceleyici değişkenliği</b>; varlık tartışmaları çoğu zaman sözel. Thomasson (<i>Ontology Made Easy</i>, 2015): “Masa var” gündelik bir olgudan kolayca çıkar; derin varlık soruları yoktur.</p></article>
+      <article class="kart"><span class="no">02</span><p class="tur">Yapı</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><path d="M8 30C20 18 40 42 52 30" class="k-ciz"/><path d="M30 8V52" class="k-kes"/></svg></span><h3>Doğal eklemler</h3><template class="detay"><h3>Sider: yapı</h3><p>Platon’un kasabı gibi, iyi kavramlar gerçekliği eklem yerlerinden keser. Sider bu “yapı” kavramını mantıksal sözcüklere, hatta niceleyiciye de uygular: “var” sözcüğünün doğal, ayrıcalıklı bir anlamı varsa, ontoloji tartışmaları gerçek tartışmalardır.</p><p>Metafiziğin görevi dünyanın kitabını onun kendi terimleriyle yazmaktır (<i>Writing the Book of the World</i>, 2011).</p></template><p>Sider (2011): bazı kavramlar dünyayı “eklem yerlerinden” keser. Metafizik, niceleyicinin bile yapısal olup olmadığını soran bir <b>yapı</b> araştırmasıdır. Tartışmalar derin olabilir.</p></article>
+      <article class="kart"><span class="no">03</span><p class="tur">Temellendirme</p><span class="k-simge" aria-hidden="true"><svg class="ks" viewBox="0 0 60 60"><rect x="10" y="44" width="40" height="8" rx="2"/><rect x="16" y="30" width="28" height="8" rx="2" class="k-p2"/><rect x="22" y="16" width="16" height="8" rx="2" class="k-p3"/><path d="M30 42V40M30 28V26" class="k-ciz"/></svg></span><h3>Neo-Aristotelesçilik</h3><template class="detay"><h3>Temellendirme</h3><p><b>Schaffer</b> (2009): Quine’ın sorusu (ne var?) önemsizdir; sayılar da, özellikler de vardır. Asıl soru hangi şeylerin <b>temel</b> olduğu, hangilerinin onlar <b>sayesinde</b> var olduğudur. Metafizik bir ağaç değil, katmanlı bir yapı kurar.</p><p>Fine (2001, 2012) ve Rosen (2010) temellendirmeyi açıklamanın metafizik karşılığı olarak inceler. Eleştiri: Wilson (2014) tek bir “temellendirme” ilişkisi olmadığını, farklı ilişkilerin bulunduğunu savunur.</p></template><p>Fine (2001), Schaffer (“On What Grounds What”, 2009), Rosen (2010): asıl soru ne olduğu değil, neyin neye <b>dayandığıdır</b>; metafizik bir öncelik düzeni kurar. Schaffer’ın öncelik bütüncülüğü: temel olan evrenin kendisi.</p></article>
+    </div>
+    <p class="ipucu">Kartlara dokun: argüman ve eleştiri açılır.</p><div class="panel"><p class="pn-ust"></p><div class="pn-ic"></div></div>
+  </section>
+
+  <!-- 13 · SÖZLÜKÇE -->
+  <section class="slayt" data-tur="sozluk">
+    <p class="ust">Sözlükçe</p>
+    <h2>Altı kavram</h2><p class="ipucu">Bir terime dokun: örneği görünür.</p>
+    <div class="terimler">
+      <button type="button" class="terim"><span class="terim-ic"><div class="terim-on"><h3>Ontolojik bağlanma</h3><em>İng. ontological commitment</em><p>Bir kuramın doğru olması için var olması gereken şeyler.</p></div><div class="terim-arka"><p class="t-ornek">Örnek</p><p>“Bazı köpekler benekli” diyen kuram köpeklerin var olduğuna bağlanır; “Holmes bir dedektiftir” diyen kurgu ise bağlanmaz.</p></div></span></button>
+      <button type="button" class="terim"><span class="terim-ic"><div class="terim-on"><h3>Olası dünya</h3><em>Lat. mundus possibilis</em><p>Şeylerin nasıl olabileceğinin eksiksiz bir yolu.</p></div><div class="terim-arka"><p class="t-ornek">Örnek</p><p>“Sokrates filozof olmayabilirdi”: Sokrates’in filozof olmadığı bir olası dünya vardır.</p></div></span></button>
+      <button type="button" class="terim"><span class="terim-ic"><div class="terim-on"><h3>Gözetim</h3><em>İng. supervenience</em><p>A’da fark olmadan B’de fark olamıyorsa, B A’yı gözetir.</p></div><div class="terim-arka"><p class="t-ornek">Örnek</p><p>İki tablo boya boya aynıysa güzellikçe de aynıdır: estetik özellikler fiziksel özellikleri gözetir.</p></div></span></button>
+      <button type="button" class="terim"><span class="terim-ic"><div class="terim-on"><h3>Trop</h3><em>Yun. tropos, tarz</em><p>Tikel, tekrarlanamayan özellik örneği.</p></div><div class="terim-arka"><p class="t-ornek">Örnek</p><p>Bu gülün kırmızılığı ile şu gülün kırmızılığı iki ayrı, ama tam benzer troptur.</p></div></span></button>
+      <button type="button" class="terim"><span class="terim-ic"><div class="terim-on"><h3>Zamansal parça</h3><em>İng. temporal part</em><p>Bir nesnenin yalnızca bir zaman dilimindeki kesiti.</p></div><div class="terim-arka"><p class="t-ornek">Örnek</p><p>Senin 2020 yılındaki kesitin, bütün yaşam “solucanın”ın bir zamansal parçasıdır.</p></div></span></button>
+      <button type="button" class="terim"><span class="terim-ic"><div class="terim-on"><h3>Temellendirme</h3><em>İng. grounding</em><p>Bir olgunun başka olgular “sayesinde” elde edilmesi.</p></div><div class="terim-arka"><p class="t-ornek">Örnek</p><p>{Sokrates} kümesi Sokrates sayesinde vardır; Sokrates kümesi sayesinde değil.</p></div></span></button>
+    </div>
+  </section>
+
+  <!-- 14 · OKUMA LİSTESİ -->
+  <section class="slayt" data-tur="kartlar">
+    <p class="ust">Okuma listesi</p>
+    <h2 style="font-size:60px;margin-bottom:6px">Nereden başlamalı?</h2>
+    <div class="okuma">
+      <div><h3>Temel metinler</h3><ol>
+        <li>Quine, “On What There Is”, <i>Review of Metaphysics</i> (1948)</li>
+        <li>Carnap, “Empiricism, Semantics, and Ontology” (1950)</li>
+        <li>Quine, “Two Dogmas of Empiricism” (1951)</li>
+        <li>Strawson, <i>Individuals</i> (1959)</li>
+        <li>Kripke, <i>Naming and Necessity</i> (1980)</li>
+        <li>Lewis, <i>On the Plurality of Worlds</i> (1986)</li>
+        <li>Armstrong, <i>Universals: An Opinionated Introduction</i> (1989)</li>
+        <li>van Inwagen, <i>Material Beings</i> (1990)</li>
+        <li>Sider, <i>Four-Dimensionalism</i> (2001)</li>
+        <li>Schaffer, “On What Grounds What” (2009)</li>
+        <li>Sider, <i>Writing the Book of the World</i> (2011)</li>
+        <li>Thomasson, <i>Ontology Made Easy</i> (2015)</li></ol></div>
+      <div><h3>Giriş ve derlemeler</h3><ol>
+        <li>Loux & Crisp, <i>Metaphysics: A Contemporary Introduction</i> (4. bs. 2017)</li>
+        <li>Conee & Sider, <i>Riddles of Existence</i> (2005)</li>
+        <li>van Inwagen & Zimmerman (ed.), <i>Metaphysics: The Big Questions</i> (1998)</li>
+        <li>Kim & Sosa (ed.), <i>Metaphysics: An Anthology</i> (1999)</li>
+        <li>Sider, Hawthorne & Zimmerman (ed.), <i>Contemporary Debates in Metaphysics</i> (2008)</li>
+        <li>Chalmers, Manley & Wasserman (ed.), <i>Metametaphysics</i> (2009)</li>
+        <li>Tahko, <i>An Introduction to Metametaphysics</i> (2015)</li></ol></div>
+    </div>
+  </section>
+
+  <!-- 15 · KAPANIŞ -->
+  <section class="slayt" data-tur="kapanis">
+    <div class="gok"><div class="yildizlar"></div><svg class="orman" viewBox="0 0 1600 250" preserveAspectRatio="none"></svg></div>
+    <div class="merkez">
+      <div class="logo" style="width:120px"><img src="logo-seffaf.svg" data-gunduz="logo-seffaf-gunduz.svg" alt=""></div>
+      <h1 style="font-size:96px">Teşekkürler</h1>
+      <div class="kor-cizgi"></div>
+      <p class="yazi" style="max-width:none">karahanucar.com <span class="ayir">·</span> PhilPeople <span class="ayir">·</span> YouTube</p>
+      <p class="slogan" style="margin-top:40px">MERAK · AKIL · ANLAM</p>
+    </div>
+  </section>
+
+  <div class="ilerleme"></div><p class="sayfa"></p><p class="imza">Karahan Uçar · Düşüncenin Eşiğinde</p>
+</div></div>
+
+<script>
+(function () {
+  var tuval = document.getElementById("tuval"), S = [].slice.call(tuval.querySelectorAll(".slayt")), i = 0;
+  var azalt = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function olcek() { var k = Math.min(innerWidth / 1600, innerHeight / 900); tuval.style.transform = "scale(" + k + ")"; }
+  addEventListener("resize", olcek); olcek();
+
+  /* gök: yıldızlar ve rüzgârda sallanan çamlar */
+  tuval.querySelectorAll(".yildizlar").forEach(function (y) {
+    for (var n = 0; n < 90; n++) { var s = document.createElement("i"); s.className = "yildiz"; s.style.cssText = "left:" + (Math.random() * 100) + "%;top:" + (Math.random() * 55) + "%;--b:" + (1 + Math.random() * 2).toFixed(1) + "px;--t:" + (2 + Math.random() * 4).toFixed(1) + "s;--g:-" + (Math.random() * 5).toFixed(1) + "s"; y.appendChild(s); }
+  });
+  tuval.querySelectorAll(".orman").forEach(function (o) {
+    var s = "";
+    for (var x = -20; x < 1620; x += 38 + Math.random() * 40) { var h = 90 + Math.random() * 150, w = h * .42; s += '<path style="--d:' + (4 + Math.random() * 4).toFixed(1) + 's" d="M' + x + ' 250L' + (x + w / 2) + " " + (250 - h) + "L" + (x + w) + ' 250Z" fill="' + (Math.random() < .5 ? "#0e1a14" : "#17291f") + '"/>'; }
+    o.innerHTML = s + '<rect y="230" width="1600" height="20" fill="#0b120e"/>';
+  });
+
+  /* sahne slaytı: parıldayan nesne → panel */
+  tuval.querySelectorAll('[data-tur="sahne"]').forEach(function (sl) {
+    var P = [].slice.call(sl.querySelector(".paneller").content.children), panel = sl.querySelector(".panel");
+    sl.addEventListener("click", function (e) {
+      var n = e.target.closest(".nokta"); if (!n) return; e.stopPropagation();
+      var p = P[+n.dataset.panel];
+      sl.querySelectorAll(".nokta").forEach(function (x) { x.classList.toggle("secili", x === n); });
+      panel.querySelector(".pn-ust").textContent = p.dataset.ad; panel.querySelector(".pn-ic").innerHTML = p.innerHTML; panel.classList.add("acik");
+    });
+  });
+
+  /* alıntı: harf harf yazılır, 9 sn sonra yanıp kül olur, yenisi doğar */
+  function alintiBaslat(sl) {
+    if (sl._z) return;
+    var L = JSON.parse(sl.querySelector(".sozler").textContent), k = 0, m = sl.querySelector(".al-metin"), c = sl.querySelector(".al-ceviri"), y = sl.querySelector(".al-kaynak");
+    function yaz(s) { m.textContent = ""; c.textContent = s.ceviri; y.textContent = s.kaynak; var n = 0; (function adim() { m.innerHTML = s.metin.slice(0, ++n).replace(/&/g, "&amp;").replace(/</g, "&lt;") + "<i>▍</i>"; if (n < s.metin.length) setTimeout(adim, 40 + Math.random() * 40); })(); }
+    function kul(sonra) {
+      var t = m.textContent.replace("▍", ""); m.textContent = "";
+      var son = 0;
+      Array.from(t).forEach(function (ch, j) { var sp = document.createElement("span"); sp.className = "harfi"; sp.textContent = ch; m.appendChild(sp);
+        var g = j * 25 + Math.random() * 300; son = Math.max(son, g + 1700);
+        sp.animate([{ color: "#FFE7A8" }, { color: "#ff9a3a", textShadow: "0 0 12px #ff6a1a", offset: .2 }, { color: "#8a3a1a", offset: .4 }, { color: "#5a5550", transform: "none", opacity: 1, offset: .55 }, { color: "#3a3835", transform: "translate(" + ((Math.random() - .5) * 40) + "px," + (60 + Math.random() * 90) + "px) rotate(" + ((Math.random() - .5) * 120) + "deg) scale(.6)", opacity: 0 }], { duration: 1700, delay: g, easing: "ease-in", fill: "forwards" }); });
+      [c, y].forEach(function (x) { x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, fill: "forwards" }); });
+      setTimeout(function () { c.getAnimations().concat(y.getAnimations()).forEach(function (a) { a.cancel(); }); sonra(); }, son + 200);
+    }
+    yaz(L[0]);
+    if (!azalt) sl._z = setInterval(function () { if (!sl.classList.contains("aktif")) return; k = (k + 1) % L.length; kul(function () { yaz(L[k]); }); }, 9000);
+  }
+
+  /* harita: duraklar yol boyunca; yolcu ışık seçilen durağa yürür */
+  function haritaKur(sl) {
+    if (sl._h) return; sl._h = 1;
+    var D = JSON.parse(sl.querySelector(".duraklar").textContent), kagit = sl.querySelector(".kagit"), W = 1408, H = 520, n = D.length;
+    var P = D.map(function (d, j) { return [90 + j * ((W - 180) / (n - 1)), H / 2 + (j % 2 ? 1 : -1) * (100 + 18 * Math.sin(j * 1.9))]; });
+    var yol = "M" + P[0].join(" ");
+    for (var j = 0; j < n - 1; j++) { var a = P[Math.max(0, j - 1)], b = P[j], c = P[j + 1], d = P[Math.min(n - 1, j + 2)]; yol += "C" + (b[0] + (c[0] - a[0]) / 6) + " " + (b[1] + (c[1] - a[1]) / 6) + " " + (c[0] - (d[0] - b[0]) / 6) + " " + (c[1] - (d[1] - b[1]) / 6) + " " + c[0] + " " + c[1]; }
+    kagit.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '"><defs><mask id="hm"><path class="maske" d="' + yol + '" pathLength="1" fill="none" stroke="#fff" stroke-width="24"/></mask><radialGradient id="yg"><stop offset="0" stop-color="#fff2c0"/><stop offset=".4" stop-color="#ffb040" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a20" stop-opacity="0"/></radialGradient></defs>' +
+      '<g transform="translate(' + (W - 90) + ' 80)" opacity=".6"><circle r="40" fill="none" stroke="#6a4a24"/><path d="M0 -46L7 0L0 46L-7 0Z" fill="#8a2a1a"/><path d="M-46 0L0 -6L46 0L0 6Z" fill="#6a4a24"/></g>' +
+      '<path class="yol" d="' + yol + '" fill="none" stroke="#8a2a1a" stroke-width="3" mask="url(#hm)"/><g class="yolcu"><circle r="20" fill="url(#yg)"/><circle r="6" fill="#fff6d8" stroke="#8a2a1a" stroke-width="2"/></g></svg>' +
+      D.map(function (d, j) { return '<button class="durak' + (j % 2 ? "" : " yukari") + '" data-i="' + j + '" style="left:' + (P[j][0] / W * 100) + "%;top:" + (P[j][1] / H * 100) + '%"><span class="muhur">' + (j + 1) + '</span><span class="etiket"><b>' + d.yil + "</b><span>" + d.ad + "</span></span></button>"; }).join("");
+    var yolEl = kagit.querySelector(".yol"), L = yolEl.getTotalLength(), uz = P.map(function (p) { var en = 1e9, u = 0; for (var l = 0; l <= L; l += 4) { var q = yolEl.getPointAtLength(l), dd = (q.x - p[0]) * (q.x - p[0]) + (q.y - p[1]) * (q.y - p[1]); if (dd < en) { en = dd; u = l; } } return u; });
+    var yc = kagit.querySelector(".yolcu"), konum = 0, ac = sl.querySelector(".durak-acik");
+    function sec(j) {
+      kagit.querySelectorAll(".durak").forEach(function (b, k) { b.classList.toggle("secili", k === j); b.classList.toggle("gecildi", k < j); });
+      ac.innerHTML = "<b>" + D[j].ad + "</b>" + D[j].metin;
+      var bas = konum, hedef = uz[j], t0 = performance.now(), sure = azalt ? 1 : 1200;
+      (function adim(t) { var k = Math.min(1, (t - t0) / sure), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; konum = bas + (hedef - bas) * e; var q = yolEl.getPointAtLength(konum); yc.setAttribute("transform", "translate(" + q.x + " " + q.y + ")"); if (k < 1) requestAnimationFrame(adim); })(t0);
+    }
+    kagit.addEventListener("click", function (e) { var b = e.target.closest(".durak"); if (b) { e.stopPropagation(); sec(+b.dataset.i); } });
+    var p0 = yolEl.getPointAtLength(0); yc.setAttribute("transform", "translate(" + p0.x + " " + p0.y + ")");
+    setTimeout(function () { sec(0); }, azalt ? 0 : 1800);
+  }
+
+  /* gezinme */
+  function git(j) {
+    j = Math.max(0, Math.min(S.length - 1, j));
+    S.forEach(function (s, k) { s.classList.toggle("aktif", k === j); s.classList.toggle("gecmis", k < j); });
+    i = j;
+    var sl = S[j];
+    if (sl.dataset.tur === "alinti") alintiBaslat(sl);
+    if (sl.dataset.tur === "harita") haritaKur(sl);
+    tuval.querySelector(".ilerleme").style.transform = "scaleX(" + ((j + 1) / S.length) + ")";
+    tuval.querySelector(".sayfa").textContent = String(j + 1).padStart(2, "0") + " / " + String(S.length).padStart(2, "0");
+    history.replaceState(null, "", "#" + (j + 1));
+  }
+  addEventListener("keydown", function (e) {
+    if (["ArrowRight", "PageDown", " "].indexOf(e.key) > -1) { git(i + 1); e.preventDefault(); }
+    else if (["ArrowLeft", "PageUp"].indexOf(e.key) > -1) git(i - 1);
+    else if (e.key === "Home") git(0); else if (e.key === "End") git(S.length - 1);
+    else if (e.key === "t" || e.key === "T") { var g = document.documentElement.classList.toggle("gunduz"); document.querySelectorAll("img[data-gunduz]").forEach(function (im) { if (!im.dataset.gece) im.dataset.gece = im.getAttribute("src"); im.src = g ? im.dataset.gunduz : im.dataset.gece; }); }
+    else if (e.key === "f" || e.key === "F") { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen(); }
+  });
+  tuval.addEventListener("click", function (e) { if (e.target.closest("button, a, .panel")) return; var r = tuval.getBoundingClientRect(); git(e.clientX > r.left + r.width / 3 ? i + 1 : i - 1); });
+  git((parseInt(location.hash.slice(1), 10) || 1) - 1);
+})();
+</script>
+
+<script>
+/* Canlılık katmanı: toz/ateş böcekleri, imleç ışığı ve paralaks, kart panelleri, terazi, çevrilen terimler, kendini çizen kapak logosu */
+(function () {
+  var tuval = document.getElementById("tuval"), azalt = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cv = tuval.querySelector(".toz"), cx = cv.getContext("2d"), P = [];
+  cv.width = 1600; cv.height = 900;
+  for (var n = 0; n < 70; n++) P.push({ x: Math.random() * 1600, y: Math.random() * 900, r: .6 + Math.random() * 1.8, vx: (Math.random() - .5) * .15, vy: -(.05 + Math.random() * .25), f: Math.random() * 6.28, b: Math.random() < .18 });
+  function toz(t) {
+    cx.clearRect(0, 0, 1600, 900);
+    var gun = document.documentElement.classList.contains("gunduz");
+    P.forEach(function (p) {
+      p.x += p.vx + Math.sin(t / 3000 + p.f) * .12; p.y += p.vy; p.f += .01;
+      if (p.y < -10) { p.y = 910; p.x = Math.random() * 1600; }
+      var a = p.b ? .35 + .45 * Math.max(0, Math.sin(t / 700 + p.f * 3)) : .12 + .12 * Math.sin(t / 900 + p.f);
+      cx.beginPath(); cx.arc(p.x, p.y, p.b ? p.r * 1.6 : p.r, 0, 6.283);
+      cx.fillStyle = gun ? "rgba(140,90,30," + (a * .6).toFixed(2) + ")" : (p.b ? "rgba(255,226,140," : "rgba(255,236,200,") + a.toFixed(2) + ")";
+      if (p.b && !gun) { cx.shadowColor = "#ffd27a"; cx.shadowBlur = 12; } else cx.shadowBlur = 0;
+      cx.fill();
+    });
+    requestAnimationFrame(toz);
+  }
+  if (!azalt) requestAnimationFrame(toz);
+
+  /* imleç ışığı ve paralaks (tuval ölçeklendiği için koordinatlar çevrilir) */
+  var imlec = tuval.querySelector(".imlec");
+  addEventListener("pointermove", function (e) {
+    var r = tuval.getBoundingClientRect(), k = r.width / 1600, x = (e.clientX - r.left) / k, y = (e.clientY - r.top) / k;
+    imlec.style.setProperty("--ix", x.toFixed(0) + "px"); imlec.style.setProperty("--iy", y.toFixed(0) + "px");
+    tuval.style.setProperty("--mx", ((x / 1600) * 2 - 1).toFixed(3)); tuval.style.setProperty("--my", ((y / 900) * 2 - 1).toFixed(3));
+    var kart = e.target.closest && e.target.closest(".kart");
+    tuval.querySelectorAll(".kart").forEach(function (c) { if (c !== kart) { c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
+    if (kart && !azalt) { var b = kart.getBoundingClientRect(), px = (e.clientX - b.left) / b.width - .5, py = (e.clientY - b.top) / b.height - .5; kart.style.setProperty("--ry", (px * 8).toFixed(2) + "deg"); kart.style.setProperty("--rx", (-py * 8).toFixed(2) + "deg"); }
+  });
+
+  /* kartlar: tıklayınca argüman ve eleştiri paneli */
+  tuval.addEventListener("click", function (e) {
+    var kart = e.target.closest(".kart"), sl = e.target.closest(".slayt");
+    if (!sl) return;
+    var panel = sl.querySelector('[data-tur="kartlar"] > .panel') || (sl.dataset.tur === "kartlar" && sl.querySelector(".panel"));
+    if (kart && kart.querySelector(".detay") && panel) {
+      e.stopPropagation();
+      var acik = kart.classList.contains("secili");
+      sl.querySelectorAll(".kart").forEach(function (k) { k.classList.remove("secili"); });
+      if (acik) { panel.classList.remove("acik"); return; }
+      kart.classList.add("secili");
+      panel.querySelector(".pn-ust").textContent = kart.querySelector(".tur").textContent + " · " + kart.querySelector("h3").textContent;
+      panel.querySelector(".pn-ic").innerHTML = kart.querySelector(".detay").innerHTML;
+      panel.classList.add("acik");
+      return;
+    }
+    if (panel && panel.classList.contains("acik")) { panel.classList.remove("acik"); sl.querySelectorAll(".kart").forEach(function (k) { k.classList.remove("secili"); }); e.stopPropagation(); return; }
+    var t = e.target.closest(".terim");
+    if (t) { e.stopPropagation(); t.classList.toggle("cevrik"); }
+  }, true);
+
+  /* terazi: üzerine gelinen tarafa eğilir */
+  tuval.querySelectorAll(".karsit").forEach(function (k) {
+    var sl = k.closest(".slayt"), yanlar = [].slice.call(k.children).filter(function (c) { return !c.classList.contains("terazi"); });
+    yanlar.forEach(function (y, j) {
+      y.addEventListener("pointerenter", function () { sl.classList.toggle("egil-sol", j === 0); sl.classList.toggle("egil-sag", j === 1); });
+      y.addEventListener("pointerleave", function () { sl.classList.remove("egil-sol", "egil-sag"); });
+    });
+  });
+
+  /* kapak logosu: tepeden sol hilal, sağ hilal, gövde, en son taban */
+  var kapak = tuval.querySelector('[data-tur="kapak"]'), lg = kapak && kapak.querySelector(".logo-cizen");
+  if (lg) {
+    var svg = lg.querySelector("svg"), uc = svg.querySelector(".lc-uc");
+    var Y = [].slice.call(svg.querySelectorAll(".lc-yollar path")).map(function (p) { return { yol: p, L: p.getTotalLength(), kalem: svg.querySelector('.lc-kalem[data-seg="' + p.dataset.seg + '"]') }; });
+    var TOP = Y.reduce(function (a, y) { return a + y.L; }, 0);
+    Y.forEach(function (y) { if (y.kalem) y.kalem.style.strokeDasharray = y.L.toFixed(1); });
+    var goster = function (p) {
+      var kalan = TOP * p, uj = null;
+      Y.forEach(function (y) { var q = Math.max(0, Math.min(1, kalan / y.L)); if (y.kalem) y.kalem.style.strokeDashoffset = (y.L * (1 - q)).toFixed(1); if (kalan > 0 && (kalan <= y.L || !uj)) uj = y.yol.getPointAtLength(Math.min(kalan, y.L)); kalan -= y.L; });
+      if (uj) { uc.setAttribute("cx", uj.x.toFixed(1)); uc.setAttribute("cy", uj.y.toFixed(1)); }
+      uc.style.opacity = p <= 0 || p >= 1 ? 0 : Math.min(1, p * 14, (1 - p) * 14).toFixed(2);
+    };
+    var calis = false;
+    var ciz = function () {
+      if (azalt) { goster(1); lg.classList.add("bitti"); return; }
+      if (calis) return; calis = true; lg.classList.remove("bitti"); goster(0);
+      var t0 = null;
+      (function kare(t) { if (t0 === null) t0 = t; var x = Math.min(1, (t - t0) / 4200), p = x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; goster(p); if (x < 1) requestAnimationFrame(kare); else { calis = false; lg.classList.add("bitti"); } })(performance.now());
+    };
+    goster(0);
+    setTimeout(ciz, 700);
+    new MutationObserver(function () { if (kapak.classList.contains("aktif")) setTimeout(ciz, 500); }).observe(kapak, { attributes: true, attributeFilter: ["class"] });
+  }
+})();
+</script>
+</body>
+</html>
