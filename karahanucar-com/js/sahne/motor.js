@@ -131,6 +131,7 @@
     kok.innerHTML =
       '<div class="sk-ust"><button type="button" class="sk-geri"><span aria-hidden="true">←</span> <span class="sk-geri-ad"></span></button>' +
       '<p class="sk-yol" aria-live="polite"></p>' +
+      '<span class="sk-marka" aria-hidden="true"><img src="assets/logo-seffaf.svg" alt="" width="30" height="30"><span data-sabit>Karahan Uçar</span></span>' +
       '<button type="button" class="sk-ses" aria-pressed="true"><span class="sk-ses-simge" aria-hidden="true"><i></i><i></i><i></i></span> <span class="sk-ses-ad"></span></button>' +
       '<button type="button" class="sk-kapat"><span class="sk-kapat-ad"></span> <span aria-hidden="true">×</span></button></div>';
     document.body.appendChild(kok);

@@ -583,3 +583,14 @@ html[lang="grc"] .hr-d-yil, html[dir="rtl"] .hr-d-yil { letter-spacing: .02em; t
   .sk-sahne:has(.sk-kardes) .sk-soz { bottom: 7.4rem; }
 }
 @media (prefers-reduced-motion: reduce) { .sk-kardes { animation: none; } }
+
+/* 2026-09-26 · Sahne üst çubuğu: logo ve ad ortada; solda geri + yol, sağda ses + kütüphaneye dön */
+.sk-marka { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: flex; align-items: center; gap: .55rem; pointer-events: none;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size: 1.05rem; letter-spacing: .04em; color: #EDE6D0; white-space: nowrap; }
+.sk-marka img { width: 30px; height: 30px; filter: drop-shadow(0 0 8px rgba(232, 189, 98, .45)); animation: alev 4.2s ease-in-out infinite; transform-origin: 50% 90%; }
+.sk-yol { flex: 0 1 auto; max-width: calc(50vw - 20rem); }
+.sk-ust .sk-ses { margin-inline-start: auto; }
+.sk-ust .sk-ses + .sk-kapat { margin-inline-start: 0; }
+@media (max-width: 64rem) { .sk-marka span { display: none; } .sk-yol { max-width: calc(50vw - 13rem); } }
+@media (max-width: 48rem) { .sk-marka { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sk-marka img { animation: none; } }
