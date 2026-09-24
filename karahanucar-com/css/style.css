@@ -305,6 +305,7 @@ html.ruzgarli { --rw: 1.9; }
 @media (max-width: 46rem) { .kabin { height: auto; aspect-ratio: 1916 / 821; } .kabin-in { position: relative; top: auto; left: auto; width: 100%; transform: none; } }
 .kabin-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
 .kabin-in.oynuyor .kabin-video { opacity: 1; }
+.kabin-in.oynuyor .kabin-video.sonum { opacity: 0; transition: opacity 1s ease-in-out; }
 .kabin-in.oynuyor .k-somine, .kabin-in.oynuyor .k-lamba, .kabin-in.oynuyor .k-kar { opacity: 0; transition: opacity 1.4s ease; }
 .k-somine, .k-lamba, .k-kar { position: absolute; pointer-events: none; }
 .k-somine { left: 4%; top: 46%; width: 17%; height: 32%; animation: somine 3.6s linear infinite;
