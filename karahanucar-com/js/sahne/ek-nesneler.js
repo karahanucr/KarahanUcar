@@ -4,6 +4,7 @@
   var S = window.SAHNE; if (!S) return;
 
   /* ek(id, {cizim, eserler, sozler, genislik, genisCizim}): tanımı yerinde zenginleştirir */
+  S.ekle = ek;
   function ek(id, o) {
     var d = S.tanim(id); if (!d) return;
     if (o.cizim || o.genislik) {

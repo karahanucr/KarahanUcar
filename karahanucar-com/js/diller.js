@@ -257,7 +257,8 @@ window.DILLER = {
   "Etiket": "Tag",
   "Antik Yunan": "Ancient Greece",
   "Roma": "Rome",
-  "Rönesans": "Renaissance"
+  "Rönesans": "Renaissance",
+  "Komşu odalar": "Neighbouring rooms"
  },
  "de": {
   "__title": "Karahan Uçar — Philosophie, Metaphysik und Philosophie des Geistes",
@@ -516,7 +517,8 @@ window.DILLER = {
   "Etiket": "Schlagwort",
   "Antik Yunan": "Antikes Griechenland",
   "Roma": "Rom",
-  "Rönesans": "Renaissance"
+  "Rönesans": "Renaissance",
+  "Komşu odalar": "Benachbarte Räume"
  },
  "fr": {
   "__title": "Karahan Uçar — Philosophie, métaphysique et philosophie de l’esprit",
@@ -775,7 +777,8 @@ window.DILLER = {
   "Etiket": "Étiquette",
   "Antik Yunan": "Grèce antique",
   "Roma": "Rome",
-  "Rönesans": "Renaissance"
+  "Rönesans": "Renaissance",
+  "Komşu odalar": "Salles voisines"
  },
  "la": {
   "__title": "Karahan Uçar — Philosophia, metaphysica et philosophia mentis",
@@ -1034,7 +1037,8 @@ window.DILLER = {
   "Etiket": "Titulus",
   "Antik Yunan": "Graecia antiqua",
   "Roma": "Roma",
-  "Rönesans": "Renascentia"
+  "Rönesans": "Renascentia",
+  "Komşu odalar": "Conclavia finitima"
  },
  "el": {
   "__title": "Karahan Uçar — Φιλοσοφία, μεταφυσική καὶ φιλοσοφία τοῦ νοῦ",
@@ -1293,7 +1297,8 @@ window.DILLER = {
   "Etiket": "Ἐτικέτα",
   "Antik Yunan": "Ἀρχαία Ἑλλάς",
   "Roma": "Ῥώμη",
-  "Rönesans": "Ἀναγέννησις"
+  "Rönesans": "Ἀναγέννησις",
+  "Komşu odalar": "Γειτονικὰ δωμάτια"
  },
  "ar": {
   "__title": "Karahan Uçar — الفلسفة والميتافيزيقا وفلسفة العقل",
@@ -1552,6 +1557,7 @@ window.DILLER = {
   "Etiket": "وسم",
   "Antik Yunan": "اليونان القديمة",
   "Roma": "روما",
-  "Rönesans": "عصر النهضة"
+  "Rönesans": "عصر النهضة",
+  "Komşu odalar": "الغرف المجاورة"
  }
 };

@@ -227,7 +227,7 @@
       return [pad(o, [53, 60, 65, 69], 0.035), dongu(function (t) { tel(o, t, secNota(65, PENTA, 2), 0.15, 0.5, 2); }, 1800, 4000)];
     }
   };
-  var HARITA = { diller: "kutuphane", latince: "roma", yunanca: "atina", arapca: "bagdat", "doga-bilimleri": "gece", biyoloji: "orman", astronomi: "gece", fizik: "lab",
+  var HARITA = { "dil-felsefesi": "kutuphane", "mantik-felsefesi": "gece", etik: "orman", "din-felsefesi": "gece", "tarih-felsefesi": "ufuk", "sanat-felsefesi": "kutuphane", metafelsefe: "gece", jeoloji: "deniz", kimya: "lab", arkeoloji: "ufuk", dilbilimi: "kutuphane", hukuk: "kutuphane", ilahiyat: "bagdat", "siyaset-sosyoloji": "sehir", psikoloji: "ocak", diller: "kutuphane", latince: "roma", yunanca: "atina", arapca: "bagdat", "doga-bilimleri": "gece", biyoloji: "orman", astronomi: "gece", fizik: "lab",
     felsefe: "ocak", epistemoloji: "magara", metafizik: "bosluk", zihin: "sinir", "formel-bilimler": "kutu", geometri: "deniz", "sosyal-bilimler": "sehir", cografya: "ufuk",
     estetik: "sahne", film: "yazlik",
     "bilim-felsefesi": "ufuk", "politik-felsefe": "sehir", "felsefe-tarihi": "kutuphane", "ft-antik": "atina", "ft-roma": "ocak", "ft-ronesans": "ufuk",
@@ -260,10 +260,10 @@
   }
 
   /* ── Tıklamanın bağlamına göre efekt ── */
-  var KAPI = { latince: "boru", yunanca: "lir", arapca: "ud", biyoloji: "kus", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "pergel", cografya: "ruzgar", film: "projektor",
+  var KAPI = { "dil-felsefesi": "sayfa", "mantik-felsefesi": "kristal", etik: "yaprak", "din-felsefesi": "can", "tarih-felsefesi": "ruzgar", "sanat-felsefesi": "kristal", metafelsefe: "kristal", jeoloji: "tas", kimya: "kristal", arkeoloji: "tas", dilbilimi: "sayfa", hukuk: "tas", ilahiyat: "ud", "siyaset-sosyoloji": "metal", psikoloji: "sinaps", latince: "boru", yunanca: "lir", arapca: "ud", biyoloji: "kus", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "pergel", cografya: "ruzgar", film: "projektor",
     "bilim-felsefesi": "kus", "politik-felsefe": "boru", "felsefe-tarihi": "sayfa", almanca: "metal", fransizca: "kristal", ingilizce: "sayfa", ekoloji: "kus", tip: "kristal", muhendislik: "metal",
     bilisim: "sinaps", mantik: "kristal", matematik: "pergel", tarih: "sayfa", antropoloji: "yaprak", ekonomi: "metal", edebiyat: "sayfa", muzik: "lir" };
-  var NOKTA = { latince: "tas", yunanca: "lir", arapca: "ud", biyoloji: "yaprak", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "kristal", cografya: "tik", film: "projektor",
+  var NOKTA = { "dil-felsefesi": "sayfa", "mantik-felsefesi": "kristal", etik: "yaprak", "din-felsefesi": "can", "tarih-felsefesi": "ruzgar", "sanat-felsefesi": "kristal", metafelsefe: "kristal", jeoloji: "tas", kimya: "kristal", arkeoloji: "tas", dilbilimi: "sayfa", hukuk: "tas", ilahiyat: "ud", "siyaset-sosyoloji": "metal", psikoloji: "sinaps", latince: "tas", yunanca: "lir", arapca: "ud", biyoloji: "yaprak", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "kristal", cografya: "tik", film: "projektor",
     "bilim-felsefesi": "kristal", "politik-felsefe": "tas", "felsefe-tarihi": "sayfa", "ft-antik": "lir", "ft-roma": "tas", "ft-ronesans": "can", almanca: "metal", fransizca: "kristal", ingilizce: "sayfa",
     ekoloji: "yaprak", tip: "kristal", muhendislik: "metal", bilisim: "sinaps", mantik: "kristal", matematik: "pergel", tarih: "sayfa", antropoloji: "yaprak", ekonomi: "metal", edebiyat: "sayfa", muzik: "lir" };
   var DIL = { la: "boru", el: "lir", ar: "ud" };

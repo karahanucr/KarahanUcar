@@ -558,3 +558,28 @@ html[lang="grc"] .hr-d-yil, html[dir="rtl"] .hr-d-yil { letter-spacing: .02em; t
 .ar-tur-ad { letter-spacing: .1em; }
 .sk-sahne .yagmur-c { animation: sk-yagmur-c .9s linear infinite; }
 @keyframes sk-yagmur-c { from { transform: translateY(-30px); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(60px); opacity: 0; } }
+
+/* 2026-09-26 · yeni odaların küçük hareketleri: berber direği (kay-y), düşen kum (dus), kahve dumanı (duman) */
+.sk-sahne .kay-y { animation: sk-kay-y 3s linear infinite; }
+@keyframes sk-kay-y { to { transform: translateY(60px); } }
+.sk-sahne .dus { animation: sk-dus 1.8s linear infinite; animation-delay: var(--d, 0s); }
+@keyframes sk-dus { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(60px); opacity: 0; } }
+.sk-sahne .duman { animation: sk-duman 4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+@keyframes sk-duman { 0%, 100% { opacity: .15; transform: translateY(0) scaleY(.9); } 50% { opacity: .4; transform: translateY(-6px) scaleY(1.05); } }
+@media (prefers-reduced-motion: reduce) { .sk-sahne .kay-y, .sk-sahne .dus, .sk-sahne .duman { animation: none; } }
+
+/* 2026-09-26 · Komşu odalar: altta ortada ‹ önceki · n / N · sonraki › */
+.sk-kardes { position: absolute; left: 50%; bottom: 1.1rem; translate: -50% 0; z-index: 30; display: flex; align-items: center; gap: .6rem; padding: .3rem .5rem; border-radius: 999px;
+  background: rgba(14, 10, 8, .55); border: 1px solid rgba(232, 189, 98, .22); backdrop-filter: blur(6px); animation: sk-belir .9s 1.4s both; max-width: calc(100vw - 2rem); }
+.sk-kardes-btn { font: inherit; font-size: .8rem; color: #EDE6D0; background: none; border: 0; padding: .3rem .7rem; border-radius: 999px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 13rem; transition: background .3s, color .3s; }
+.sk-kardes-btn:hover, .sk-kardes-btn:focus-visible { background: rgba(232, 189, 98, .16); color: #FFE2A0; }
+.sk-kardes-btn span { color: #E8BD62; }
+.sk-kardes-say { font-size: .7rem; letter-spacing: .12em; color: #A9A38F; }
+.sk-genis .sk-kardes { bottom: 2.6rem; }
+@media (max-width: 48rem), (orientation: portrait) {
+  .sk-kardes { bottom: 4.5rem; gap: .2rem; padding: .15rem .3rem; }
+  .sk-kardes-btn { max-width: 9rem; font-size: .72rem; padding: .25rem .45rem; }
+  .sk-kardes-say { display: none; }
+  .sk-sahne:has(.sk-kardes) .sk-soz { bottom: 7.4rem; }
+}
+@media (prefers-reduced-motion: reduce) { .sk-kardes { animation: none; } }

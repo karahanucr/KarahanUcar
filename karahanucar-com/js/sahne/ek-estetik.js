@@ -46,7 +46,7 @@
   S.kaydet("muzik", {
     ad: "Müzik", ust: "estetik", yer: "Bir konser salonu · perde açılmadan hemen önce", vurgu: "#E8A0C8", alan: "estetik",
     alt: "Org boruları loşlukta parlıyor, piyanonun kapağı açık, köşede bir ney ve bir ud. Havada notalar uçuşuyor.",
-    parcacik: { tur: "harf", adet: 34, harfler: "♪♫♩♬𝄞", renk: "rgba(240,200,230," }, isaret: "yildiz",
+    parcacik: { tur: "harf", adet: 34, harfler: "♪♫♩♪♫♬", renk: "rgba(240,200,230," }, isaret: "yildiz",
     sozler: [
       { metin: "Ohne Musik wäre das Leben ein Irrtum.", dil: "de", ceviri: "Müzik olmasaydı hayat bir yanılgı olurdu.", kaynak: "Nietzsche, Putların Alacakaranlığı, 1889" },
       { metin: "All art constantly aspires towards the condition of music.", dil: "en", ceviri: "Bütün sanatlar durmaksızın müziğin durumuna özlem duyar.", kaynak: "Walter Pater, Giorgione Okulu, 1877" }

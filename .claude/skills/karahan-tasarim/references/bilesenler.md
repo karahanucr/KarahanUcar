@@ -81,6 +81,11 @@ Kapılar ortadaki logonun çevresinde elips yörüngede yavaşça döner (75 sn/
 (`scale .6–1`, `brightness .5–1`). Üzerine gelince durur, klavyeyle odaklanan kapı öne döner. "Yakında" odalar dış yörüngede, ters yönde,
 kesik çizgili küçük uydular. Logonun çevresinde yavaş dönen iki ince halka.
 
+### 10b. Kalabalık merkez ve komşu odalar
+9'dan fazla kapı olunca kapılar **iki halkaya** bölünür: çift sıradakiler dış halkada, tekler iç halkada ters yönde döner; derinlik sırası ekran yüksekliğine göre verilir.
+Her alt odanın altında ortada **komşu odalar** çubuğu vardır: "‹ Önceki oda · n / N · Sonraki oda ›" (klavyede `[` ve `]`); geçiş yana kayarak olur, geri tuşu merkeze döner.
+Liste merkezin kapı sırasından (ya da geçitli odalarda geçit sırasından) gelir; sözlükçe dahil değildir.
+
 ## 11. Terimce
 Sözlükçede olan terimler metinde noktalı altın alt çizgiyle işaretlenir (her terim bir kapta bir kez, Türkçe ekleri tanır);
 üzerine gelince koyu cam kart: "SÖZLÜKÇE · FELSEFE", serif terim + köken (italik), tanım.

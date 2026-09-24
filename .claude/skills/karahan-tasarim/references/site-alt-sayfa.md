@@ -13,7 +13,8 @@ Site: `karahanucar-com/` (durağan HTML/CSS/JS, derleme yok, harici bağımlıl�
 | `js/sahne/{felsefe,diller,doga,diger}.js` | İlk sahne tanımları (`SAHNE.kaydet`). |
 | `js/sahne/kit.js` | Ortak çizim kiti `SAHNE.kit`: `gokGece/gokAksam/gokGun`, `ay`, `gunes`, `tepe`, `zemin`, `duvar`, `pencere`, `raf`, `masa`, `mum`, `kagit`, `kitaplar`, `sutun`, `tapinak`, `agac`, `servi`, `kapi(renk, ic, zemin)` (200×250 kapı sanatı). |
 | `js/sahne/ek-{felsefe,diller,doga,formel,sosyal,estetik}.js` | Sonradan eklenen odalar; her dosya kendi merkezine `S.merkezeEkle(merkez, kapilar)` ile kapı ekler. |
-| `js/sahne/ek-nesneler.js` | Var olan odalara çizimi bozmadan yeni nesne/alıntı ekler (`ek(id, {cizim, eserler, sozler, genislik})`). |
+| `js/sahne/ek-nesneler.js`, `ek-nesneler2.js` | Var olan odalara çizimi bozmadan yeni nesne/alıntı ekler: `S.ekle(id, {cizim, eserler, sozler, genislik})`. |
+| `js/sahne/ek-felsefe2.js`, `ek-doga2.js`, `ek-sosyal2.js`; `js/haritalar-ek2.js` | Kitaplıktaki bütün kitapların odaları artık açık (58 sahne). |
 | `js/haritalar-ek.js` | Yeni odaların haritaları (aynı biçim). |
 | `js/haritalar.js` | Her alt sahnenin "… haritası" durakları. |
 | `js/arsiv.js` | Çalışmalarım sandığının çekmece (tür) sırası. |

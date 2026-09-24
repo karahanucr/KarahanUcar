@@ -7,25 +7,25 @@
 
   var RAFLAR = [
     { alan: "felsefe", ad: "Felsefe", sahne: "felsefe", kitaplar: [
-      { ad: "Bilgi Felsefesi", sahne: "epistemoloji", motif: "goz" }, { ad: "Dil Felsefesi", motif: "balon" }, { ad: "Varlık Felsefesi", sahne: "metafizik", motif: "kup" },
-      { ad: "Zihin Felsefesi", sahne: "zihin", motif: "beyin" }, { ad: "Mantık Felsefesi", motif: "mantik" }, { ad: "Bilim Felsefesi", sahne: "bilim-felsefesi", motif: "atom" },
-      { ad: "Politik Felsefe", sahne: "politik-felsefe", motif: "sutun" }, { ad: "Etik", motif: "terazi" }, { ad: "Din Felsefesi", motif: "isik" },
-      { ad: "Tarih Felsefesi", motif: "kumsaati" }, { ad: "Sanat Felsefesi", motif: "firca" }, { ad: "Felsefe Tarihi", sahne: "felsefe-tarihi", motif: "parsomen" },
-      { ad: "Metafelsefe", motif: "ayna" }, { ad: "Sözlükçe", sahne: "sozlukce-felsefe", motif: "sozluk" } ] },
+      { ad: "Bilgi Felsefesi", sahne: "epistemoloji", motif: "goz" }, { ad: "Dil Felsefesi", sahne: "dil-felsefesi", motif: "balon" }, { ad: "Varlık Felsefesi", sahne: "metafizik", motif: "kup" },
+      { ad: "Zihin Felsefesi", sahne: "zihin", motif: "beyin" }, { ad: "Mantık Felsefesi", sahne: "mantik-felsefesi", motif: "mantik" }, { ad: "Bilim Felsefesi", sahne: "bilim-felsefesi", motif: "atom" },
+      { ad: "Politik Felsefe", sahne: "politik-felsefe", motif: "sutun" }, { ad: "Etik", sahne: "etik", motif: "terazi" }, { ad: "Din Felsefesi", sahne: "din-felsefesi", motif: "isik" },
+      { ad: "Tarih Felsefesi", sahne: "tarih-felsefesi", motif: "kumsaati" }, { ad: "Sanat Felsefesi", sahne: "sanat-felsefesi", motif: "firca" }, { ad: "Felsefe Tarihi", sahne: "felsefe-tarihi", motif: "parsomen" },
+      { ad: "Metafelsefe", sahne: "metafelsefe", motif: "ayna" }, { ad: "Sözlükçe", sahne: "sozlukce-felsefe", motif: "sozluk" } ] },
     { alan: "diller", ad: "Diller", sahne: "diller", kitaplar: [
       { ad: "Latince", sahne: "latince", motif: "spqr" }, { ad: "Antik Yunanca", sahne: "yunanca", motif: "lir" }, { ad: "Arapça", sahne: "arapca", motif: "hilal" },
       { ad: "Almanca", sahne: "almanca", motif: "harf", harfler: "ß·Ä·Ö·Ü" }, { ad: "Fransızca", sahne: "fransizca", motif: "harf", harfler: "ç·é·œ·à" }, { ad: "İngilizce", sahne: "ingilizce", motif: "harf", harfler: "W·æ·þ·Q" } ] },
     { alan: "doga-bilimleri", ad: "Doğa Bilimleri", sahne: "doga-bilimleri", kitaplar: [
       { ad: "Astronomi", sahne: "astronomi", motif: "yildiz" }, { ad: "Biyoloji", sahne: "biyoloji", motif: "yaprak" }, { ad: "Ekoloji", sahne: "ekoloji", motif: "dongu" },
-      { ad: "Fizik", sahne: "fizik", motif: "sarkac" }, { ad: "Jeoloji", motif: "katman" }, { ad: "Kimya", motif: "sise" },
+      { ad: "Fizik", sahne: "fizik", motif: "sarkac" }, { ad: "Jeoloji", sahne: "jeoloji", motif: "katman" }, { ad: "Kimya", sahne: "kimya", motif: "sise" },
       { ad: "Mühendislik", sahne: "muhendislik", motif: "cark" }, { ad: "Tıp", sahne: "tip", motif: "nabiz" }, { ad: "Sözlükçe", sahne: "sozlukce-doga", motif: "sozluk" } ] },
     { alan: "formel-bilimler", ad: "Formel Bilimler", sahne: "formel-bilimler", kitaplar: [
       { ad: "Bilişim", sahne: "bilisim", motif: "kod" }, { ad: "Geometri", sahne: "geometri", motif: "pergel" }, { ad: "Mantık", sahne: "mantik", motif: "mantik" },
       { ad: "Matematik", sahne: "matematik", motif: "sonsuz" }, { ad: "Sözlükçe", sahne: "sozlukce-formel", motif: "sozluk" } ] },
     { alan: "sosyal-bilimler", ad: "Sosyal Bilimler", sahne: "sosyal-bilimler", kitaplar: [
-      { ad: "Antropoloji", sahne: "antropoloji", motif: "insan" }, { ad: "Arkeoloji", motif: "comlek" }, { ad: "Coğrafya", sahne: "cografya", motif: "pusula" },
-      { ad: "Dilbilimi", motif: "ses" }, { ad: "Ekonomi", sahne: "ekonomi", motif: "grafik" }, { ad: "Hukuk", motif: "terazi" }, { ad: "İlahiyat", motif: "isik" },
-      { ad: "Siyaset ve Sosyoloji", motif: "ag" }, { ad: "Psikoloji ve Psikanaliz", motif: "psi" }, { ad: "Tarih", sahne: "tarih", motif: "kumsaati" },
+      { ad: "Antropoloji", sahne: "antropoloji", motif: "insan" }, { ad: "Arkeoloji", sahne: "arkeoloji", motif: "comlek" }, { ad: "Coğrafya", sahne: "cografya", motif: "pusula" },
+      { ad: "Dilbilimi", sahne: "dilbilimi", motif: "ses" }, { ad: "Ekonomi", sahne: "ekonomi", motif: "grafik" }, { ad: "Hukuk", sahne: "hukuk", motif: "terazi" }, { ad: "İlahiyat", sahne: "ilahiyat", motif: "isik" },
+      { ad: "Siyaset ve Sosyoloji", sahne: "siyaset-sosyoloji", motif: "ag" }, { ad: "Psikoloji ve Psikanaliz", sahne: "psikoloji", motif: "psi" }, { ad: "Tarih", sahne: "tarih", motif: "kumsaati" },
       { ad: "Sözlükçe", sahne: "sozlukce-sosyal", motif: "sozluk" } ] },
     { alan: "estetik", ad: "Estetik", sahne: "estetik", kitaplar: [
       { ad: "Edebiyat", sahne: "edebiyat", motif: "kalem" }, { ad: "Görsel Sanatlar", sahne: "film", motif: "film" }, { ad: "Müzik", sahne: "muzik", motif: "nota" },
