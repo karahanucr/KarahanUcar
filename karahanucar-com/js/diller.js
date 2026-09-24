@@ -258,7 +258,15 @@ window.DILLER = {
   "Antik Yunan": "Ancient Greece",
   "Roma": "Rome",
   "Rönesans": "Renaissance",
-  "Komşu odalar": "Neighbouring rooms"
+  "Komşu odalar": "Neighbouring rooms",
+  "Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun bir saat seç, adını ve e-postanı yaz: randevu doğrudan takvimime işlenir.": "A free appointment for a meeting, consultation or conversation. Pick a time, enter your name and e-mail: the appointment goes straight into my calendar.",
+  "Uygun bir saat seç": "Pick a suitable time",
+  "Yeni sekmede aç ↗": "Open in a new tab ↗",
+  "Takvimi kapat": "Close the calendar",
+  "Takvim yükleniyor…": "Loading the calendar…",
+  "Takvim Google Takvim tarafından sunulur; seçtiğin saat, adın ve e-postan yalnızca randevu için kullanılır.": "The calendar is provided by Google Calendar; your chosen time, name and e-mail are used only for the appointment.",
+  "Randevu takvimi": "Appointment calendar",
+  "Uzay": "Space"
  },
  "de": {
   "__title": "Karahan Uçar — Philosophie, Metaphysik und Philosophie des Geistes",
@@ -518,7 +526,15 @@ window.DILLER = {
   "Antik Yunan": "Antikes Griechenland",
   "Roma": "Rom",
   "Rönesans": "Renaissance",
-  "Komşu odalar": "Benachbarte Räume"
+  "Komşu odalar": "Benachbarte Räume",
+  "Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun bir saat seç, adını ve e-postanı yaz: randevu doğrudan takvimime işlenir.": "Ein kostenloser Termin für ein Gespräch, eine Beratung oder einen Austausch. Wähle eine Zeit, gib Namen und E-Mail ein: Der Termin landet direkt in meinem Kalender.",
+  "Uygun bir saat seç": "Wähle eine passende Zeit",
+  "Yeni sekmede aç ↗": "In neuem Tab öffnen ↗",
+  "Takvimi kapat": "Kalender schließen",
+  "Takvim yükleniyor…": "Kalender wird geladen…",
+  "Takvim Google Takvim tarafından sunulur; seçtiğin saat, adın ve e-postan yalnızca randevu için kullanılır.": "Der Kalender wird von Google Kalender bereitgestellt; Zeit, Name und E-Mail werden nur für den Termin verwendet.",
+  "Randevu takvimi": "Terminkalender",
+  "Uzay": "Weltraum"
  },
  "fr": {
   "__title": "Karahan Uçar — Philosophie, métaphysique et philosophie de l’esprit",
@@ -778,7 +794,15 @@ window.DILLER = {
   "Antik Yunan": "Grèce antique",
   "Roma": "Rome",
   "Rönesans": "Renaissance",
-  "Komşu odalar": "Salles voisines"
+  "Komşu odalar": "Salles voisines",
+  "Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun bir saat seç, adını ve e-postanı yaz: randevu doğrudan takvimime işlenir.": "Un rendez-vous gratuit pour un entretien, un conseil ou une conversation. Choisis un créneau, indique ton nom et ton e-mail : le rendez-vous s’inscrit directement dans mon agenda.",
+  "Uygun bir saat seç": "Choisis un créneau",
+  "Yeni sekmede aç ↗": "Ouvrir dans un nouvel onglet ↗",
+  "Takvimi kapat": "Fermer l’agenda",
+  "Takvim yükleniyor…": "Chargement de l’agenda…",
+  "Takvim Google Takvim tarafından sunulur; seçtiğin saat, adın ve e-postan yalnızca randevu için kullanılır.": "L’agenda est fourni par Google Agenda ; le créneau, ton nom et ton e-mail ne servent qu’au rendez-vous.",
+  "Randevu takvimi": "Agenda des rendez-vous",
+  "Uzay": "Espace"
  },
  "la": {
   "__title": "Karahan Uçar — Philosophia, metaphysica et philosophia mentis",
@@ -1038,7 +1062,15 @@ window.DILLER = {
   "Antik Yunan": "Graecia antiqua",
   "Roma": "Roma",
   "Rönesans": "Renascentia",
-  "Komşu odalar": "Conclavia finitima"
+  "Komşu odalar": "Conclavia finitima",
+  "Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun bir saat seç, adını ve e-postanı yaz: randevu doğrudan takvimime işlenir.": "Constitutum gratuitum ad colloquium, consilium aut sermonem. Horam elige, nomen et inscriptionem electronicam scribe: constitutum statim in fastos meos inscribitur.",
+  "Uygun bir saat seç": "Horam aptam elige",
+  "Yeni sekmede aç ↗": "In nova tabula aperi ↗",
+  "Takvimi kapat": "Fastos claude",
+  "Takvim yükleniyor…": "Fasti onerantur…",
+  "Takvim Google Takvim tarafından sunulur; seçtiğin saat, adın ve e-postan yalnızca randevu için kullanılır.": "Fasti a Google Calendario praebentur; hora, nomen et inscriptio tantum ad constitutum adhibentur.",
+  "Randevu takvimi": "Fasti constitutorum",
+  "Uzay": "Spatium"
  },
  "el": {
   "__title": "Karahan Uçar — Φιλοσοφία, μεταφυσική καὶ φιλοσοφία τοῦ νοῦ",
@@ -1298,7 +1330,15 @@ window.DILLER = {
   "Antik Yunan": "Ἀρχαία Ἑλλάς",
   "Roma": "Ῥώμη",
   "Rönesans": "Ἀναγέννησις",
-  "Komşu odalar": "Γειτονικὰ δωμάτια"
+  "Komşu odalar": "Γειτονικὰ δωμάτια",
+  "Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun bir saat seç, adını ve e-postanı yaz: randevu doğrudan takvimime işlenir.": "Δωρεὰν συνάντησις πρὸς διάλογον ἢ συμβουλήν. Ἑλοῦ ὥραν, γράψον τὸ ὄνομα καὶ τὴν ἐπιστολικὴν διεύθυνσιν· ἡ συνάντησις εὐθὺς εἰς τὸ ἡμερολόγιόν μου γράφεται.",
+  "Uygun bir saat seç": "Ἑλοῦ ὥραν πρόσφορον",
+  "Yeni sekmede aç ↗": "Ἄνοιξον ἐν νέᾳ καρτέλλᾳ ↗",
+  "Takvimi kapat": "Κλεῖσον τὸ ἡμερολόγιον",
+  "Takvim yükleniyor…": "Τὸ ἡμερολόγιον φορτώνεται…",
+  "Takvim Google Takvim tarafından sunulur; seçtiğin saat, adın ve e-postan yalnızca randevu için kullanılır.": "Τὸ ἡμερολόγιον παρέχεται ὑπὸ τοῦ Google Calendar· ἡ ὥρα, τὸ ὄνομα καὶ ἡ διεύθυνσις μόνον πρὸς τὴν συνάντησιν χρῶνται.",
+  "Randevu takvimi": "Ἡμερολόγιον συναντήσεων",
+  "Uzay": "Κόσμος"
  },
  "ar": {
   "__title": "Karahan Uçar — الفلسفة والميتافيزيقا وفلسفة العقل",
@@ -1558,6 +1598,14 @@ window.DILLER = {
   "Antik Yunan": "اليونان القديمة",
   "Roma": "روما",
   "Rönesans": "عصر النهضة",
-  "Komşu odalar": "الغرف المجاورة"
+  "Komşu odalar": "الغرف المجاورة",
+  "Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun bir saat seç, adını ve e-postanı yaz: randevu doğrudan takvimime işlenir.": "موعد مجاني للقاء أو استشارة أو حديث. اختر وقتًا مناسبًا واكتب اسمك وبريدك الإلكتروني: يُسجَّل الموعد مباشرة في تقويمي.",
+  "Uygun bir saat seç": "اختر وقتًا مناسبًا",
+  "Yeni sekmede aç ↗": "افتح في علامة تبويب جديدة ↗",
+  "Takvimi kapat": "أغلق التقويم",
+  "Takvim yükleniyor…": "جارٍ تحميل التقويم…",
+  "Takvim Google Takvim tarafından sunulur; seçtiğin saat, adın ve e-postan yalnızca randevu için kullanılır.": "يُقدَّم التقويم عبر تقويم Google؛ ولا يُستخدم الوقت والاسم والبريد إلا لأجل الموعد.",
+  "Randevu takvimi": "تقويم المواعيد",
+  "Uzay": "الفضاء"
  }
 };

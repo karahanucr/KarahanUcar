@@ -98,3 +98,11 @@ Sözlükçede olan terimler metinde noktalı altın alt çizgiyle işaretlenir (
 - **Okuma ilerlemesi**: menünün altında soldan sağa yanan kor çizgisi.
 - **Kitaplık canlıları**: ağaçta yavaşça yürüyen salyangoz ve uğur böceği, fenerin çevresinde dönen güve, iki kitaptan başını çıkaran kitap kurdu, raflar arasında ateş böcekleri; altta sayaç "6 alan · N oda · N harita · N terim" ve "✦ Rastgele bir oda aç".
 - **Katlanır ortam paneli**: sol altta "› Ses: Şömine · Yağmur · Rüzgâr · Kapalı · Tık sesi" ve "› Dışarıda: Kar · Yağmur · Rüzgâr"; etikete basınca seçenekler içine çekilir.
+
+## 13. Tur 7 eklentileri
+- **Randevu takvimi** (`js/randevu.js`): "Randevu al" sayfada altın çerçeveli bir takvim sayfası açar; içinde Google Takvim randevu akışı (iframe, yalnız tıklanınca yüklenir). Gömme adresi `#randevu[data-gomme]`.
+- **İletişim simgeleri**: her bağlantının önünde altın çizgili madalyon içinde çizgisel simge; üzerine gelince dolar ve hafifçe döner.
+- **Bölüm ayırıcı**: iki ince altın çizgi, ortada baklava ve kıvrımlı kartuş (gece altın, gündüz bakır).
+- **Kendini çizen logo** (`js/logo-ciz.js`): logo bir maskeyle, tepeden sol aşağı, sağa, sağ yukarı, içeri kıvrılıp gövdeden aşağı inerek açılır; logonun biçimi değişmez.
+- **Dışarıda › Uzay**: derin yıldız alanı, ara sıra akan yıldız, nefes alan bulutsular (katman içeriğin önünde, yalnız "screen" karışımıyla).
+- **Sahne üst çubuğu**: logo ve ad ortada; solda geri + yol, sağda ses + kütüphaneye dön.
