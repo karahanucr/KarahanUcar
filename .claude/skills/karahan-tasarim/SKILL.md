@@ -40,6 +40,11 @@ Hepsi Web Audio ile üretilir (dosya/CDN yok), kapatılabilir.
 - Metinler Türkçe; site 7 dilli (tr, en, de, fr, la, el=Attika Yunancası, ar=sağdan sola). Yeni arayüz metinleri `js/diller.js`'e 6 dilde eklenir.
 - Nesneler ekrandan taşmaz, başlık/alıntıyla çakışmaz.
 
+**Standart: kendini çizen logo.** Logo göründüğü her açılışta (sunum kapağı, poster/kapak, sitede portre kilit taşı) boşluktan çizilerek belirir:
+tepeden sol hilal aşağı · kalem ucu alttan sağa geçer (çizmeden) · sağ hilal yukarı çıkıp içeri kıvrılır · gövde aşağı · **en son** taban işareti.
+Hazır parça: `assets/logo-cizen.svg.html` (SVG) + `assets/logo-ciz.js` + `tokens.css` içindeki `.logo-cizen` stilleri; şablon kapağında kullanılıyor.
+Logo biçimi/rengi değişmez, yalnızca maskeyle açılır. Kapanış slaytındaki logo sabit kalabilir.
+
 **Sunumlarda kalıcı kural:** başlıkların üstüne ve kartlara konuyu gösteren küçük, sürekli hareketli SVG çizimler konur
 (ör. "Nesneler zamanda nasıl sürer?": bütün hâlinde kayan küre · sırayla yanan zamansal dilimler). Ayrıntı ve fikir bankası:
 `references/sunum.md`; çalışan örnek: `assets/sunum-canli-ornek.html`.

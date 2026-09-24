@@ -72,3 +72,9 @@ html.gunduz { --bg: #f5eddc; --bg-2: #ece0c7; --line: rgba(118, 78, 20, .24); --
 @keyframes alev { 0%, 100% { transform: scale(1, 1) skewX(0); } 25% { transform: scale(.985, 1.02) skewX(.6deg); } 50% { transform: scale(1.01, .99) skewX(-.5deg); } 75% { transform: scale(.99, 1.015) skewX(.4deg); } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Kendini çizen logo (standart) */
+.logo-cizen svg { width: 100%; display: block; overflow: visible; }
+.logo-cizen .lc-uc { filter: drop-shadow(0 0 70px #ffd890); opacity: 0; }
+.logo-cizen.bitti svg { animation: alev 4.2s ease-in-out infinite; transform-origin: 50% 90%; filter: drop-shadow(0 0 14px rgba(232, 189, 98, .55)); }
+@media (prefers-reduced-motion: reduce) { .logo-cizen.bitti svg { animation: none; } }

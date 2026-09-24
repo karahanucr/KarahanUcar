@@ -106,3 +106,9 @@ Sözlükçede olan terimler metinde noktalı altın alt çizgiyle işaretlenir (
 - **Kendini çizen logo** (`js/logo-ciz.js`): logo bir maskeyle, tepeden sol aşağı, sağa, sağ yukarı, içeri kıvrılıp gövdeden aşağı inerek açılır; logonun biçimi değişmez.
 - **Dışarıda › Uzay**: derin yıldız alanı, ara sıra akan yıldız, nefes alan bulutsular (katman içeriğin önünde, yalnız "screen" karışımıyla).
 - **Sahne üst çubuğu**: logo ve ad ortada; solda geri + yol, sağda ses + kütüphaneye dön.
+
+## 14. Kendini çizen logo (standart)
+Parçalar: `assets/logo-cizen.svg.html`, `assets/logo-ciz.js`, `.logo-cizen` stilleri (`tokens.css`).
+Kullanım: `<div class="logo logo-cizen" role="img" aria-label="Karahan Uçar logosu">` + SVG + `<script src="logo-ciz.js">`.
+Logo üç parçaya (sol hilal, sağ hilal, gövde+taban) ayrılır; her parça kendi maskesiyle açılır, bu yüzden kalem geçerken başka parça erkenden görünmez.
+Sunum slaytındaysa slayt her "aktif" olduğunda, sayfadaysa görünür olunca çizilir (4,2 sn); bittiğinde alev gibi titrer; üzerine gelince yeniden çizilir.

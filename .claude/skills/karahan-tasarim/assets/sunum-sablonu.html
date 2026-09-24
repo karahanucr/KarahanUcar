@@ -129,6 +129,11 @@ html.gunduz .ay { background: radial-gradient(circle at 42% 40%, #fffbe6, #ffe28
 .sayfa { position: absolute; right: 40px; bottom: 26px; font: 500 16px var(--serif); letter-spacing: .1em; color: var(--muted); z-index: 5; }
 .imza { position: absolute; left: 40px; bottom: 26px; font-size: 14px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); z-index: 5; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .maske { stroke-dashoffset: 0; } }
+/* Kendini çizen logo (standart) */
+.logo-cizen svg { width: 100%; display: block; overflow: visible; }
+.logo-cizen .lc-uc { filter: drop-shadow(0 0 70px #ffd890); opacity: 0; }
+.logo-cizen.bitti svg { animation: alev 4.2s ease-in-out infinite; transform-origin: 50% 90%; filter: drop-shadow(0 0 14px rgba(232, 189, 98, .55)); }
+@media (prefers-reduced-motion: reduce) { .logo-cizen.bitti svg { animation: none; } }
 </style>
 </head>
 <body>
@@ -139,7 +144,7 @@ html.gunduz .ay { background: radial-gradient(circle at 42% 40%, #fffbe6, #ffe28
     <div class="gok"><div class="yildizlar"></div><div class="ay"></div>
       <svg class="orman" viewBox="0 0 1600 250" preserveAspectRatio="none"></svg></div>
     <div class="merkez">
-      <div class="logo"><img src="logo-seffaf.svg" data-gunduz="logo-seffaf-gunduz.svg" alt="Karahan Uçar logosu"></div>
+      <div class="logo logo-cizen" role="img" aria-label="Karahan Uçar logosu"><svg class="logo-ciz" viewBox="0 0 1254 1254" ><defs><mask id="LC-sol" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="LC-sag" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="LC-govde" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s3" d="M626 446 L626 985" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="butt" stroke-linejoin="round"/><path class="lc-kalem" data-seg="s4" d="M546 1046 L712 1046" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><g class="lc-yollar" fill="none" stroke="none"><path data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916"/><path data-seg="g1" d="M526 916 C570 930 670 934 716 924"/><path data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452"/><path data-seg="g2" d="M716 452 C690 444 650 440 626 446"/><path data-seg="s3" d="M626 446 L626 985"/><path data-seg="g3" d="M626 985 C600 1010 570 1030 546 1046"/><path data-seg="s4" d="M546 1046 L712 1046"/></g><path d="M521.5,928.54 C460.61,914.05 408.37,885.5 366.92,844.07 C266.74,743.95 264.28,620.33 360.29,511.33 C397.94,468.58 433.27,440.98 518.5,387.71 C549.74,368.18 581.23,347.16 597.5,334.96 C664.27,284.92 690.4,244.4 688.73,193.5 C688.12,174.79 685.81,165.64 676.28,144.06 C675.51,142.33 684.53,148.56 695.5,157.35 C761.79,210.45 774.74,287.3 729.17,357.07 C702.55,397.81 671.31,423.54 574.5,484.47 C509.55,525.34 482.59,544.82 460,567.16 C403.95,622.58 387.6,694.64 414.54,767.53 C434.71,822.11 474.3,869.49 533.57,909.96 C548.46,920.13 551.21,924.64 545.69,929.83 C542.53,932.79 538.45,932.57 521.5,928.54 Z" fill="#E8BD62" mask="url(#LC-sol)"/><path d="M705.56,929.78 C701.52,924.01 704.49,919.2 716.26,912.43 C750.14,892.94 781.56,865.09 805.86,833 C863.09,757.43 873.79,667.62 835,588.5 C811.06,539.69 762.46,488.57 715.72,463.04 C705.29,457.34 702.62,452.3 707.04,446.67 C709.94,442.98 714.07,442.56 728.85,444.44 C803.1,453.89 882.99,507.02 924.87,574.79 C962.13,635.1 970.15,703.83 946.93,764.03 C915.04,846.71 827.55,912.74 726.46,930.43 C713.33,932.72 707.49,932.54 705.56,929.78 Z" fill="#E8BD62" mask="url(#LC-sag)"/><path d="M528.45,1058.63 C525,1053.71 527.2,1049.89 536.63,1044.42 C554.39,1034.1 565.05,1018.44 569.66,995.91 C571.24,988.16 571.42,970.14 571.94,766.5 L572.5,545.5 L575.12,538.76 C582.37,520.14 596.84,504.08 628.56,479.46 C642.03,469.02 660.47,455.66 672.5,447.65 L679.5,442.99 L680.07,715.24 C680.47,905.02 680.97,989.01 681.72,992.5 C686.36,1013.9 690.56,1022.63 701.47,1033.51 C706.38,1038.41 711.93,1042.81 715.74,1044.82 C722.35,1048.3 724,1050.23 724,1054.5 C724,1061.28 732.59,1060.74 625.99,1060.72 L529.91,1060.71 L528.45,1058.63 Z" fill="#E8BD62" mask="url(#LC-govde)"/><circle class="lc-uc" cx="688" cy="152" r="46" fill="#fff3c8"/></svg></div>
       <p class="ust">Seminer <span class="ayir">·</span> Ruhr-Universität Bochum <span class="ayir">·</span> Haziran 2026</p>
       <h1>Olmayan Nesneler</h1>
       <div class="kor-cizgi"></div>
@@ -345,6 +350,47 @@ html.gunduz .ay { background: radial-gradient(circle at 42% 40%, #fffbe6, #ffe28
   });
   tuval.addEventListener("click", function (e) { if (e.target.closest("button, a, .panel")) return; var r = tuval.getBoundingClientRect(); git(e.clientX > r.left + r.width / 3 ? i + 1 : i - 1); });
   git((parseInt(location.hash.slice(1), 10) || 1) - 1);
+})();
+</script>
+<script>
+/* Kendini çizen logo — Karahan Uçar tasarım dili standardı.
+   Sayfadaki her .logo-cizen (içinde logo-cizen.svg.html'deki SVG) görünür olduğunda çizilir; bir sunum slaytındaysa slayt "aktif" olunca yeniden çizilir.
+   Sıra: tepeden sol hilal aşağı iner → kalem ucu alttan sağa geçer (bir şey çizmeden, aşağı inmeden) → sağ hilal yukarı çıkıp içeri kıvrılır
+   → gövde aşağı iner → en son alttaki taban işareti soldan sağa tamamlanır. Süre 4,2 sn; bitince logo alev gibi titrer (.bitti). */
+(function () {
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches, sayac = 0;
+  function kur(kap) {
+    var svg = kap.querySelector("svg"); if (!svg || kap._lc) return; kap._lc = 1;
+    var on = "lc" + (++sayac) + "-";
+    svg.querySelectorAll("mask[id]").forEach(function (m) { var eski = m.id, yeni = on + eski.replace(/^LC-|^lc-/, ""); m.id = yeni; svg.querySelectorAll('[mask="url(#' + eski + ')"]').forEach(function (p) { p.setAttribute("mask", "url(#" + yeni + ")"); }); });
+    var uc = svg.querySelector(".lc-uc");
+    var Y = [].slice.call(svg.querySelectorAll(".lc-yollar path")).map(function (p) { return { yol: p, L: p.getTotalLength(), kalem: svg.querySelector('.lc-kalem[data-seg="' + p.dataset.seg + '"]') }; });
+    var TOP = Y.reduce(function (a, y) { return a + y.L; }, 0), calis = false;
+    Y.forEach(function (y) { if (y.kalem) y.kalem.style.strokeDasharray = y.L.toFixed(1); });
+    function goster(p) {
+      var kalan = TOP * p, uj = null;
+      Y.forEach(function (y) { var q = Math.max(0, Math.min(1, kalan / y.L)); if (y.kalem) y.kalem.style.strokeDashoffset = (y.L * (1 - q)).toFixed(1); if (kalan > 0 && (kalan <= y.L || !uj)) uj = y.yol.getPointAtLength(Math.min(kalan, y.L)); kalan -= y.L; });
+      if (uj) { uc.setAttribute("cx", uj.x.toFixed(1)); uc.setAttribute("cy", uj.y.toFixed(1)); }
+      uc.style.opacity = p <= 0 || p >= 1 ? 0 : Math.min(1, p * 14, (1 - p) * 14).toFixed(2);
+    }
+    function ciz() {
+      if (azalt) { goster(1); kap.classList.add("bitti"); return; }
+      if (calis) return; calis = true; kap.classList.remove("bitti"); goster(0);
+      var t0 = null;
+      (function kare(t) { if (t0 === null) t0 = t; var x = Math.min(1, (t - t0) / 4200), p = x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; goster(p); if (x < 1) requestAnimationFrame(kare); else { calis = false; kap.classList.add("bitti"); } })(performance.now());
+    }
+    goster(azalt ? 1 : 0);
+    var slayt = kap.closest(".slayt");
+    if (slayt) {
+      if (slayt.classList.contains("aktif")) setTimeout(ciz, 700);
+      new MutationObserver(function () { if (slayt.classList.contains("aktif")) setTimeout(ciz, 500); }).observe(slayt, { attributes: true, attributeFilter: ["class"] });
+    } else if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (g) { if (g[0].isIntersecting) { io.disconnect(); setTimeout(ciz, 350); } }, { threshold: .6 }); io.observe(kap);
+    } else ciz();
+    kap.addEventListener("pointerenter", function () { if (kap.classList.contains("bitti")) ciz(); });
+  }
+  function hepsi() { document.querySelectorAll(".logo-cizen").forEach(kur); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", hepsi); else hepsi();
 })();
 </script>
 </body>

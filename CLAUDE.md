@@ -12,3 +12,4 @@ Yerelde deneme: `python3 -m http.server 8766 --directory karahanucar-com` → `h
 
 Sunumlarda (kalıcı tercih): her başlık/kavramın üstüne bağlama uygun, sürekli hareket eden küçük bir SVG animasyon ekle; kartlara hareketli simge, tıklanınca açılan panel koy.
 Tarif ve örnek: `.claude/skills/karahan-tasarim/references/sunum.md` · `assets/sunum-canli-ornek.html`.
+Logo açılışlarda (sunum kapağı, kapak/poster) standart olarak kendini çizerek belirir: `assets/logo-cizen.svg.html` + `assets/logo-ciz.js` (sıra: sol hilal · sağ hilal · gövde · en son taban).
