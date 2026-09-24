@@ -4,6 +4,32 @@
   var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var gokSesi = null, sesHazirla = null; // ses bloğu doldurur; şimşek/hava blokları çağırır
 
+  /* Ses ve hava düğmeleri tek bir "Ortam" panelinde durur; dar ekranda panel bir düğmenin arkasına katlanır (içeriği örtmesin) */
+  var ortam = document.createElement("div");
+  ortam.className = "ortam";
+  var ortamIc = document.createElement("div");
+  ortamIc.className = "ortam-ic";
+  ortamIc.id = "ortam-ic";
+  var ortamAc = document.createElement("button");
+  ortamAc.type = "button";
+  ortamAc.className = "ortam-ac";
+  ortamAc.setAttribute("aria-expanded", "false");
+  ortamAc.setAttribute("aria-controls", "ortam-ic");
+  ortamAc.textContent = "Ortam";
+  ortamAc.addEventListener("click", function () {
+    var acik = ortam.classList.toggle("acik");
+    ortamAc.setAttribute("aria-expanded", String(acik));
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && ortam.classList.contains("acik")) { ortam.classList.remove("acik"); ortamAc.setAttribute("aria-expanded", "false"); ortamAc.focus(); }
+  });
+  document.addEventListener("click", function (e) {
+    if (ortam.classList.contains("acik") && !ortam.contains(e.target)) { ortam.classList.remove("acik"); ortamAc.setAttribute("aria-expanded", "false"); }
+  });
+  ortam.appendChild(ortamIc);
+  ortam.appendChild(ortamAc);
+  document.body.appendChild(ortam);
+
   /* 1) Bölümler kaydırdıkça yumuşakça belirir (yalnız opacity/transform: yerleşim sıçramaz) */
   var bolumler = document.querySelectorAll(".reveal");
   if (azalt || !("IntersectionObserver" in window)) {
@@ -239,7 +265,7 @@
       kutu.appendChild(b);
     });
     isaretle();
-    document.body.appendChild(kutu);
+    ortamIc.appendChild(kutu);
   })();
 
   /* 3b-2) Gramofon → alt radyo çubuğu: yalnız tıklayınca YouTube IFrame API yüklenir (KVKK: önceden hiçbir şey çekilmez).
@@ -486,7 +512,7 @@
       });
       kutu.appendChild(b);
     });
-    document.body.appendChild(kutu);
+    ortamIc.appendChild(kutu);
 
     /* Yağmurda 7–19 sn arayla, çok sönük ve kısa bir şimşek */
     var simsek = document.querySelector(".simsek");
