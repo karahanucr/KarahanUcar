@@ -1151,3 +1151,14 @@ html.gunduz .rastgele-oda { color: var(--murekkep); border-color: rgba(51, 80, 1
 html.gunduz .rastgele-oda:hover, html.gunduz .rastgele-oda:focus-visible { background: var(--murekkep); color: #fbf6ea; }
 html.gunduz section { border-bottom-color: rgba(118, 78, 20, .16); }
 html.gunduz .terim { text-decoration-color: rgba(51, 80, 106, .55); }
+
+/* 2026-09-26 · Dışarıda › Uzay: derin yıldız alanı (js/hareket.js) + yavaşça nefes alan bulutsular */
+html.uzayda #hava {
+  z-index: 6; mix-blend-mode: screen; /* uzayda katman içeriğin önünde ama yalnızca aydınlatarak: oda uzayda süzülür */
+  background: radial-gradient(55% 45% at 18% 28%, rgba(96, 62, 170, .20), transparent 70%), radial-gradient(48% 40% at 82% 72%, rgba(40, 96, 170, .18), transparent 72%),
+    radial-gradient(34% 26% at 62% 18%, rgba(190, 86, 140, .10), transparent 70%), radial-gradient(120% 90% at 50% 50%, rgba(4, 6, 20, .35), transparent 80%);
+  animation: uzay-nefes 26s ease-in-out infinite alternate;
+}
+html.gunduz.uzayda #hava { mix-blend-mode: multiply; z-index: 6; background: radial-gradient(55% 45% at 18% 28%, rgba(96, 62, 170, .10), transparent 70%), radial-gradient(48% 40% at 82% 72%, rgba(40, 96, 170, .09), transparent 72%); }
+@keyframes uzay-nefes { from { filter: hue-rotate(0deg) brightness(1); } to { filter: hue-rotate(-18deg) brightness(1.12); } }
+@media (prefers-reduced-motion: reduce) { html.uzayda #hava { animation: none; } }

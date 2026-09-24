@@ -453,13 +453,16 @@
     var hdpr = Math.min(window.devicePixelRatio || 1, 2);
     var yaprakRenk = ["#c98a3a", "#a5622a", "#d8b35a", "#7e8a3c", "#8c4a2a", "#b7733a"];
     try {
-      var kay = window.localStorage.getItem("hava"); if (kay === "kar" || kay === "yagmur" || kay === "kapali") tur = kay;
+      var kay = window.localStorage.getItem("hava"); if (kay === "kar" || kay === "yagmur" || kay === "uzay" || kay === "kapali") tur = kay;
       ruzgar = window.localStorage.getItem("ruzgar") === "1";
     } catch (e) {}
 
     var yeniH = function (ilk) {
       var s = Math.random();
       if (tur === "kar") return { x: Math.random() * hw, y: ilk ? Math.random() * hh : -10, r: 0.8 + s * 2.2, v: 0.25 + s * 0.9, f: Math.random() * 6.28, a: 0.25 + s * 0.45 };
+      /* uzay: derinliği (z) olan yıldızlar; yakındakiler büyük, parlak ve hızlı kayar */
+      if (tur === "uzay") { var z = Math.pow(Math.random(), 2.2); return { x: ilk ? Math.random() * hw : hw + 4, y: Math.random() * hh, z: z, r: 0.35 + z * 1.6, v: 0.02 + z * 0.22, f: Math.random() * 6.28, a: 0.35 + z * 0.6,
+        c: Math.random() < 0.12 ? "255,214,170" : Math.random() < 0.2 ? "170,200,255" : "240,242,255" }; }
       return { x: Math.random() * (hw + 80), y: ilk ? Math.random() * hh : -30, l: 10 + s * 14, v: 9 + s * 9, a: 0.10 + s * 0.22 };
     };
     var yeniYaprak = function (ilk) {
@@ -469,11 +472,14 @@
     var kur = function () {
       ps = []; yp = [];
       hc.clearRect(0, 0, hw, hh);
-      var n = tur === "kar" ? Math.min(150, Math.round(hw * hh / 11000)) : tur === "yagmur" ? Math.min(160, Math.round(hw * hh / 9000)) : 0;
+      var n = tur === "kar" ? Math.min(150, Math.round(hw * hh / 11000)) : tur === "yagmur" ? Math.min(160, Math.round(hw * hh / 9000)) : tur === "uzay" ? Math.min(420, Math.round(hw * hh / 3200)) : 0;
+      kayan = null;
       for (var i = 0; i < n; i++) ps.push(yeniH(true));
       if (ruzgar) { var m = Math.min(34, Math.round(hw * hh / 40000) + 8); for (var j = 0; j < m; j++) yp.push(yeniYaprak(true)); }
       document.documentElement.classList.toggle("ruzgarli", ruzgar);
+      document.documentElement.classList.toggle("uzayda", tur === "uzay");
     };
+    var kayan = null; /* uzayda ara sıra bir akan yıldız */
     var hBoyut = function () {
       hw = window.innerWidth; hh = window.innerHeight;
       havaTuval.width = hw * hdpr; havaTuval.height = hh * hdpr;
@@ -494,6 +500,13 @@
             hc.fillStyle = (gun ? "rgba(120,140,170," : "rgba(236,242,255,") + p.a.toFixed(2) + ")"; hc.fill();
             if (p.x > hw + 8) p.x = -8;
             if (p.y > hh + 6) ps[i] = yeniH(false);
+          } else if (tur === "uzay") {
+            if (!azalt) { p.x -= p.v + esinti * p.z * 1.2; p.f += 0.02 + p.z * 0.03; }
+            var tw = 0.72 + 0.28 * Math.sin(p.f);
+            hc.beginPath(); hc.arc(p.x, p.y, p.r, 0, 6.2832);
+            hc.fillStyle = "rgba(" + (gun ? "60,70,120" : p.c) + "," + (p.a * tw).toFixed(2) + ")"; hc.fill();
+            if (p.z > 0.8 && !gun) { hc.beginPath(); hc.arc(p.x, p.y, p.r * 3.2, 0, 6.2832); hc.fillStyle = "rgba(" + p.c + "," + (0.06 * tw).toFixed(3) + ")"; hc.fill(); }
+            if (p.x < -6) ps[i] = yeniH(false);
           } else if (tur === "yagmur") {
             p.y += p.v; p.x -= p.v * 0.16; p.x += esinti * 2.6;
             var egim = -p.l * 0.16 + esinti * p.l * 0.28;
@@ -501,6 +514,16 @@
             hc.strokeStyle = (gun ? "rgba(90,110,140," : "rgba(190,208,232,") + p.a.toFixed(2) + ")"; hc.lineWidth = 1; hc.stroke();
             if (p.x > hw + 10) p.x = -10;
             if (p.y > hh + 30) ps[i] = yeniH(false);
+          }
+        }
+        if (tur === "uzay" && !azalt) {
+          if (!kayan && Math.random() < 0.0022) kayan = { x: Math.random() * hw * 0.8 + hw * 0.2, y: Math.random() * hh * 0.4, vx: -(6 + Math.random() * 5), vy: 2.4 + Math.random() * 2, o: 1 };
+          if (kayan) {
+            var gx = kayan.x - kayan.vx * 12, gy = kayan.y - kayan.vy * 12, gr = hc.createLinearGradient(kayan.x, kayan.y, gx, gy);
+            gr.addColorStop(0, "rgba(255,244,220," + (0.85 * kayan.o).toFixed(2) + ")"); gr.addColorStop(1, "rgba(255,244,220,0)");
+            hc.beginPath(); hc.moveTo(kayan.x, kayan.y); hc.lineTo(gx, gy); hc.strokeStyle = gr; hc.lineWidth = 1.6; hc.stroke();
+            kayan.x += kayan.vx; kayan.y += kayan.vy; kayan.o -= 0.012;
+            if (kayan.o <= 0 || kayan.x < -40 || kayan.y > hh + 40) kayan = null;
           }
         }
         for (var k = 0; k < yp.length; k++) {
@@ -531,7 +554,7 @@
       });
     };
     var kaydet = function () { try { window.localStorage.setItem("hava", tur); window.localStorage.setItem("ruzgar", ruzgar ? "1" : "0"); } catch (e) {} };
-    [["kar", "Kar"], ["yagmur", "Yağmur"], ["ruzgar", "Rüzgâr"], ["kapali", "Kapalı"]].forEach(function (t) {
+    [["kar", "Kar"], ["yagmur", "Yağmur"], ["ruzgar", "Rüzgâr"], ["uzay", "Uzay"], ["kapali", "Kapalı"]].forEach(function (t) {
       var b = document.createElement("button");
       b.type = "button"; b.textContent = t[1]; b.dataset.tur = t[0];
       b.addEventListener("click", function () {
