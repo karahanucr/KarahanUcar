@@ -1,0 +1,74 @@
+/* Karahan Uçar tasarım dili — çekirdek değişkenler ve bileşenler (harici bağımlılık yok).
+   Kullanım: <link rel="stylesheet" href="tokens.css">; gündüz teması için <html class="gunduz">. */
+:root {
+  --bg: #16120f; --bg-2: #211b16; --line: rgba(232, 189, 98, .22);
+  --gold: #E8BD62; --gold-2: #FFE2A0; --gold-3: #FFE7A8; --ivory: #EDE6D0; --ivory-2: #f6ecd2; --muted: #A9A38F;
+  --ember: #c8642a; --ice: #d9eaff;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r: 12px; --r-lg: 16px; --pill: 999px;
+  --golge: 0 24px 50px rgba(0, 0, 0, .45);
+  --vurgu: var(--gold); /* odanın rengi: #F09A4A mağara, #C8B0FF metafizik, #9FB8FF zihin, #B7E07A biyoloji, #9FC8FF gök, #E89AC8 estetik */
+}
+html.gunduz { --bg: #f3ead6; --bg-2: #eadcbf; --line: rgba(138, 94, 30, .28); --gold: #764b0c; --gold-2: #8a5a14; --gold-3: #6b430c; --ivory: #2b2117; --ivory-2: #2b2117; --muted: #5e4e3a; --golge: 0 18px 40px rgba(80, 55, 20, .2); }
+@property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+/* Metin */
+.ust-etiket { font: 600 .78rem/1 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--vurgu); }
+.baslik { font: 500 clamp(2.4rem, 6vw, 5rem)/1.04 var(--serif); color: var(--ivory-2); }
+.bolum-no { display: flex; align-items: center; gap: .75rem; font: 500 1rem/1 var(--serif); letter-spacing: .06em; color: var(--gold); }
+.bolum-no::after { content: ""; width: 2.8rem; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+.soluk { color: var(--muted); }
+.ayir { color: var(--gold); opacity: .55; margin-inline: .5em; }
+
+/* Kor çizgisi (başlık altı) */
+@property --sp { syntax: "<percentage>"; initial-value: -20%; inherits: false; }
+.kor-cizgi { height: 2px; border-radius: 2px; background: radial-gradient(ellipse 9% 260% at var(--sp) 50%, rgba(218, 118, 46, .7), rgba(170, 66, 28, .3) 55%, transparent 100%), linear-gradient(90deg, transparent, rgba(232, 189, 98, .2) 20%, rgba(232, 189, 98, .2) 80%, transparent); animation: kor-gecis 14s ease-in-out infinite; }
+@keyframes kor-gecis { 0% { --sp: -20%; } 62%, 100% { --sp: 120%; } }
+
+/* Dönen kor çerçeve */
+.kor-cerceve { position: relative; border-radius: var(--r); }
+.kor-cerceve::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--ang), transparent 0 45%, rgba(232, 189, 98, .35) 65%, var(--gold) 82%, var(--gold-2) 90%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: dolan 5s linear infinite; }
+@keyframes dolan { to { --ang: 360deg; } }
+
+/* Kart */
+.kart { position: relative; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r); padding: 1.3rem 1.4rem; transition: transform .35s, border-color .35s; }
+.kart::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 2px; pointer-events: none; opacity: 0; transition: opacity .4s;
+  background: conic-gradient(from var(--ang), transparent 0 45%, rgba(232, 189, 98, .35) 65%, var(--gold) 82%, var(--gold-2) 90%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: dolan 2.6s linear infinite; }
+.kart:hover { transform: translateY(-3px); border-color: rgba(232, 189, 98, .6); }
+.kart:hover::before { opacity: 1; }
+.kart-no { position: absolute; top: .7rem; inset-inline-end: 1rem; font: 500 2rem/1 var(--serif); color: rgba(232, 189, 98, .16); }
+
+/* Parıldayan nesne */
+.nokta { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); translate: -50% -50%; display: flex; flex-direction: column; align-items: center; gap: .45rem; background: none; border: 0; color: #f6ecd2; cursor: pointer; font: inherit; }
+.halka { position: relative; width: 2.3rem; height: 2.3rem; border-radius: 50%; border: 1.5px solid var(--vurgu); background: radial-gradient(closest-side, rgba(255, 226, 160, .35), rgba(255, 226, 160, .06) 70%, transparent); box-shadow: 0 0 14px rgba(232, 189, 98, .45); transition: transform .35s; }
+.halka::before, .halka::after { content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid var(--vurgu); opacity: 0; animation: dalga 2.8s ease-out infinite; }
+.halka::after { animation-delay: 1.4s; }
+@keyframes dalga { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.4); opacity: 0; } }
+.nokta:hover .halka { transform: scale(1.18); }
+.nokta-ad { font-size: .78rem; letter-spacing: .06em; padding: .18rem .7rem; border-radius: var(--pill); background: rgba(12, 9, 7, .7); border: 1px solid rgba(232, 189, 98, .28); white-space: nowrap; }
+
+/* Cam-parşömen panel */
+.panel { padding: 1.4rem 1.6rem; border-radius: var(--r-lg); color: #efe6cf; background: linear-gradient(160deg, rgba(34, 25, 17, .92), rgba(14, 10, 8, .94)); border: 1px solid rgba(232, 189, 98, .35); box-shadow: 0 30px 60px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 226, 160, .12); backdrop-filter: blur(12px); }
+.panel h3 { font: 500 1.5rem/1.2 var(--serif); color: #f6ecd2; margin: 0 0 .7rem; }
+.pn-soz { margin: .9rem 0 .2rem; padding: .7rem .9rem; border-inline-start: 3px solid var(--vurgu); background: rgba(232, 189, 98, .07); border-radius: 0 8px 8px 0; font-family: var(--serif); font-style: italic; }
+
+/* Pirinç levha */
+.levha { display: inline-block; position: relative; overflow: hidden; padding: .5rem 1rem; border-radius: 6px; border: 1px solid #5a3e14; color: #3a2408; font: 600 .9rem/1 var(--serif); letter-spacing: .12em; text-transform: uppercase;
+  background: linear-gradient(160deg, #f3d488, #c99a3e 45%, #e8c06a 60%, #a8782a); box-shadow: 0 3px 8px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.levha::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent); animation: parla 6s ease-in-out infinite; }
+@keyframes parla { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+
+/* Parşömen */
+.parsomen { color: #2e1c08; border-radius: 10px; background: radial-gradient(ellipse 70% 60% at 50% 45%, #f1e3c2, #e2cc9c 70%, #c9ad76); box-shadow: inset 0 0 40px rgba(90, 55, 20, .45), inset 0 0 0 1px rgba(90, 55, 20, .5), 0 12px 30px rgba(0, 0, 0, .45); }
+
+/* Işık ve titreme */
+.isik { background: radial-gradient(closest-side, rgba(232, 189, 98, .3), rgba(232, 189, 98, .08) 55%, transparent 75%); animation: titre 3.4s ease-in-out infinite; }
+@keyframes titre { 0%, 100% { opacity: .75; transform: scale(.94); } 30% { opacity: 1; transform: scale(1.04); } 55% { opacity: .82; transform: scale(.98); } 80% { opacity: .95; transform: scale(1.06); } }
+@keyframes alev { 0%, 100% { transform: scale(1, 1) skewX(0); } 25% { transform: scale(.985, 1.02) skewX(.6deg); } 50% { transform: scale(1.01, .99) skewX(-.5deg); } 75% { transform: scale(.99, 1.015) skewX(.4deg); } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
