@@ -1188,3 +1188,10 @@ html.gunduz section:not(#dil)::after { background: url("data:image/svg+xml,%3Csv
   filter: none; }
 .ayrac::before, .ayrac::after { background: linear-gradient(90deg, transparent, rgba(232, 189, 98, .45)); }
 html.gunduz .ayrac::before, html.gunduz .ayrac::after { background: linear-gradient(90deg, transparent, rgba(118, 75, 12, .4)); }
+
+/* 2026-09-26 · Portre kilit taşında kendini çizen logo (js/logo-ciz.js) */
+.portre .portre-kilit svg { width: 76%; height: 76%; display: block; overflow: visible; }
+.portre-kilit { pointer-events: auto; }
+.logo-ciz .lc-uc { filter: drop-shadow(0 0 60px #ffd890); opacity: 0; }
+.logo-ciz.bitti { filter: drop-shadow(0 0 6px rgba(232, 189, 98, .55)); animation: alev 4.2s ease-in-out infinite; transform-origin: 50% 90%; }
+@media (prefers-reduced-motion: reduce) { .logo-ciz.bitti { animation: none; } }
