@@ -43,8 +43,8 @@
   }
   </script>
   <link rel="preload" as="image" href="assets/gpt/maskotlu-kutuphane.webp" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=20260924e">
-  <link rel="stylesheet" href="css/sahne.css?v=20260924e">
+  <link rel="stylesheet" href="css/style.css?v=20260924f">
+  <link rel="stylesheet" href="css/sahne.css?v=20260924f">
   <script>document.documentElement.classList.add("js");
     /* Tema: ay/güneş tıklamasıyla seçilen gündüz hâli, boyamadan önce uygulanır (yanıp sönme olmasın) */
     try { if (localStorage.getItem("tema") === "gunduz") document.documentElement.classList.add("gunduz"); } catch (e) {}</script>
@@ -78,7 +78,7 @@
       <span class="ayir" aria-hidden="true">·</span>
       <a href="#yayinlar">Yayınlar</a>
       <span class="ayir" aria-hidden="true">·</span>
-      <a href="#kanal">Kanal &amp; Sunumlar</a>
+      <a href="#kanal">Kanal</a>
       <span class="ayir" aria-hidden="true">·</span>
       <a href="#randevu">Randevu</a>
       <span class="ayir" aria-hidden="true">·</span>
@@ -115,11 +115,9 @@
       <p class="eyebrow">Felsefe araştırmacısı</p>
       <h1>Karahan Uçar</h1>
       <p class="lead">Varlığı, zihni, bilgiyi ve dili düşünmeye çalışıyorum; bu sayfa yayınlarımı, sunumlarımı ve bilgi notlarımı bir araya getiriyor.</p>
+      <!-- Çalışma alanları: tek bir şeritte, soldan sağa durmadan kayar (ikinci kopya kesintisiz döngü içindir) -->
       <ul class="tags" aria-label="Çalışma alanları">
-        <li class="kayan"><span class="kayan-iz"><span>Metafizik</span><i aria-hidden="true">·</i><span>Varlık felsefesi</span><i aria-hidden="true">·</i><span aria-hidden="true">Metafizik</span><i aria-hidden="true">·</i><span aria-hidden="true">Varlık felsefesi</span><i aria-hidden="true">·</i></span></li>
-        <li>Zihin felsefesi</li>
-        <li class="kayan"><span class="kayan-iz" style="--kd:-9s"><span>Epistemoloji</span><i aria-hidden="true">·</i><span>Bilgi felsefesi</span><i aria-hidden="true">·</i><span aria-hidden="true">Epistemoloji</span><i aria-hidden="true">·</i><span aria-hidden="true">Bilgi felsefesi</span><i aria-hidden="true">·</i></span></li>
-        <li>Dil felsefesi</li>
+        <li class="kayan kayan-serit"><span class="kayan-iz"><span>Varlık Felsefesi <span class="yun">(Metafizik)</span></span><i aria-hidden="true">·</i><span>Zihin Felsefesi</span><i aria-hidden="true">·</i><span>Bilgi Felsefesi <span class="yun">(Epistemoloji)</span></span><i aria-hidden="true">·</i><span>Dil Felsefesi</span><i aria-hidden="true">·</i><span class="kayan-kopya" aria-hidden="true"><span>Varlık Felsefesi <span class="yun">(Metafizik)</span></span><i>·</i><span>Zihin Felsefesi</span><i>·</i><span>Bilgi Felsefesi <span class="yun">(Epistemoloji)</span></span><i>·</i><span>Dil Felsefesi</span><i>·</i></span></span></li>
       </ul>
       <p class="hero-eylem">
         <a class="button button-dolu" href="#bilgi">Kütüphaneye gir →</a>
@@ -131,14 +129,6 @@
   <div class="sahne" role="img" aria-label="Mum ışığında bir kütüphanede kitap okuyan kuzgun maskot">
     <div class="sahne-in">
       <img src="assets/gpt/maskotlu-kutuphane.webp" alt="" width="1915" height="821" fetchpriority="high" decoding="async">
-      <!-- Maskotun kitabı: sayfa ara ara sağdan sola çevrilir (koordinatlar görseldeki açık kitaba göre, 1915×821) -->
-      <svg class="sayfa-cevir" viewBox="0 0 1915 821" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <defs><linearGradient id="sayfaG" x1="0" x2="1"><stop offset="0" stop-color="#9a6e3e"/><stop offset=".14" stop-color="#dcb57c"/><stop offset=".7" stop-color="#ecc98e"/><stop offset="1" stop-color="#c8985e"/></linearGradient></defs>
-        <g class="sayfa-g"><path d="M742 489C800 476 880 468 960 469C985 469 1005 471 1018 474L1030 504C960 503 860 506 760 512Z" fill="url(#sayfaG)"/>
-          <path d="M780 488H990M784 494H995M788 500H1000" stroke="#8a6a3a" stroke-width="1.2" opacity=".35"/></g>
-        <g class="sayfa-g s2"><path d="M742 489C800 476 880 468 960 469C985 469 1005 471 1018 474L1030 504C960 503 860 506 760 512Z" fill="url(#sayfaG)"/>
-          <path d="M780 488H990M784 494H995M788 500H1000" stroke="#8a6a3a" stroke-width="1.2" opacity=".35"/></g>
-      </svg>
     </div>
   </div>
 
@@ -191,8 +181,13 @@
 
   <section id="hakkinda" class="reveal">
     <div class="wrap hakkinda">
+      <!-- Portre: kütüphane penceresi gibi kemerli, oyma ahşap çerçeve; tepede logolu kilit taşı, altta pirinç levha.
+           Çerçeve sabittir; yalnız camda ara sıra bir ışık yansıması geçer ve alttan mum ışığı hafifçe nefes alır. -->
       <figure class="portre">
-        <img src="assets/portre.webp" alt="Karahan Uçar’ın portresi" width="600" height="800" loading="lazy" decoding="async">
+        <span class="portre-cerceve" aria-hidden="true"></span>
+        <span class="portre-cam"><img src="assets/portre.webp" alt="Karahan Uçar’ın portresi" width="600" height="800" loading="lazy" decoding="async"><span class="portre-parilti" aria-hidden="true"></span></span>
+        <span class="portre-kilit" aria-hidden="true"><img src="assets/logo-seffaf.svg" alt="" width="40" height="40"></span>
+        <figcaption class="portre-levha" data-sabit>Karahan Uçar</figcaption>
       </figure>
       <div class="hakkinda-metin">
         <p class="bolum-no" aria-hidden="true" data-sabit>I</p>
@@ -241,82 +236,10 @@
           <button type="button" class="suz" data-alan="estetik" aria-pressed="false">Estetik <span class="suz-sayi" data-sabit></span></button>
         </div>
       </div>
-      <!-- YENİ İÇERİK EKLEMEK: listenin en üstüne bir <li class="kayit" data-alan="..." data-tur="..."> kopyala.
-           data-alan birden çok alan alabilir (boşlukla): diller felsefe doga-bilimleri formel-bilimler sosyal-bilimler estetik.
-           data-tur simgeyi seçer: okuma, sunum, sahne, video, ceviri, not. Dörtten fazla kayıt olunca liste kendiliğinden, sırayla akar.
-           Hazırlanan içerik için class="kayit kayit-yakinda" kullan (sayılmaz). -->
-      <div class="dizin-kap">
-        <ul class="dizin">
-          <li class="kayit" data-alan="felsefe doga-bilimleri formel-bilimler" data-tur="okuma">
-            <span class="kayit-tur">Okuma</span>
-            <div class="kayit-govde">
-              <h4><a href="bilgi/matematiksel-evren.html">Evren bir matematiksel yapı mı?</a></h4>
-              <p>Tegmark’ın “Matematiksel Evren” makalesi kaydırarak, adım adım: dış gerçeklik, yapılar, Gödel ve soyut nesneler sorusu.</p>
-              <p class="kayit-alan"><span>Felsefe</span> · <span>Doğa Bilimleri</span> · <span>Formel Bilimler</span></p>
-            </div>
-            <span class="kayit-ok" aria-hidden="true">→</span>
-          </li>
-          <li class="kayit" data-alan="felsefe" data-tur="sahne">
-            <span class="kayit-tur">Sahne</span>
-            <div class="kayit-govde">
-              <h4><a href="#sahne-epistemoloji">Platon’un Mağarası</a></h4>
-              <p>Duvarda kayan gölgeler, ateş ve gün ışığı: bilgi nedir, nereden bileceğiz?</p>
-              <p class="kayit-alan"><span>Felsefe</span></p>
-            </div>
-            <span class="kayit-ok" aria-hidden="true">→</span>
-          </li>
-          <li class="kayit" data-alan="diller" data-tur="sahne">
-            <span class="kayit-tur">Sahne</span>
-            <div class="kayit-govde">
-              <h4><a href="#sahne-latince">Roma Senatosu’nda Latince</a></h4>
-              <p>Cicero kürsüde: alfabe, dilbilgisi, Latincenin serüveni ve ünlü sözler.</p>
-              <p class="kayit-alan"><span>Diller</span></p>
-            </div>
-            <span class="kayit-ok" aria-hidden="true">→</span>
-          </li>
-          <li class="kayit" data-alan="felsefe" data-tur="sunum">
-            <span class="kayit-tur">Sunum</span>
-            <div class="kayit-govde">
-              <h4><a href="sunumlar/metafizik/index.html" target="_blank" rel="noopener">Metafizik</a></h4>
-              <p>Aristoteles’ten Hegel’e metafizik sorunlar.</p>
-              <p class="kayit-alan"><span>Felsefe</span></p>
-            </div>
-            <span class="kayit-ok" aria-hidden="true">→</span>
-          </li>
-          <li class="kayit" data-alan="doga-bilimleri" data-tur="sahne">
-            <span class="kayit-tur">Sahne</span>
-            <div class="kayit-govde">
-              <h4><a href="#sahne-biyoloji">Ormanın içinde biyoloji</a></h4>
-              <p>Karınca izleri, yapraklar ve mantarlar arasında hücre, evrim ve genetik.</p>
-              <p class="kayit-alan"><span>Doğa Bilimleri</span></p>
-            </div>
-            <span class="kayit-ok" aria-hidden="true">→</span>
-          </li>
-          <li class="kayit" data-alan="felsefe doga-bilimleri" data-tur="sunum">
-            <span class="kayit-tur">Sunum</span>
-            <div class="kayit-govde">
-              <h4><a href="sunumlar/biyoloji-felsefesi/index.html" target="_blank" rel="noopener">Yaşamın sınırları</a></h4>
-              <p>Biyoloji felsefesi üzerine etkileşimli sunum.</p>
-              <p class="kayit-alan"><span>Felsefe</span> · <span>Doğa Bilimleri</span></p>
-            </div>
-            <span class="kayit-ok" aria-hidden="true">→</span>
-          </li>
-          <li class="kayit kayit-yakinda" data-alan="" data-tur="yakinda">
-            <span class="kayit-tur">Yakında</span>
-            <div class="kayit-govde">
-              <h4>Sıradaki okuma</h4>
-              <p>Yeni bir adım adım okuma hazırlanıyor.</p>
-            </div>
-          </li>
-        </ul>
-        <div class="dizin-kontrol" hidden>
-          <span class="dizin-sayac" aria-hidden="true" data-sabit></span>
-          <span class="dizin-cubuk" aria-hidden="true"><i></i></span>
-          <button type="button" class="dizin-geri" aria-label="Önceki">‹</button>
-          <button type="button" class="dizin-dur" aria-pressed="false" aria-label="Akışı durdur">❚❚</button>
-          <button type="button" class="dizin-ileri" aria-label="Sonraki">›</button>
-        </div>
-      </div>
+      <!-- YENİ İÇERİK EKLEMEK: js/icerik.js dosyasına bir kayıt ekle. Aynı kayıt kendiliğinden burada, türüne göre
+           Yayınlar'da (belge) ya da Kanal'da (video) ve ilgili sahnenin "Çalışmalarım" sandığında görünür.
+           Dörtten fazla kayıt olunca liste kendi penceresi içinde, sırayla akar (sayfa düzeni kıpırdamaz). -->
+      <div class="dizin-kap akis" data-akis="bilgi"></div>
       <p class="dizin-bos" hidden>Bu rafta henüz içerik yok; yakında eklenecek.</p>
     </div>
   </section>
@@ -336,23 +259,10 @@
   <section id="yayinlar" class="reveal">
     <div class="wrap">
       <p class="bolum-no" aria-hidden="true" data-sabit>III</p>
-      <h2>Yayınlar ve sunumlar</h2>
-      <p class="sub">Sunum, seminer ve proje çalışmaları. Yayımlanan makaleler ve bildiriler eklendikçe burada listelenecek; tam liste profillerimde.<span class="draft">taslak</span></p>
-      <!-- Yeni yayın: en üste bir <details> daha ekle (yeniden eskiye sıralı). -->
-      <div class="pubs">
-        <details>
-          <summary><span class="pub-baslik">Information: Modality</span><span class="pub-meta">Temmuz 2026 · Sunum</span></summary>
-          <p><a href="https://philpeople.org/profiles/karahan-ucar" rel="noopener">PhilPeople profilim</a> · <a href="https://istanbul.academia.edu/KarahanU%C3%A7ar" rel="noopener">Academia profilim</a></p>
-        </details>
-        <details>
-          <summary><span class="pub-baslik">Non-Existence Seminar: Meinong and the Problem of Intentionality</span><span class="pub-meta">Haziran 2026 · Sunum</span></summary>
-          <p><a href="https://philpeople.org/profiles/karahan-ucar" rel="noopener">PhilPeople profilim</a> · <a href="https://istanbul.academia.edu/KarahanU%C3%A7ar" rel="noopener">Academia profilim</a></p>
-        </details>
-        <details>
-          <summary><span class="pub-baslik">Europa Macht Schule (EMS) projesi</span><span class="pub-meta">Mayıs 2026 · Proje</span></summary>
-          <p><a href="https://www.linkedin.com/in/karahan-undefined-ba685223a/" rel="noopener">LinkedIn profilim</a></p>
-        </details>
-      </div>
+      <h2>Yayınlar</h2>
+      <p class="sub">Makaleler, bildiriler, sunum metinleri ve diğer belgeler. Bir başlığa dokununca açıklaması ve indirme bağlantısı açılır.<span class="draft">taslak</span></p>
+      <!-- Yeni yayın: js/icerik.js'e "belge" alanı olan bir kayıt ekle (dosyayı belgeler/ klasörüne koy). -->
+      <div class="akis yayin-akis" data-akis="yayin"></div>
     </div>
   </section>
 
@@ -370,38 +280,29 @@
     <div class="wrap head">
       <div>
         <p class="bolum-no" aria-hidden="true" data-sabit>IV</p>
-        <h2>Kanal &amp; Sunumlar</h2>
-        <p class="sub">“Düşüncenin Eşiğinde” — merak, akıl, anlam. Konu anlatımları ve etkileşimli sunumlar.<span class="draft">taslak</span></p>
+        <h2>Kanal</h2>
+        <p class="sub">“Düşüncenin Eşiğinde” — merak, akıl, anlam. Konu anlatımları ve videolar; seçtiğin video aşağıdaki ekranda oynar.<span class="draft">taslak</span></p>
       </div>
       <img class="maskot maskot-yan" src="assets/maskot/kesfetti.png" alt="Neşeli kuzgun maskot iki kanadını açmış" width="170" height="141" loading="lazy" decoding="async">
     </div>
-    <figure class="wrap kanal-banner">
-      <img src="assets/kanal-banner.webp" alt="Kanal kapağı: karlı bir gecede şömineli kütüphane, ortada altın phi-alev logo, masada kitap okuyan kuzgun maskot" width="1920" height="525" loading="lazy" decoding="async">
-    </figure>
     <div class="wrap">
-      <div class="grid">
-        <article class="card">
-          <span class="kart-no" aria-hidden="true" data-sabit>01</span>
-          <span class="kart-ust">Etkileşimli sunum</span>
-          <h3>Yaşamın sınırları</h3>
-          <p>Biyoloji felsefesi üzerine etkileşimli sunum.</p>
-          <a class="go" href="sunumlar/biyoloji-felsefesi/index.html" target="_blank" rel="noopener">Sunumu aç →</a>
-        </article>
-        <article class="card">
-          <span class="kart-no" aria-hidden="true" data-sabit>02</span>
-          <span class="kart-ust">Etkileşimli sunum</span>
-          <h3>Metafizik</h3>
-          <p>Aristoteles’ten Hegel’e metafizik sorunlar.</p>
-          <a class="go" href="sunumlar/metafizik/index.html" target="_blank" rel="noopener">Sunumu aç →</a>
-        </article>
-        <article class="card">
-          <span class="kart-no" aria-hidden="true" data-sabit>▶</span>
-          <span class="kart-ust">Video</span>
-          <h3>YouTube kanalı</h3>
-          <p>Videolar ve yeni yayınlar.</p>
-          <a class="go" href="https://www.youtube.com/@karahan6927" rel="noopener">Kanala git →</a>
-        </article>
+      <!-- Video ekranı: YouTube yalnız "İzle"ye basınca yüklenir (önceden hiçbir şey çekilmez). Videolar js/icerik.js'te (tur: "video"). -->
+      <div class="video-panel">
+        <div class="video-ekran">
+          <div class="video-kapak"><img src="assets/kanal-banner.webp" alt="" width="1920" height="525" loading="lazy" decoding="async">
+            <button type="button" class="video-oynat"><span class="video-oynat-daire" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M15 11L30 20L15 29Z"/></svg></span><span class="video-oynat-ad">İzle</span></button>
+          </div>
+          <div class="video-yer"></div>
+        </div>
+        <div class="video-bilgi">
+          <p class="video-tur">Şimdi seçili</p>
+          <h3 class="video-baslik" data-sabit></h3>
+          <p class="video-aciklama" data-sabit></p>
+          <a class="video-dis" href="https://www.youtube.com/@karahan6927" target="_blank" rel="noopener">YouTube’da aç ↗</a>
+        </div>
       </div>
+      <div class="dizin-bas"><h3 class="alt-baslik">Son yüklenenler</h3></div>
+      <div class="dizin-kap akis" data-akis="video"></div>
     </div>
   </section>
 
@@ -496,7 +397,7 @@
       <a href="#hakkinda">Hakkında</a><span class="ayir" aria-hidden="true">·</span>
       <a href="#bilgi">Bilgi</a><span class="ayir" aria-hidden="true">·</span>
       <a href="#yayinlar">Yayınlar</a><span class="ayir" aria-hidden="true">·</span>
-      <a href="#kanal">Kanal &amp; Sunumlar</a><span class="ayir" aria-hidden="true">·</span>
+      <a href="#kanal">Kanal</a><span class="ayir" aria-hidden="true">·</span>
       <a href="#randevu">Randevu</a><span class="ayir" aria-hidden="true">·</span>
       <a href="#iletisim">İletişim</a>
     </nav>
@@ -506,19 +407,22 @@
   </div>
 </footer>
 
-<script src="js/hareket.js?v=20260924e"></script>
-<script src="js/kitaplik.js?v=20260924e"></script>
-<script src="js/ses.js?v=20260924e"></script>
-<script src="js/diller.js?v=20260924e"></script>
-<script src="js/yazi.js?v=20260924e"></script>
-<script src="js/tema.js?v=20260924e"></script>
-<script src="js/kutuphane.js?v=20260924e"></script>
-<script src="js/arsiv.js?v=20260924e"></script>
-<script src="js/sozlukce.js?v=20260924e"></script>
-<script src="js/sahne/motor.js?v=20260924e"></script>
-<script src="js/sahne/diller.js?v=20260924e"></script>
-<script src="js/sahne/doga.js?v=20260924e"></script>
-<script src="js/sahne/felsefe.js?v=20260924e"></script>
-<script src="js/sahne/diger.js?v=20260924e"></script>
+<script src="js/hareket.js?v=20260924f"></script>
+<script src="js/icerik.js?v=20260924f"></script>
+<script src="js/kitaplik.js?v=20260924f"></script>
+<script src="js/ses.js?v=20260924f"></script>
+<script src="js/diller.js?v=20260924f"></script>
+<script src="js/yazi.js?v=20260924f"></script>
+<script src="js/tema.js?v=20260924f"></script>
+<script src="js/kutuphane.js?v=20260924f"></script>
+<script src="js/arsiv.js?v=20260924f"></script>
+<script src="js/sozlukce.js?v=20260924f"></script>
+<script src="js/haritalar.js?v=20260924f"></script>
+<script src="js/terimce.js?v=20260924f"></script>
+<script src="js/sahne/motor.js?v=20260924f"></script>
+<script src="js/sahne/diller.js?v=20260924f"></script>
+<script src="js/sahne/doga.js?v=20260924f"></script>
+<script src="js/sahne/felsefe.js?v=20260924f"></script>
+<script src="js/sahne/diger.js?v=20260924f"></script>
 </body>
 </html>

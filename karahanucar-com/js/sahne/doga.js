@@ -68,7 +68,7 @@
   S.kaydet("biyoloji", {
     ad: "Biyoloji", ust: "doga-bilimleri", yer: "Ormanda bir açıklık · sabah", vurgu: "#B7E07A", alan: "doga-bilimleri",
     alt: "Ağaçlar açılıyor, gökyüzü görünüyor; sabah ışığı çayıra dökülüyor. Karıncalar yuvaya yaprak taşıyor, mantarlar toprağın altında ağaçlarla konuşuyor. Canlılığın bilimine hoş geldin.",
-    parcacik: { tur: "yaprak", adet: 26 }, sozYer: "sag", isaret: "yaprak", sandik: { x: 44, y: 91 },
+    parcacik: { tur: "yaprak", adet: 26 }, sozYer: "sag", isaret: "yaprak",
     sozler: [
       { metin: "There is grandeur in this view of life.", dil: "en", ceviri: "Yaşama bu bakışta bir yücelik var.", kaynak: "Darwin · Türlerin Kökeni, 1859" },
       { metin: "Omnis cellula e cellula.", dil: "la", ceviri: "Her hücre bir hücreden gelir.", kaynak: "Rudolf Virchow, 1855" },
@@ -165,7 +165,7 @@
   S.kaydet("astronomi", {
     ad: "Astronomi", ust: "doga-bilimleri", yer: "Dağ başında bir gözlemevi · açık bir gece", vurgu: "#9FC8FF", alan: "doga-bilimleri",
     alt: "Kubbenin kapağı açık, teleskop Orion'a dönük. Aynı gökyüzüne Babilliler, Uluğ Bey ve Galileo da baktı.",
-    parcacik: { tur: "yildiz", adet: 160 }, isaret: "yildiz", sandik: { x: 64, y: 88 },
+    parcacik: { tur: "yildiz", adet: 160 }, isaret: "yildiz",
     sozler: [
       { metin: "Der bestirnte Himmel über mir und das moralische Gesetz in mir.", dil: "de", ceviri: "Üstümdeki yıldızlı gök ve içimdeki ahlak yasası.", kaynak: "Kant · Pratik Aklın Eleştirisi, 1788" },
       { metin: "È scritto in lingua matematica.", dil: "it", ceviri: "(Evrenin kitabı) matematik diliyle yazılmıştır.", kaynak: "Galileo · Il Saggiatore, 1623" },
@@ -236,7 +236,7 @@
   S.kaydet("fizik", {
     ad: "Fizik", ust: "doga-bilimleri", yer: "Pisa · Mucizeler Meydanı · bir sabah", vurgu: "#E8C870", alan: "doga-bilimleri",
     alt: "Galileo'nun kulesinin gölgesinde on beş sarkaç aynı anda bırakıldı: bir dalga, bir yılan, bir kaos, sonra yeniden düzen. Güneş prizmada renklerine ayrılıyor.",
-    parcacik: { tur: "toz", adet: 40 }, isaret: "dalga", sandik: { x: 90, y: 88 },
+    parcacik: { tur: "toz", adet: 40 }, isaret: "dalga",
     sozler: [
       { metin: "Hypotheses non fingo.", dil: "la", ceviri: "Hipotez uydurmam.", kaynak: "Newton · Principia, Genel Not (1713)" },
       { metin: "What I cannot create, I do not understand.", dil: "en", ceviri: "Yaratamadığım şeyi anlamış değilimdir.", kaynak: "Richard Feynman'ın kara tahtası, 1988" },

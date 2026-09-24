@@ -10,7 +10,7 @@
   <meta property="og:title" content="Evren bir matematiksel yapı mı?">
   <meta property="og:description" content="Tegmark'ın Matematiksel Evren Hipotezi, adım adım: dış gerçeklik, yapılar, Gödel ve soyut nesneler sorusu.">
   <meta property="og:image" content="../assets/og-kapak.jpg">
-  <link rel="stylesheet" href="../css/style.css?v=20260923b">
+  <link rel="stylesheet" href="../css/style.css?v=20260924f">
   <script>try { if (localStorage.getItem("tema") === "gunduz") document.documentElement.classList.add("gunduz"); } catch (e) {}</script>
   <style>
     /* Adım adım okuma: solda sabit duran çizim, sağda kaydırdıkça ilerleyen adımlar */
@@ -78,7 +78,7 @@
       </svg>
     </figure>
 
-    <div class="adimlar">
+    <div class="adimlar" data-terimce>
       <section class="adim" data-adim="1">
         <p class="no">Adım 1</p>
         <h2>Dış Gerçeklik Hipotezi</h2>
@@ -146,5 +146,8 @@
     adimlar.forEach(function (a) { io.observe(a); });
   })();
 </script>
+<!-- Sözlükçe terimleri: metinde geçenlerin üzerine gelince tanım çıkar -->
+<script src="../js/sozlukce.js?v=20260924f"></script>
+<script src="../js/terimce.js?v=20260924f"></script>
 </body>
 </html>

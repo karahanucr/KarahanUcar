@@ -76,7 +76,7 @@
   S.kaydet("latince", {
     ad: "Latince", ust: "diller", yer: "Roma · Senato toplantısı · MÖ 63", vurgu: "#E8BD62", alan: "diller",
     alt: "Konsül Cicero ayağa kalktı; salon sustu. Latince, Roma'nın hukukunu, felsefesini ve bin yıl boyunca Avrupa'nın bilim dilini taşıdı.",
-    parcacik: { tur: "toz", adet: 90 }, sozYer: "sag", isaret: "halka", sandik: { x: 33, y: 90 },
+    parcacik: { tur: "toz", adet: 90 }, sozYer: "sag", isaret: "halka",
     sozler: [
       { metin: "Quo usque tandem abutere, Catilina, patientia nostra?", dil: "la", ceviri: "Ne zamana dek, Catilina, sabrımızı kötüye kullanacaksın?", kaynak: "Cicero · In Catilinam I, 1" },
       { metin: "Sapere aude.", dil: "la", ceviri: "Bilmeye cesaret et.", kaynak: "Horatius · Epistulae I.2.40" },
@@ -194,7 +194,7 @@
   S.kaydet("yunanca", {
     ad: "Antik Yunanca", ust: "diller", yer: "Atina · Agora · MÖ 4. yüzyıl", vurgu: "#F0B870", alan: "diller",
     alt: "Güneş Akropolis'in ardına iniyor; stoanın gölgesinde iki filozof yürüyerek tartışıyor. Felsefenin ilk kavramları bu dilde doğdu.",
-    parcacik: { tur: "kum", adet: 70 }, isaret: "yildiz", sandik: { x: 57, y: 93 },
+    parcacik: { tur: "kum", adet: 70 }, isaret: "yildiz",
     sozler: [
       { metin: "ὁ δὲ ἀνεξέταστος βίος οὐ βιωτὸς ἀνθρώπῳ.", dil: "grc", ceviri: "Sorgulanmamış bir hayat, insan için yaşanmaya değmez.", kaynak: "Sokrates · Platon, Savunma 38a" },
       { metin: "πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει.", dil: "grc", ceviri: "Bütün insanlar doğaları gereği bilmeyi arzular.", kaynak: "Aristoteles · Metafizik A, 980a" },
@@ -337,7 +337,7 @@
   S.kaydet("arapca", {
     ad: "Arapça", ust: "diller", yer: "Bağdat · Beytülhikme'nin avlusu · 9. yüzyıl", vurgu: "#E6C36A", alan: "diller",
     alt: "Akşam serinliği; şadırvanın suyu şırıldıyor, revakların altında kandiller yanıyor. Yunanca eserlerin Arapçaya çevrildiği bu avluda Aristoteles yeniden okundu, cebir doğdu.",
-    parcacik: { tur: "toz", adet: 50 }, sozYer: "sag", isaret: "kristal", sandik: { x: 40, y: 91 },
+    parcacik: { tur: "toz", adet: 50 }, sozYer: "sag", isaret: "kristal",
     sozler: [
       { metin: "وخير جليس في الزمان كتاب", dil: "ar", ceviri: "Zamanın en iyi yoldaşı kitaptır.", kaynak: "el-Mütenebbî, 10. yüzyıl" },
       { metin: "العلم نور", dil: "ar", ceviri: "İlim nurdur.", kaynak: "Arap atasözü" },

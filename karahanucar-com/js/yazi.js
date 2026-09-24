@@ -82,6 +82,7 @@
   var kod = "tr";
   function cevir(yeni) {
     kod = yeni;
+    document.dispatchEvent(new CustomEvent("dil-oncesi")); // terimce.js işaretlerini geri alır
     kayitlar.forEach(birlestir);
     var S = (yeni !== "tr" && D[yeni]) ? D[yeni] : null;
     kayitlar.forEach(function (r) {
@@ -109,6 +110,7 @@
       eller.forEach(function (e) { gozle.observe(e); });
     }
     try { window.localStorage.setItem("dil", yeni); } catch (e) {}
+    document.dispatchEvent(new CustomEvent("dil-sonrasi"));
   }
 
   /* 4) Kaydırınca savrulma: aşağı inerken yukarı, yukarı çıkarken aşağı doğru (yönle ters, rüzgâr gibi) */

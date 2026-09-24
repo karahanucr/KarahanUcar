@@ -30,6 +30,35 @@
   ortam.appendChild(ortamAc);
   document.body.appendChild(ortam);
 
+  /* Katlanır grup: "Ses" / "Dışarıda" etiketi bir düğmedir; basınca seçenekler etiketin içine çekilir (yanında yalnız
+     seçili olanların kısa özeti kalır), tekrar basınca açılır. Tercih tarayıcıda hatırlanır. */
+  function katlanir(kutu, etiket, anahtar) {
+    var bas = document.createElement("button");
+    bas.type = "button"; bas.className = "ha-bas"; bas.setAttribute("aria-expanded", "true");
+    bas.innerHTML = '<span class="ha-ok" aria-hidden="true"></span><span class="ha-ad"></span>';
+    bas.querySelector(".ha-ad").textContent = etiket;
+    var ozet = document.createElement("span"); ozet.className = "ha-ozet"; ozet.setAttribute("aria-hidden", "true");
+    var sec = document.createElement("span"); sec.className = "ha-secenek";
+    var ic = document.createElement("span"); ic.className = "ha-secenek-ic"; sec.appendChild(ic);
+    kutu.appendChild(bas); kutu.appendChild(ozet); kutu.appendChild(sec);
+    function ozetle() {
+      var ad = [].slice.call(ic.querySelectorAll('button[aria-pressed="true"]')).map(function (b) { return b.textContent; });
+      ozet.textContent = ad.join(" · ");
+    }
+    function ayarla(acik, ilk) {
+      kutu.classList.toggle("katli", !acik);
+      bas.setAttribute("aria-expanded", String(acik));
+      if (!acik) ozetle();
+      if (!ilk) try { window.localStorage.setItem(anahtar, acik ? "1" : "0"); } catch (e) {}
+    }
+    bas.addEventListener("click", function () { ayarla(kutu.classList.contains("katli")); });
+    new MutationObserver(ozetle).observe(ic, { subtree: true, attributes: true, attributeFilter: ["aria-pressed"], childList: true, characterData: true });
+    var acik = true;
+    try { acik = window.localStorage.getItem(anahtar) !== "0"; } catch (e) {}
+    ayarla(acik, true);
+    return ic;
+  }
+
   /* 1) Bölümler kaydırdıkça yumuşakça belirir (yalnız opacity/transform: yerleşim sıçramaz) */
   var bolumler = document.querySelectorAll(".reveal");
   if (azalt || !("IntersectionObserver" in window)) {
@@ -248,9 +277,9 @@
     kutu.className = "hava-anahtar ses-anahtar";
     kutu.setAttribute("role", "group");
     kutu.setAttribute("aria-label", "Ortam sesi");
-    kutu.appendChild(document.createTextNode("Ses: "));
+    var sesIc = katlanir(kutu, "Ses", "ortam-ses-acik");
     function isaretle() {
-      kutu.querySelectorAll("button").forEach(function (x) {
+      kutu.querySelectorAll("button[data-tur]").forEach(function (x) {
         var k = x.dataset.tur;
         x.setAttribute("aria-pressed", String(k === "kapali" ? !(acik.somine || acik.yagmur || acik.ruzgar) : acik[k]));
       });
@@ -262,7 +291,7 @@
         if (t[0] === "kapali") { acik.somine = acik.yagmur = acik.ruzgar = false; } else { acik[t[0]] = !acik[t[0]]; }
         uygula(); isaretle();
       });
-      kutu.appendChild(b);
+      sesIc.appendChild(b);
     });
     isaretle();
     ortamIc.appendChild(kutu);
@@ -493,9 +522,9 @@
     kutu.className = "hava-anahtar";
     kutu.setAttribute("role", "group");
     kutu.setAttribute("aria-label", "Dışarıdaki hava");
-    kutu.appendChild(document.createTextNode("Dışarıda: "));
+    var havaIc = katlanir(kutu, "Dışarıda", "ortam-hava-acik");
     var isaretleH = function () {
-      kutu.querySelectorAll("button").forEach(function (x) {
+      kutu.querySelectorAll("button[data-tur]").forEach(function (x) {
         var k = x.dataset.tur, basili;
         if (k === "ruzgar") basili = ruzgar; else if (k === "kapali") basili = tur === "kapali" && !ruzgar; else basili = tur === k;
         x.setAttribute("aria-pressed", String(basili));
@@ -506,11 +535,12 @@
       var b = document.createElement("button");
       b.type = "button"; b.textContent = t[1]; b.dataset.tur = t[0];
       b.addEventListener("click", function () {
-        if (t[0] === "ruzgar") { ruzgar = !ruzgar; } else if (t[0] === "kapali") { tur = "kapali"; ruzgar = false; } else { tur = t[0]; }
+        /* Kar ve Yağmur açılıp kapanır: seçili olana yeniden basınca hava durur */
+        if (t[0] === "ruzgar") { ruzgar = !ruzgar; } else if (t[0] === "kapali") { tur = "kapali"; ruzgar = false; } else { tur = tur === t[0] ? "kapali" : t[0]; }
         if (tur === "yagmur" && sesHazirla) sesHazirla(); // gök gürültüsü çalabilsin diye ses bağlamını hazırla
         kur(); isaretleH(); kaydet();
       });
-      kutu.appendChild(b);
+      havaIc.appendChild(b);
     });
     ortamIc.appendChild(kutu);
 

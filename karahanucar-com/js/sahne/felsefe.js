@@ -32,7 +32,7 @@
       });
       s += '<circle cx="800" cy="300" r="260" fill="url(#fsI)"/>';
       s += '<g transform="translate(800 300)"><g class="don" style="--s:90s"><circle r="200" fill="none" stroke="rgba(232,189,98,.14)" stroke-dasharray="2 10"/></g><g class="don don-ters" style="--s:140s"><circle r="150" fill="none" stroke="rgba(232,189,98,.12)" stroke-dasharray="1 6"/></g>' +
-        '<image href="assets/logo-seffaf.svg" x="-80" y="-80" width="160" height="160" style="filter:url(#ates)"/></g>';
+        "</g>"; // logo artık kapıların döndüğü yörüngenin merkezinde (motor.js)
       return h.svg(s,
         '<radialGradient id="fsG" cx=".5" cy=".35" r=".85"><stop offset="0" stop-color="#241a1e"/><stop offset=".55" stop-color="#110c10"/><stop offset="1" stop-color="#050306"/></radialGradient>' +
         '<radialGradient id="fsI"><stop offset="0" stop-color="#ffb04a" stop-opacity=".35"/><stop offset=".45" stop-color="#e8743a" stop-opacity=".1"/><stop offset="1" stop-color="#e8743a" stop-opacity="0"/></radialGradient>'
@@ -58,7 +58,7 @@
   S.kaydet("epistemoloji", {
     ad: "Epistemoloji", ust: "felsefe", yer: "Platon'un Mağarası · Devlet, VII. kitap", vurgu: "#F09A4A", alan: "felsefe",
     alt: "Zincirli mahkûmlar yalnızca önlerindeki duvarı görebiliyor. Arkalarındaki ateşin önünden taşınan kuklaların gölgelerini gerçek sanıyorlar. Bilgi nedir, ve nereden bileceğiz?",
-    parcacik: { tur: "kor", adet: 70 }, isaret: "kor", sozGecis: "kul", sandik: { x: 88, y: 60 },
+    parcacik: { tur: "kor", adet: 70 }, isaret: "kor", sozGecis: "kul",
     sozler: [
       { metin: "Ὁμοίους ἡμῖν.", dil: "grc", ceviri: "Bize benziyorlar.", kaynak: "Sokrates, mahkûmlar için · Platon, Devlet 515a" },
       { metin: "ἃ μὴ οἶδα οὐδὲ οἴομαι εἰδέναι.", dil: "grc", ceviri: "Bilmediğim şeyi bildiğimi de sanmıyorum.", kaynak: "Sokrates · Platon, Savunma 21d" },
@@ -153,7 +153,7 @@
   S.kaydet("metafizik", {
     ad: "Metafizik", ust: "felsefe", yer: "Varlığın boşluğu · zamanın ve yerin dışında", vurgu: "#C8B0FF", alan: "felsefe",
     alt: "Burada hiçbir şey yere düşmüyor. Platon'un kusursuz cisimleri dönüyor, var olmayan bir altın dağ havada asılı, bir kare yuvarlak olmaya çalışıyor. Ne vardır?",
-    parcacik: { tur: "yildiz", adet: 120 }, isaret: "kristal", sandik: { x: 26, y: 80 },
+    parcacik: { tur: "yildiz", adet: 120 }, isaret: "kristal",
     sozler: [
       { metin: "Pourquoi il y a plutôt quelque chose que rien ?", dil: "fr", ceviri: "Neden hiçbir şey değil de bir şey var?", kaynak: "Leibniz · Doğanın ve Lütfun İlkeleri, 1714" },
       { metin: "τὸ γὰρ αὐτὸ νοεῖν ἐστίν τε καὶ εἶναι.", dil: "grc", ceviri: "Çünkü düşünmek ve olmak aynı şeydir.", kaynak: "Parmenides · Fragman B3" },
@@ -235,7 +235,7 @@
   S.kaydet("zihin", {
     ad: "Zihin felsefesi", ust: "felsefe", yer: "Bir zihnin içi · şimdi", vurgu: "#9FB8FF", alan: "felsefe",
     alt: "Sinir hücreleri ateşleniyor, sinyaller akıyor. Ama bütün bunlar nasıl oluyor da bir şey hissetmeye, kırmızıyı görmeye, bir düşünceye dönüşüyor?",
-    parcacik: { tur: "toz", adet: 40 }, isaret: "dalga", sandik: { x: 71, y: 90 },
+    parcacik: { tur: "toz", adet: 40 }, isaret: "dalga",
     sozler: [
       { metin: "What is it like to be a bat?", dil: "en", ceviri: "Yarasa olmak nasıl bir şey?", kaynak: "Thomas Nagel, 1974" },
       { metin: "Consciousness poses the most baffling problems in the science of the mind.", dil: "en", ceviri: "Bilinç, zihin biliminin en şaşırtıcı sorunlarını ortaya koyar.", kaynak: "David Chalmers, 1995" },

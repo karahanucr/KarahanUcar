@@ -261,7 +261,7 @@
   var NOKTA = { latince: "tas", yunanca: "lir", arapca: "ud", biyoloji: "yaprak", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "kristal", cografya: "tik", film: "projektor" };
   var DIL = { la: "boru", el: "lir", ar: "ud" };
   function baglam(el) {
-    if (el.closest(".gramofon, .radyo, .sk-panel-kapat, .sk-kapat, .sk-arsiv-kapat, .sk-ses, .efekt-anahtar")) return null;
+    if (el.closest(".gramofon, .radyo, .sk-panel-kapat, .sk-kapat, .sk-arsiv-kapat, .sk-ses, .efekt-anahtar, .hr-durak, .hr-gez, .sk-harita-btn")) return null;
     if (el.matches(".kitap, .kraf-levha")) return "kitap";
     if (el.matches(".sk-kapi")) { var h = el.dataset.hedef; return KAPI[h] || (/^sozlukce/.test(h) ? "sayfa" : "fis"); }
     if (el.matches(".sk-nokta")) { var s = el.closest(".sk-sahne"); return (s && NOKTA[s.dataset.sahne]) || "tik"; }
@@ -290,7 +290,8 @@
     function isaretle() { b.setAttribute("aria-pressed", String(efektAcik)); }
     b.addEventListener("click", function () { efektAcik = !efektAcik; yazK("ses-efekt", efektAcik); isaretle(); if (efektAcik) tik("yumusak"); });
     isaretle();
-    grup.appendChild(ayr); grup.appendChild(b);
+    var ic = grup.querySelector(".ha-secenek-ic") || grup;
+    ic.appendChild(ayr); ic.appendChild(b);
   }
   anahtarKur();
 

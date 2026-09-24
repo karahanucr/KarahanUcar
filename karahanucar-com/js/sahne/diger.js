@@ -44,7 +44,7 @@
   S.kaydet("geometri", {
     ad: "Geometri", ust: "formel-bilimler", yer: "İskenderiye · Mouseion'un terası · MÖ 300", vurgu: "#9FC8FF", alan: "formel-bilimler",
     alt: "Deniz meltemi esiyor, Pharos feneri ufukta. Kum tepsisinde pergel kendi kendine dönüyor: Öklid'in ilk önermesi, eşkenar üçgen.",
-    parcacik: { tur: "kum", adet: 40 }, isaret: "kristal", sandik: { x: 90, y: 90 },
+    parcacik: { tur: "kum", adet: 40 }, isaret: "kristal",
     sozler: [
       { metin: "ἀγεωμέτρητος μηδεὶς εἰσίτω.", dil: "grc", ceviri: "Geometri bilmeyen girmesin.", kaynak: "Platon'un Akademisi'nin kapısında yazdığı rivayet edilir" },
       { metin: "Ordine geometrico demonstrata.", dil: "la", ceviri: "Geometrik düzende kanıtlanmış.", kaynak: "Spinoza · Ethica, 1677" },
@@ -160,7 +160,7 @@
   S.kaydet("cografya", {
     ad: "Coğrafya", ust: "sosyal-bilimler", yer: "Akdeniz kıyısında bir haritacının balkonu · 16. yüzyıl", vurgu: "#F0B870", alan: "sosyal-bilimler",
     alt: "Masada yarım kalmış bir portolan, köşede dönen bir yerküre, açıkta rüzgârla dolan yelkenler. Dünyayı kâğıda sığdırma sanatı.",
-    parcacik: { tur: "toz", adet: 30 }, isaret: "yildiz", sandik: { x: 91, y: 88 },
+    parcacik: { tur: "toz", adet: 30 }, isaret: "yildiz",
     sozler: [
       { metin: "The map is not the territory.", dil: "en", ceviri: "Harita, toprağın kendisi değildir.", kaynak: "Alfred Korzybski, 1931" },
       { metin: "Hic sunt dracones.", dil: "la", ceviri: "Burada ejderhalar var.", kaynak: "Hunt–Lenox yerküresi, 1510 civarı" },
@@ -248,7 +248,7 @@
   S.kaydet("film", {
     ad: "Film", ust: "estetik", yer: "Görsel sanatlar · bir yaz gecesi, yazlık sinema", vurgu: "#E89AC8", alan: "estetik",
     alt: "Cırcır böcekleri, ampul dizileri, makinenin tıkırtısı. Işık huzmesi tozun içinden geçip perdeye düşüyor: önce geri sayım, sonra Ay'a giden bir roket.",
-    parcacik: { tur: "yildiz", adet: 90 }, isaret: "yildiz", sandik: { x: 64, y: 92 },
+    parcacik: { tur: "yildiz", adet: 90 }, isaret: "yildiz",
     sozler: [
       { metin: "Le cinéma, c'est la vérité vingt-quatre fois par seconde.", dil: "fr", ceviri: "Sinema, saniyede yirmi dört kez hakikattir.", kaynak: "Jean-Luc Godard · Le Petit Soldat, 1963" },
       { metin: "Qu'est-ce que le cinéma ?", dil: "fr", ceviri: "Sinema nedir?", kaynak: "André Bazin, 1958–1962" },

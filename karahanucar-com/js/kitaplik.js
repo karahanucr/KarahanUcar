@@ -78,7 +78,7 @@
   };
 
   function sayac(alan) {
-    return [].slice.call(document.querySelectorAll(".dizin .kayit:not(.kayit-yakinda)")).filter(function (k) { return (k.getAttribute("data-alan") || "").split(/\s+/).indexOf(alan) > -1; }).length;
+    return (window.ICERIK || []).filter(function (o) { return o.tur !== "yakinda" && (o.alan || []).indexOf(alan) > -1; }).length;
   }
   function harfMotif(harfler) {
     return '<g fill="#f0cf82" font-family="Georgia,serif" font-size="14" text-anchor="middle">' + harfler.split("·").map(function (h, i, a) {
@@ -86,20 +86,167 @@
     }).join("") + "</g>";
   }
 
+  /* Kitaplar: kendi sahnesi olan kitap düğmedir ve o sahneyi açar; içeriği henüz olmayan kitap tıklanmaz (üzerinde "Yakında" yazar).
+     İçeriği hazırlanınca RAFLAR'daki satırına sahne: "..." eklemek yeter. */
   var html = "";
   RAFLAR.forEach(function (raf, ri) {
     var n = sayac(raf.alan);
-    html += '<div class="kraf" data-alan="' + raf.alan + '"><button type="button" class="kraf-levha" data-sahne="' + raf.sahne + '" data-ad="' + raf.ad + '" style="--c:' + RENK[ri * 3 % RENK.length] + '" aria-haspopup="dialog">' +
+    html += '<div class="kraf" data-alan="' + raf.alan + '"><button type="button" class="kraf-levha" data-sahne="' + raf.sahne + '" data-ad="' + raf.ad + '" aria-haspopup="dialog">' +
       '<span class="kraf-ad">' + raf.ad + '</span><span class="kraf-sayi" data-sabit>' + n + '</span></button><div class="kraf-kitaplar">';
     raf.kitaplar.forEach(function (k, i) {
       var renk = RENK[(ri * 5 + i * 3) % RENK.length], boy = 86 + ((i * 37 + ri * 11) % 15);
-      var hedef = k.sahne || raf.sahne;
-      html += '<button type="button" class="kitap' + (k.ad.length > 20 ? " cok-uzun" : k.ad.length > 13 ? " uzun" : "") + (k.sahne ? " kitap-sahne" : "") + (k.motif === "sozluk" ? " kitap-sozluk" : "") + '" data-sahne="' + hedef + '" data-ad="' + k.ad + '" style="--c:' + renk + ";--h:" + boy + '%" aria-haspopup="dialog">' +
-        (k.sahne ? '<span class="cilt-isik" aria-hidden="true"></span>' : "") +
-        '<svg class="kitap-motif" viewBox="0 0 30 40" aria-hidden="true">' + (k.motif === "harf" ? harfMotif(k.harfler) : MOTIF[k.motif] || "") + "</svg>" +
-        '<span class="kitap-ad">' + k.ad + "</span></button>";
+      var sinif = "kitap" + (k.ad.length > 20 ? " cok-uzun" : k.ad.length > 13 ? " uzun" : "") + (k.sahne ? " kitap-sahne" : " kitap-bos") + (k.motif === "sozluk" ? " kitap-sozluk" : "");
+      var ic = (k.sahne ? '<span class="cilt-isik" aria-hidden="true"></span>' : "") +
+        '<svg class="kitap-motif mo-' + k.motif + '" viewBox="0 0 30 40" aria-hidden="true">' + (k.motif === "harf" ? harfMotif(k.harfler) : MOTIF[k.motif] || "") + "</svg>" +
+        '<span class="kitap-ad">' + k.ad + "</span>";
+      var stil = ' style="--c:' + renk + ";--h:" + boy + '%"';
+      html += k.sahne
+        ? '<button type="button" class="' + sinif + '" data-sahne="' + k.sahne + '" data-ad="' + k.ad + '"' + stil + ' aria-haspopup="dialog">' + ic + "</button>"
+        : '<span class="' + sinif + '" data-ad="' + k.ad + '"' + stil + '>' + ic + '<span class="kitap-yakinda" aria-hidden="true">Yakında</span></span>';
     });
     html += '</div><div class="kraf-tahta" aria-hidden="true"></div></div>';
   });
-  kap.innerHTML = html;
+  kap.innerHTML = '<svg class="agac" aria-hidden="true" focusable="false"></svg><div class="kl-isik" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
+    '<canvas class="kl-toz" aria-hidden="true"></canvas>' + html +
+    '<div class="kl-yaprak" aria-hidden="true">' + [0, 1, 2, 3, 4, 5, 6].map(function (i) { return '<i style="--i:' + i + '"></i>'; }).join("") + "</div>";
+
+  /* ── Ağaç: gövde sağda yükselir, raflar gövdeden sola uzanan dallardır; tepede bakır yapraklı taç, gövdede fenerli bir kovuk.
+        Çizim rafların gerçek konumlarına göre (JS ile) yapılır; ekran boyu değişince yeniden çizilir. ── */
+  var svg = kap.querySelector(".agac");
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function f(n) { return n.toFixed(1); }
+  /* Kübik eğri boyunca incelen bir dal (dolgu şekli) */
+  function dal(p, w0, w1, sinif) {
+    var L = [], R = [], N = 22;
+    for (var i = 0; i <= N; i++) {
+      var t = i / N, u = 1 - t;
+      var x = u * u * u * p[0] + 3 * u * u * t * p[2] + 3 * u * t * t * p[4] + t * t * t * p[6];
+      var y = u * u * u * p[1] + 3 * u * u * t * p[3] + 3 * u * t * t * p[5] + t * t * t * p[7];
+      var dx = 3 * u * u * (p[2] - p[0]) + 6 * u * t * (p[4] - p[2]) + 3 * t * t * (p[6] - p[4]);
+      var dy = 3 * u * u * (p[3] - p[1]) + 6 * u * t * (p[5] - p[3]) + 3 * t * t * (p[7] - p[5]);
+      var l = Math.hypot(dx, dy) || 1, w = (w0 + (w1 - w0) * t) * (1 + 0.08 * Math.sin(t * 11 + p[0])) / 2;
+      L.push(f(x - dy / l * w) + " " + f(y + dx / l * w)); R.push(f(x + dy / l * w) + " " + f(y - dx / l * w));
+    }
+    return '<path class="' + (sinif || "kabuk") + '" d="M' + L.join("L") + "L" + R.reverse().join("L") + 'Z"/>';
+  }
+  function yapraklar(x, y, n, tohum, yay) {
+    var s = "", r = tohum;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    var RN = ["#b8643a", "#d08a5a", "#e6a878", "#8a4228", "#c9774a", "#f0c090"];
+    for (var i = 0; i < n; i++) {
+      var a = rnd() * 6.28, d = rnd() * yay, lx = x + Math.cos(a) * d * 1.4, ly = y + Math.sin(a) * d * 0.7;
+      s += '<ellipse cx="' + f(lx) + '" cy="' + f(ly) + '" rx="' + f(3 + rnd() * 3.5) + '" ry="' + f(1.8 + rnd() * 1.6) + '" transform="rotate(' + f(rnd() * 180) + " " + f(lx) + " " + f(ly) + ')" fill="' + RN[Math.floor(rnd() * RN.length)] + '"/>';
+    }
+    return '<g class="yp-kume" style="--d:-' + f(rnd() * 5) + "s;--s:" + f(4 + rnd() * 3) + 's">' + s + "</g>";
+  }
+  function ciz() {
+    var kr = kap.getBoundingClientRect(), W = kr.width, H = kr.height;
+    if (!W || !H) return;
+    var mobil = W < 640, tx = W - (mobil ? 26 : 92), wAlt = mobil ? 34 : 96, wUst = mobil ? 18 : 44, tepe = mobil ? 28 : 54;
+    var cx = function (y) { return tx + (mobil ? 5 : 14) * Math.sin(y / H * 5.2 + 0.8); };
+    var cw = function (y) { var k = (y - tepe) / (H - tepe); return (wUst + (wAlt - wUst) * k * k) * (1 + 0.06 * Math.sin(y * 0.045)); };
+    var s = '<defs><linearGradient id="kabukG" x1="0" x2="1"><stop offset="0" stop-color="#0e0907"/><stop offset=".35" stop-color="#2e2019"/><stop offset=".55" stop-color="#3b2a20"/><stop offset="1" stop-color="#110b08"/></linearGradient>' +
+      '<linearGradient id="dalG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3d2c21"/><stop offset=".5" stop-color="#241810"/><stop offset="1" stop-color="#0c0806"/></linearGradient>' +
+      '<radialGradient id="fenerG"><stop offset="0" stop-color="#ffd890" stop-opacity=".9"/><stop offset=".35" stop-color="#ff9a40" stop-opacity=".35"/><stop offset="1" stop-color="#ff9a40" stop-opacity="0"/></radialGradient></defs>';
+    /* kökler */
+    var kok = "";
+    [[-1, 250, 0], [-1, 150, 10], [-1, 80, 4], [1, 90, 6], [1, 40, 2], [-1, 330, 12]].forEach(function (k, i) {
+      if (mobil && i > 2) return;
+      var bx = cx(H - 30) + k[0] * 10, ey = H - 2 - k[2], ex = bx + k[0] * k[1] * (mobil ? 0.4 : 1);
+      kok += dal([bx, H - 60, bx + k[0] * 20, H - 20, ex - k[0] * k[1] * 0.4, H - 8, ex, ey], (mobil ? 18 : 44) - i * 4, 3);
+    });
+    /* gövde */
+    var sol = [], sag = [];
+    for (var y = tepe; y <= H + 4; y += 10) { var x = cx(y), w = cw(y) / 2; sol.push(f(x - w) + " " + f(y)); sag.push(f(x + w) + " " + f(y)); }
+    var govde = '<path class="kabuk govde" d="M' + sol.join("L") + "L" + sag.reverse().join("L") + 'Z"/>';
+    /* kabuk dokusu: gövde boyunca kesikli oluklar */
+    var doku = "";
+    for (var d = -3; d <= 3; d++) {
+      var pts = [];
+      for (var y2 = tepe + 20; y2 <= H; y2 += 18) pts.push(f(cx(y2) + d * cw(y2) / 8 + 3 * Math.sin(y2 * 0.07 + d)) + " " + f(y2));
+      doku += '<path d="M' + pts.join("L") + '" stroke="' + (d % 2 ? "rgba(0,0,0,.45)" : "rgba(255,214,170,.07)") + '" stroke-width="' + (d % 2 ? 2.2 : 1.4) + '" fill="none" stroke-dasharray="' + (30 + Math.abs(d) * 9) + " " + (8 + Math.abs(d) * 5) + '"/>';
+    }
+    /* raf dalları: her rafın altında, gövdeden sola */
+    var dallar = "", ucYaprak = "";
+    [].slice.call(kap.querySelectorAll(".kraf")).forEach(function (raf, i) {
+      var kit = raf.querySelector(".kraf-kitaplar"), lev = raf.querySelector(".kraf-levha");
+      var rb = kit.getBoundingClientRect(), lb = lev.getBoundingClientRect();
+      var y = rb.bottom - kr.top, xa = mobil ? 4 : Math.min(lb.left, rb.left) - kr.left - 26, xb = cx(y) - cw(y) * 0.25;
+      var kal = mobil ? 16 : 24;
+      dallar += dal([xb, y + kal / 2, xb - (xb - xa) * 0.35, y + kal / 2 + 3, xa + (xb - xa) * 0.3, y + 8, xa, y + 6], kal + 8, 11, "kabuk dal");
+      if (!mobil) {
+        dallar += dal([xa + 6, y + 7, xa - 26, y + 12, xa - 34, y - 16, xa - 16, y - 26], 10, 1.5, "kabuk dal");
+        if (i % 2 === 0) ucYaprak += yapraklar(xa - 18, y - 30, 9, 31 + i * 7, 12);
+        /* gövdeye yakın, rafın üstünden kıvrılan ince bir filiz */
+        var ust = y - rb.height - 8;
+        dallar += dal([xb - 6, y - 10, xb - 10, ust + 40, xb - 60, ust + 10, xb - 110 - (i % 3) * 30, ust + 18], 12, 1.5, "kabuk dal");
+        ucYaprak += yapraklar(xb - 110 - (i % 3) * 30, ust + 16, 6, 97 + i * 13, 8);
+      }
+    });
+    /* taç: gövdenin tepesinden sağa sola uzanan dallar ve bakır yapraklar */
+    var tac = "", ty = tepe + 6, tx0 = cx(tepe);
+    var uclar = mobil ? [[W * 0.45, 8], [W * 0.75, 4], [W - 4, 18]] : [[W * 0.12, 18], [W * 0.34, 4], [W * 0.56, 14], [W * 0.74, 2], [W - 6, 22], [tx0 - 40, -2]];
+    uclar.forEach(function (u, i) {
+      var mx = (tx0 + u[0]) / 2;
+      tac += dal([tx0 + (u[0] > tx0 ? 6 : -6), ty + 20, mx + (i % 2 ? 20 : -10), ty - 30 - (i % 3) * 10, mx, u[1] + 20, u[0], u[1] + 4], (mobil ? 14 : 30) - i * 2, 2, "kabuk dal");
+      tac += yapraklar(u[0], u[1] + 8, mobil ? 10 : 18, 11 + i * 17, mobil ? 14 : 26);
+      tac += yapraklar(mx, ty - 22 - (i % 3) * 10, mobil ? 6 : 12, 53 + i * 19, mobil ? 10 : 20);
+    });
+    /* kovuk ve fener */
+    var fy = H * (mobil ? 0.5 : 0.47), fx = cx(fy), kovuk = "";
+    if (!mobil) {
+      kovuk = '<ellipse cx="' + f(fx) + '" cy="' + f(fy) + '" rx="' + f(cw(fy) * 0.3) + '" ry="46" fill="#070504"/><ellipse cx="' + f(fx) + '" cy="' + f(fy) + '" rx="' + f(cw(fy) * 0.3) + '" ry="46" fill="none" stroke="#4a3526" stroke-width="5"/>' +
+        '<circle class="fener-hale" cx="' + f(fx) + '" cy="' + f(fy + 10) + '" r="60" fill="url(#fenerG)"/>' +
+        '<g class="fener" transform="translate(' + f(fx) + " " + f(fy + 6) + ')"><path d="M0 -26V-20" stroke="#8a6a3a" stroke-width="1.5"/><path d="M-9 -20H9L7 -16H-7Z" fill="#6a4a24"/><rect x="-8" y="-16" width="16" height="22" rx="3" fill="#ffcf7a" opacity=".85"/><path d="M-8 -9H8M0 -16V6" stroke="#6a4a24" stroke-width="1.4"/><path d="M-10 6H10L8 10H-8Z" fill="#6a4a24"/></g>';
+    }
+    svg.setAttribute("viewBox", "0 0 " + f(W) + " " + f(H));
+    svg.innerHTML = s + '<g class="agac-govde">' + kok + govde + doku + dallar + tac + "</g>" + kovuk + '<g class="agac-yaprak">' + ucYaprak + "</g>";
+    if (toz) toz.boyut(W, H, tx);
+  }
+
+  /* Işık huzmelerinde süzülen toz */
+  var toz = null, tuval = kap.querySelector(".kl-toz");
+  if (!azalt && tuval.getContext) {
+    toz = (function () {
+      var c = tuval.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, ps = [], gorunur = false;
+      function yeni(ilk) { return { x: Math.random() * W, y: ilk ? Math.random() * H : H + 5, r: 0.5 + Math.random() * 1.5, v: 0.08 + Math.random() * 0.22, f: Math.random() * 6.28 }; }
+      function kare() {
+        if (gorunur && !document.hidden) {
+          c.clearRect(0, 0, W, H);
+          var gun = document.documentElement.classList.contains("gunduz");
+          for (var i = 0; i < ps.length; i++) {
+            var p = ps[i]; p.y -= p.v; p.f += 0.01; p.x += Math.sin(p.f) * 0.25;
+            /* huzme bantlarının içindeyken parlar (huzmeler ~25° eğik) */
+            var b = (p.x + p.y * 0.47) / W, ic = Math.max(0, Math.sin(b * 9.4 + 0.6));
+            var a = (0.12 + 0.7 * ic * ic) * (0.4 + 0.6 * Math.abs(Math.sin(p.f * 1.7)));
+            c.fillStyle = (gun ? "rgba(255,246,220," : "rgba(255,222,160,") + a.toFixed(3) + ")";
+            c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.fill();
+            if (p.y < -4) ps[i] = yeni(false);
+          }
+        }
+        requestAnimationFrame(kare);
+      }
+      new IntersectionObserver(function (k) { gorunur = k[0].isIntersecting; }).observe(tuval);
+      requestAnimationFrame(kare);
+      return { boyut: function (w, h) {
+        W = w; H = h; tuval.width = W * dpr; tuval.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ps = []; var n = Math.round(W * H / 9000); for (var i = 0; i < Math.min(n, 110); i++) ps.push(yeni(true));
+      } };
+    })();
+  }
+
+  var bekle = 0;
+  ciz();
+  if (window.ResizeObserver) new ResizeObserver(function () { clearTimeout(bekle); bekle = setTimeout(ciz, 80); }).observe(kap);
+  window.addEventListener("load", ciz);
+
+  /* Ara sıra biri raftan bir kitaba uzanıyormuş gibi: rastgele bir kitap hafifçe çekilip yerine döner */
+  if (!azalt) setInterval(function () {
+    if (document.hidden) return;
+    var r = kap.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    var kitaplar = kap.querySelectorAll(".kitap"), k = kitaplar[Math.floor(Math.random() * kitaplar.length)];
+    if (!k || k.matches(":hover")) return;
+    k.classList.remove("cek"); void k.offsetWidth; k.classList.add("cek");
+  }, 2600);
 })();
