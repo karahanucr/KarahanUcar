@@ -39,11 +39,12 @@
       );
     },
     kapilar: [
-      { hedef: "epistemoloji", x: 27, y: 68, sanat: kapiMagara, aciklama: "Platon'un Mağarası: gölgeler, ateş ve gün ışığı." },
-      { hedef: "metafizik", x: 50, y: 73, sanat: kapiMeta, aciklama: "Varlığın boşluğu: formlar, altın dağ, yuvarlak kare." },
-      { hedef: "zihin", x: 73, y: 68, sanat: kapiZihin, aciklama: "Zihnin içi: sinirler, yarasa, Mary'nin odası." }
+      { hedef: "epistemoloji", x: 20, y: 64, sanat: kapiMagara, aciklama: "Platon'un Mağarası: gölgeler, ateş ve gün ışığı." },
+      { hedef: "metafizik", x: 40, y: 68, sanat: kapiMeta, aciklama: "Varlığın boşluğu: formlar, altın dağ, yuvarlak kare." },
+      { hedef: "zihin", x: 60, y: 68, sanat: kapiZihin, aciklama: "Zihnin içi: sinirler, yarasa, Mary'nin odası." },
+      { hedef: "sozlukce-felsefe", x: 80, y: 64, sanat: S.sozlukSanat("#E8BD62"), aciklama: "A priori'den töze: felsefenin terimleri." }
     ],
-    yakinda: ["Dil felsefesi", "Etik", "Mantık"]
+    yakinda: ["Dil Felsefesi", "Mantık Felsefesi", "Bilim Felsefesi", "Politik Felsefe", "Etik", "Din Felsefesi", "Tarih Felsefesi", "Sanat Felsefesi", "Felsefe Tarihi", "Metafelsefe"]
   });
 
   /* ════════ EPİSTEMOLOJİ: Platon'un Mağarası ════════ */
@@ -57,8 +58,13 @@
   S.kaydet("epistemoloji", {
     ad: "Epistemoloji", ust: "felsefe", yer: "Platon'un Mağarası · Devlet, VII. kitap", vurgu: "#F09A4A", alan: "felsefe",
     alt: "Zincirli mahkûmlar yalnızca önlerindeki duvarı görebiliyor. Arkalarındaki ateşin önünden taşınan kuklaların gölgelerini gerçek sanıyorlar. Bilgi nedir, ve nereden bileceğiz?",
-    parcacik: { tur: "kor", adet: 70 },
-    soz: { metin: "Ὁμοίους ἡμῖν.", dil: "grc", ceviri: "Bize benziyorlar.", kaynak: "Sokrates, mahkûmlar için · Platon, Devlet 515a" },
+    parcacik: { tur: "kor", adet: 70 }, isaret: "kor", sozGecis: "kul", sandik: { x: 88, y: 60 },
+    sozler: [
+      { metin: "Ὁμοίους ἡμῖν.", dil: "grc", ceviri: "Bize benziyorlar.", kaynak: "Sokrates, mahkûmlar için · Platon, Devlet 515a" },
+      { metin: "ἃ μὴ οἶδα οὐδὲ οἴομαι εἰδέναι.", dil: "grc", ceviri: "Bilmediğim şeyi bildiğimi de sanmıyorum.", kaynak: "Sokrates · Platon, Savunma 21d" },
+      { metin: "No man's knowledge here can go beyond his experience.", dil: "en", ceviri: "Burada hiç kimsenin bilgisi deneyiminin ötesine geçemez.", kaynak: "Locke · İnsan Anlığı Üzerine Bir Deneme II.1.19" },
+      { metin: "Habe Mut, dich deines eigenen Verstandes zu bedienen!", dil: "de", ceviri: "Kendi aklını kullanma cesaretini göster!", kaynak: "Kant · Aydınlanma Nedir?, 1784" }
+    ],
     arka: function () {
       var r = h.rnd(91), s = '<rect width="1600" height="900" fill="#0c0806"/>';
       s += '<path d="M180 640C160 460 200 260 320 150C520 70 1000 60 1260 150C1380 230 1420 420 1400 640Z" fill="url(#eD)"/>';
@@ -143,12 +149,17 @@
     var m = Math.max.apply(null, a.map(function (v) { return Math.hypot(v[0], v[1], v[2]); }));
     return { v: a.map(function (v) { return [v[0] / m, v[1] / m, v[2] / m]; }), e: kenar };
   }
-  var CISIM = [["dodeka", 820, 420, 150, 0.00018], ["tetra", 1080, 170, 60, 0.0004], ["kup", 1430, 250, 62, 0.0003], ["okta", 1320, 520, 60, 0.00035], ["ikosa", 1080, 650, 58, 0.00028]];
+  var CISIM = [["dodeka", 820, 420, 150, 0.00018], ["tetra", 1080, 170, 60, 0.0004], ["kup", 1360, 250, 62, 0.0003], ["okta", 1300, 520, 60, 0.00035], ["ikosa", 1080, 650, 58, 0.00028]];
   S.kaydet("metafizik", {
     ad: "Metafizik", ust: "felsefe", yer: "Varlığın boşluğu · zamanın ve yerin dışında", vurgu: "#C8B0FF", alan: "felsefe",
     alt: "Burada hiçbir şey yere düşmüyor. Platon'un kusursuz cisimleri dönüyor, var olmayan bir altın dağ havada asılı, bir kare yuvarlak olmaya çalışıyor. Ne vardır?",
-    parcacik: { tur: "yildiz", adet: 120 },
-    soz: { metin: "Pourquoi il y a plutôt quelque chose que rien ?", dil: "fr", ceviri: "Neden hiçbir şey değil de bir şey var?", kaynak: "Leibniz · Doğanın ve Lütfun İlkeleri, 1714" },
+    parcacik: { tur: "yildiz", adet: 120 }, isaret: "kristal", sandik: { x: 26, y: 80 },
+    sozler: [
+      { metin: "Pourquoi il y a plutôt quelque chose que rien ?", dil: "fr", ceviri: "Neden hiçbir şey değil de bir şey var?", kaynak: "Leibniz · Doğanın ve Lütfun İlkeleri, 1714" },
+      { metin: "τὸ γὰρ αὐτὸ νοεῖν ἐστίν τε καὶ εἶναι.", dil: "grc", ceviri: "Çünkü düşünmek ve olmak aynı şeydir.", kaynak: "Parmenides · Fragman B3" },
+      { metin: "Die Welt ist alles, was der Fall ist.", dil: "de", ceviri: "Dünya, olup biten her şeydir.", kaynak: "Wittgenstein · Tractatus 1" },
+      { metin: "To be is to be the value of a variable.", dil: "en", ceviri: "Var olmak, bir değişkenin değeri olmaktır.", kaynak: "Quine · On What There Is, 1948" }
+    ],
     arka: function () {
       var s = '<rect width="1600" height="900" fill="url(#mG)"/><circle cx="1100" cy="300" r="520" fill="url(#mN1)"/><circle cx="400" cy="700" r="420" fill="url(#mN2)"/>';
       s += '<g transform="translate(820 420)" opacity=".35">' + [220, 300, 390].map(function (r, i) { return '<g class="don' + (i % 2 ? " don-ters" : "") + '" style="--s:' + (80 + i * 40) + 's"><ellipse rx="' + r + '" ry="' + r * 0.32 + '" fill="none" stroke="#c8b0ff" stroke-dasharray="3 9"/></g>'; }).join("") + "</g>";
@@ -160,7 +171,7 @@
         return '<g class="yuz" style="--s:' + (5 + i) + "s;--d:-" + i + 's"><circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '" fill="' + b[3] + '" opacity=".16"/><circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '" fill="none" stroke="' + b[3] + '" stroke-width="1.5" opacity=".7"/><circle cx="' + (b[0] - b[2] * 0.35) + '" cy="' + (b[1] - b[2] * 0.35) + '" r="' + b[2] * 0.18 + '" fill="#fff" opacity=".6"/></g>';
       }).join("") + "</g>";
       s += '<g transform="translate(1000 810)"><rect class="yk" x="-46" y="-46" width="92" height="92" fill="rgba(232,200,112,.08)" stroke="#f0dca0" stroke-width="2.5"/><rect class="yk-hale" x="-46" y="-46" width="92" height="92" fill="none" stroke="#f0dca0" stroke-width="10" opacity=".15"/></g>';
-      s += '<g transform="translate(1400 800)"><path d="M-160 30H160" stroke="#2a5a3a" stroke-width="40" stroke-linecap="round" opacity=".7"/><path d="M-160 30H160" stroke="#6a4a2a" stroke-width="46" stroke-linecap="round" fill="none" opacity=".35"/><circle class="top-a" r="14" fill="#f4ecd8"/><circle class="top-b" r="14" fill="#c83a2a"/></g>';
+      s += '<g transform="translate(1300 800) scale(.8)"><path d="M-160 30H160" stroke="#2a5a3a" stroke-width="40" stroke-linecap="round" opacity=".7"/><path d="M-160 30H160" stroke="#6a4a2a" stroke-width="46" stroke-linecap="round" fill="none" opacity=".35"/><circle class="top-a" r="14" fill="#f4ecd8"/><circle class="top-b" r="14" fill="#c83a2a"/></g>';
       return h.svg(s,
         '<radialGradient id="mG" cx=".5" cy=".45" r=".85"><stop offset="0" stop-color="#1c1430"/><stop offset=".6" stop-color="#0c0818"/><stop offset="1" stop-color="#040208"/></radialGradient>' +
         '<radialGradient id="mN1"><stop offset="0" stop-color="#7a4aff" stop-opacity=".16"/><stop offset="1" stop-color="#7a4aff" stop-opacity="0"/></radialGradient>' +
@@ -213,7 +224,7 @@
         "<h3>Olanak ve zorunluluk</h3><p>“Sezar Rubicon'u geçmeyebilirdi” doğru görünüyor; “2 + 2 = 5 olabilirdi” yanlış. Bu farkı nasıl anlarız?</p>" +
         "<p><b>Leibniz</b>, Tanrı'nın sonsuz sayıda olası dünya arasından en iyisini yarattığını düşündü. 20. yüzyılda <b>Kripke</b>, modal mantık için olası dünyalar semantiğini geliştirdi: zorunlu olan, bütün olası dünyalarda doğru olandır; olanaklı olan, en az birinde.</p>" +
         "<p><b>David Lewis</b> (<i>On the Plurality of Worlds</i>, 1986) daha da ileri gitti: öteki olası dünyalar, bizimki kadar gerçektir (modal gerçekçilik). Her baloncuk, işlerin başka türlü olabileceği bir dünya.</p>" },
-      { x: 88, y: 88, ad: "Bilardo topları", panel:
+      { x: 81, y: 89, ad: "Bilardo topları", panel:
         "<h3>Nedensellik</h3><p>Beyaz top kırmızıya çarpıyor, kırmızı yuvarlanıyor. Birincinin ikinciyi hareket ettirdiğini <i>gördüğümüzü</i> sanırız. <b>David Hume</b> (<i>İnsan Anlığı Üzerine Bir Soruşturma</i>, 1748) bu örneği kullanarak şunu gösterdi: iki olayın birbirini izlediğini görürüz, ama aralarındaki <b>zorunlu bağı</b> hiçbir zaman gözlemleyemeyiz.</p>" +
         "<p>Nedensellik düşüncemiz, olayların <b>sürekli birlikte görülmesinden</b> doğan bir alışkanlıktır. Hume'un bu sorusu Kant'ı “dogmatik uykusundan” uyandırdı.</p>" +
         "<h4>Aristoteles'in dört nedeni</h4><p>Maddi neden (neyden?), biçimsel neden (ne?), fail neden (ne yaptı?), ereksel neden (ne için?). Modern bilim çoğunlukla yalnızca fail nedenle yetinir.</p>" }
@@ -224,8 +235,13 @@
   S.kaydet("zihin", {
     ad: "Zihin felsefesi", ust: "felsefe", yer: "Bir zihnin içi · şimdi", vurgu: "#9FB8FF", alan: "felsefe",
     alt: "Sinir hücreleri ateşleniyor, sinyaller akıyor. Ama bütün bunlar nasıl oluyor da bir şey hissetmeye, kırmızıyı görmeye, bir düşünceye dönüşüyor?",
-    parcacik: { tur: "toz", adet: 40 },
-    soz: { metin: "What is it like to be a bat?", dil: "en", ceviri: "Yarasa olmak nasıl bir şey?", kaynak: "Thomas Nagel, 1974" },
+    parcacik: { tur: "toz", adet: 40 }, isaret: "dalga", sandik: { x: 71, y: 90 },
+    sozler: [
+      { metin: "What is it like to be a bat?", dil: "en", ceviri: "Yarasa olmak nasıl bir şey?", kaynak: "Thomas Nagel, 1974" },
+      { metin: "Consciousness poses the most baffling problems in the science of the mind.", dil: "en", ceviri: "Bilinç, zihin biliminin en şaşırtıcı sorunlarını ortaya koyar.", kaynak: "David Chalmers, 1995" },
+      { metin: "Syntax is not sufficient for semantics.", dil: "en", ceviri: "Sözdizimi anlambilime yetmez.", kaynak: "John Searle, 1984" },
+      { metin: "Ego sum, ego existo.", dil: "la", ceviri: "Ben varım, ben mevcudum.", kaynak: "Descartes · Meditasyonlar II, 1641" }
+    ],
     arka: function () {
       var r = h.rnd(123), s = '<rect width="1600" height="900" fill="url(#zG)"/>';
       s += '<path d="M700 900V780C640 750 600 700 590 640C560 620 560 580 580 560C560 520 560 470 575 430C560 300 650 170 820 150C990 135 1120 240 1130 380C1135 430 1160 470 1190 510C1200 530 1190 545 1170 550L1160 600C1165 640 1150 670 1110 670L1060 680C1040 690 1030 720 1030 760V900Z" fill="url(#zB)" stroke="#9fb8ff" stroke-width="2" opacity=".95"/>';
@@ -241,14 +257,14 @@
       s += dugum.map(function (p, i) { return '<circle class="dugum" data-i="' + i + '" cx="' + p[0].toFixed(0) + '" cy="' + p[1].toFixed(0) + '" r="3.5" fill="#cfe0ff" opacity=".5"/>'; }).join("");
       s += '<g class="sinyaller">' + Array.apply(null, { length: 16 }).map(function () { return '<circle r="3" fill="#fff"/>'; }).join("") + "</g>";
       s += '<circle cx="880" cy="470" r="30" fill="url(#zE)"/><circle cx="880" cy="470" r="7" fill="#ffd870"/>';
-      s += '<g transform="translate(1440 170)"><path d="M-160 -60H160" stroke="#2a2a3a" stroke-width="8"/><g class="asili" style="--s:3s;--a:4deg"><path d="M0 -56V-40" stroke="#1a1a2a" stroke-width="3"/>' +
+      s += '<g transform="translate(1380 180)"><path d="M-160 -60H160" stroke="#2a2a3a" stroke-width="8"/><g class="asili" style="--s:3s;--a:4deg"><path d="M0 -56V-40" stroke="#1a1a2a" stroke-width="3"/>' +
         '<path d="M0 -40C-8 -40 -12 -30 -10 -18C-24 -26 -44 -22 -54 -8C-40 -12 -30 -4 -22 4C-14 0 -8 4 -6 10H6C8 4 14 0 22 4C30 -4 40 -12 54 -8C44 -22 24 -26 10 -18C12 -30 8 -40 0 -40Z" fill="#1a1622" stroke="#6a6a8a" stroke-width="1.5"/><circle cx="-3" cy="-6" r="1.6" fill="#ffd870"/><circle cx="3" cy="-6" r="1.6" fill="#ffd870"/></g>' +
         [0, 1, 2].map(function (k) { return '<circle class="eko" style="animation-delay:' + k * 0.8 + 's" r="20" fill="none" stroke="#9fb8ff" stroke-width="1.5"/>'; }).join("") + "</g>";
       s += '<g transform="translate(400 540)"><path d="M-120 -80L0 -130L120 -80V70L0 120L-120 70Z" fill="#2a2a2e"/><path d="M-120 -80L0 -30L120 -80" fill="none" stroke="#8a8a8e" stroke-width="2"/><path d="M0 -30V120" stroke="#6a6a6e" stroke-width="2"/>' +
         '<path d="M-120 -80L0 -30V120L-120 70Z" fill="#4a4a4e"/><path d="M120 -80L0 -30V120L120 70Z" fill="#3a3a3e"/>' +
         '<path d="M-90 -40l40 16v40l-40 -16Z" fill="#2a2a2e" stroke="#9a9a9e"/><path d="M40 20l40 -16v50l-40 16Z" fill="#6a6a6e"/>' +
         '<g transform="translate(-10 60)"><path d="M0 0V-44" stroke="#3a6a3a" stroke-width="3"/><circle cy="-52" r="13" fill="#d8283a"/><circle cy="-52" r="30" fill="#ff3a4a" opacity=".2" class="hale"/><path d="M-8 -56c4 -6 12 -6 16 0M-10 -48c6 4 14 4 20 0" stroke="#8a0a1a" stroke-width="2" fill="none"/></g></g>';
-      s += '<g transform="translate(1380 620)"><path d="M-100 -60L0 -100L100 -60V60L0 100L-100 60Z" fill="#3a2a1e"/><path d="M-100 -60L0 -20L100 -60" fill="none" stroke="#8a6a3a" stroke-width="2"/><path d="M-100 -60L0 -20V100L-100 60Z" fill="#5a3e28"/><path d="M100 -60L0 -20V100L100 60Z" fill="#4a3220"/>' +
+      s += '<g transform="translate(1330 620)"><path d="M-100 -60L0 -100L100 -60V60L0 100L-100 60Z" fill="#3a2a1e"/><path d="M-100 -60L0 -20L100 -60" fill="none" stroke="#8a6a3a" stroke-width="2"/><path d="M-100 -60L0 -20V100L-100 60Z" fill="#5a3e28"/><path d="M100 -60L0 -20V100L100 60Z" fill="#4a3220"/>' +
         '<path d="M-70 10l40 16" stroke="#1a0e08" stroke-width="6"/><g class="kagit"><path d="M-56 6l28 11l-4 22l-28 -11Z" fill="#f4ecd8"/><text x="-48" y="26" font-size="14" fill="#2a1a10" transform="rotate(22 -48 26)">中</text></g>' +
         '<text x="44" y="0" font-size="30" fill="#e8c870" opacity=".6" transform="skewY(-22)">?</text></g>';
       return h.svg(s,
@@ -299,7 +315,7 @@
         "<h3>İşlevselcilik ve zor problem</h3><p>İnsan beyninde yaklaşık 86 milyar sinir hücresi (nöron) vardır. Sahnede sinyaller düğümden düğüme akıyor; bir sinyal ulaştığında düğüm kısa bir süre parlıyor.</p>" +
         "<p><b>İşlevselcilik</b> (Putnam, 1960'lar): zihinsel bir durumu tanımlayan şey, neyden yapıldığı değil, <b>ne işe yaradığıdır</b>, yani girdiler, çıktılar ve öteki durumlarla ilişkisi. Aynı zihin farklı malzemelerde gerçekleşebilir (çoklu gerçeklenebilirlik): belki silikonda da.</p>" +
         "<p><b>David Chalmers</b> (1995) “kolay” problemleri (algı, dikkat, bellek gibi işlevleri açıklamak) <b>zor problemden</b> ayırdı: bütün bu işlemlere neden bir de öznel deneyim eşlik ediyor? Neden karanlıkta değil de “içeriden bir ışıkla” oluyorlar?</p>" },
-      { x: 90, y: 22, ad: "Yarasa", panel:
+      { x: 86, y: 23, ad: "Yarasa", panel:
         "<h3>Yarasa olmak nasıl bir şey?</h3><p>Yarasalar dünyayı <b>ekolokasyonla</b> algılar: yüksek frekanslı sesler çıkarır, yankılardan uzaklığı, biçimi ve hareketi çözer. Sahnedeki halkalar bu ses dalgalarını gösteriyor.</p>" +
         "<p><b>Thomas Nagel</b> 1974 tarihli makalesinde şunu savundu: bir organizmanın bilinçli olması, onun için <b>o organizma olmanın nasıl bir şey olduğunun</b> bulunması demektir. Yarasanın nörofizyolojisini eksiksiz bilsek bile, yankılarla dünyayı algılamanın <i>içeriden</i> nasıl bir şey olduğunu bilemeyebiliriz.</p>" +
         "<p>Nagel'e göre fiziksel, nesnel betimleme, deneyimin bu <b>öznel karakterini</b> dışarıda bırakıyor olabilir.</p>" },
@@ -307,10 +323,12 @@
         "<h3>Qualia: Mary'nin odası</h3><p><b>Frank Jackson</b>'ın düşünce deneyi (1982): Mary parlak bir bilimcidir ve renk görmenin fiziği ve nörofizyolojisi hakkında bilinebilecek her şeyi bilir. Ama hayatı boyunca siyah-beyaz bir odada yaşamıştır.</p>" +
         "<p>Bir gün odadan çıkar ve ilk kez kırmızı bir gül görür. <b>Yeni bir şey öğrenir mi?</b></p>" +
         "<p>Öğreniyorsa, fiziksel bilgi her şeyi kapsamıyor demektir: geriye deneyimin kendine özgü niteliği, <i>qualia</i> kalır. Jackson bu argümanı fizikalizme karşı öne sürdü; ilginçtir ki 1990'ların sonunda görüşünü değiştirip fizikalizmi benimsedi.</p>" },
-      { x: 86, y: 70, ad: "Çin odası", panel:
+      { x: 83, y: 70, ad: "Çin odası", panel:
         "<h3>Çin odası</h3><p><b>John Searle</b>'ın düşünce deneyi (1980): Çince bilmeyen biri bir odada, dışarıdan gelen Çince sembollere hangi sembollerle cevap vereceğini söyleyen dev bir kural kitabıyla oturuyor. Kuralları kusursuz izlediği için dışarıdakiler onun Çince anladığını düşünüyor.</p>" +
         "<p>Searle'e göre o kişi hiçbir şey <b>anlamıyor</b>: yalnızca sembolleri biçimlerine göre işliyor. Programlar da böyledir: <b>sözdizimi, anlambilime yetmez</b>.</p>" +
         "<p>Alan Turing ise 1950'de “Makineler düşünebilir mi?” sorusunun yerine bir davranış testi (taklit oyunu) önermişti. Büyük dil modelleri çağında bu iki bakış arasındaki tartışma yeniden alevlendi.</p>" }
     ]
   });
 })();
+
+window.SAHNE && window.SAHNE.sozlukce("sozlukce-felsefe", { ust: "felsefe", alan: "felsefe", yer: "Felsefe · terimler", vurgu: "#E8BD62", harfler: "ΑΒΓΔΘΛΞΠΣΦΨΩABCDEFGHIKLMNOPQRSTVXYZ" });

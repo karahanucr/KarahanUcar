@@ -76,8 +76,13 @@
   S.kaydet("latince", {
     ad: "Latince", ust: "diller", yer: "Roma · Senato toplantısı · MÖ 63", vurgu: "#E8BD62", alan: "diller",
     alt: "Konsül Cicero ayağa kalktı; salon sustu. Latince, Roma'nın hukukunu, felsefesini ve bin yıl boyunca Avrupa'nın bilim dilini taşıdı.",
-    parcacik: { tur: "toz", adet: 90 }, sozYer: "sag",
-    soz: { metin: "Quo usque tandem abutere, Catilina, patientia nostra?", dil: "la", ceviri: "Ne zamana dek, Catilina, sabrımızı kötüye kullanacaksın?", kaynak: "Cicero · In Catilinam I, 1" },
+    parcacik: { tur: "toz", adet: 90 }, sozYer: "sag", isaret: "halka", sandik: { x: 33, y: 90 },
+    sozler: [
+      { metin: "Quo usque tandem abutere, Catilina, patientia nostra?", dil: "la", ceviri: "Ne zamana dek, Catilina, sabrımızı kötüye kullanacaksın?", kaynak: "Cicero · In Catilinam I, 1" },
+      { metin: "Sapere aude.", dil: "la", ceviri: "Bilmeye cesaret et.", kaynak: "Horatius · Epistulae I.2.40" },
+      { metin: "Historia vero testis temporum, lux veritatis, vita memoriae, magistra vitae.", dil: "la", ceviri: "Tarih zamanların tanığı, hakikatin ışığı, belleğin canı, hayatın öğretmenidir.", kaynak: "Cicero · De Oratore II, 36" },
+      { metin: "Cogito, ergo sum.", dil: "la", ceviri: "Düşünüyorum, öyleyse varım.", kaynak: "Descartes · Principia philosophiae, 1644" }
+    ],
     arka: function () {
       var r = h.rnd(21), s = "";
       s += '<rect width="1600" height="900" fill="url(#lD)"/>';
@@ -189,8 +194,13 @@
   S.kaydet("yunanca", {
     ad: "Antik Yunanca", ust: "diller", yer: "Atina · Agora · MÖ 4. yüzyıl", vurgu: "#F0B870", alan: "diller",
     alt: "Güneş Akropolis'in ardına iniyor; stoanın gölgesinde iki filozof yürüyerek tartışıyor. Felsefenin ilk kavramları bu dilde doğdu.",
-    parcacik: { tur: "kum", adet: 70 },
-    soz: { metin: "ὁ δὲ ἀνεξέταστος βίος οὐ βιωτὸς ἀνθρώπῳ.", dil: "grc", ceviri: "Sorgulanmamış bir hayat, insan için yaşanmaya değmez.", kaynak: "Sokrates · Platon, Savunma 38a" },
+    parcacik: { tur: "kum", adet: 70 }, isaret: "yildiz", sandik: { x: 57, y: 93 },
+    sozler: [
+      { metin: "ὁ δὲ ἀνεξέταστος βίος οὐ βιωτὸς ἀνθρώπῳ.", dil: "grc", ceviri: "Sorgulanmamış bir hayat, insan için yaşanmaya değmez.", kaynak: "Sokrates · Platon, Savunma 38a" },
+      { metin: "πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει.", dil: "grc", ceviri: "Bütün insanlar doğaları gereği bilmeyi arzular.", kaynak: "Aristoteles · Metafizik A, 980a" },
+      { metin: "γνῶθι σεαυτόν.", dil: "grc", ceviri: "Kendini bil.", kaynak: "Delfoi'deki Apollon tapınağı" },
+      { metin: "πάντα ῥεῖ.", dil: "grc", ceviri: "Her şey akar.", kaynak: "Herakleitos'a atfedilir" }
+    ],
     arka: function () {
       var s = '<rect width="1600" height="900" fill="url(#yG)"/><circle cx="1170" cy="520" r="330" fill="url(#yGl)"/><circle cx="1170" cy="520" r="62" fill="#fff0c8"/>';
       s += '<path d="M0 560C200 520 320 540 480 500C640 470 760 520 900 500C1100 470 1300 520 1600 480V900H0Z" fill="#7a4250" opacity=".55"/>';
@@ -279,72 +289,105 @@
     }
     return s;
   }
+  var ARAP_PANEL = {
+    kitabe: "<h3>Alfabe ve yazı</h3><p>Arap alfabesi <b>28 harftir</b> ve sağdan sola yazılır. Harflerin çoğu birbirine bağlanır; her harf sözcükteki yerine göre (tek başına, başta, ortada, sonda) biçim değiştirir:</p>" +
+        "<table class=\"pn-tablo\"><tr><th>Tek</th><th>Başta</th><th>Ortada</th><th>Sonda</th></tr><tr><td lang=\"ar\">ه</td><td lang=\"ar\">هـ</td><td lang=\"ar\">ـهـ</td><td lang=\"ar\">ـه</td></tr><tr><td lang=\"ar\">ع</td><td lang=\"ar\">عـ</td><td lang=\"ar\">ـعـ</td><td lang=\"ar\">ـع</td></tr></table>" +
+        "<p>Kısa ünlüler çoğunlukla yazılmaz; gerekince harfin üstüne ya da altına konan işaretlerle (<i>hareke</i>) gösterilir. Alfabe, Nabatî yazısından gelişti.</p><p>Kemerdeki yazı: <span class=\"yabanci\" lang=\"ar\">بيت الحكمة</span> <i>Beyt el-Hikme</i>, “Bilgelik Evi”.</p>",
+    kok: "<h3>Kök sistemi</h3><p>Arapça bir Sami dilidir: sözcükler çoğunlukla <b>üç ünsüzlü bir kökten</b>, belli kalıplara (<i>vezin</i>) ünlüler ve ekler yerleştirilerek türetilir. Kök anlamı taşır, kalıp işlevi.</p>" +
+        "<h4>K-T-B: yazmak</h4><table class=\"pn-tablo\"><tr><th>Sözcük</th><th>Anlam</th><th>Türkçede</th></tr><tr><td lang=\"ar\">كَتَبَ</td><td>kataba: yazdı</td><td></td></tr><tr><td lang=\"ar\">كِتَاب</td><td>kitāb: kitap</td><td>kitap</td></tr><tr><td lang=\"ar\">كَاتِب</td><td>kātib: yazan</td><td>kâtip</td></tr><tr><td lang=\"ar\">مَكْتَب</td><td>maktab: yazı yeri, okul</td><td>mektep</td></tr><tr><td lang=\"ar\">مَكْتُوب</td><td>maktūb: yazılmış</td><td>mektup</td></tr><tr><td lang=\"ar\">مَكْتَبَة</td><td>maktaba: kütüphane</td><td></td></tr></table>" +
+        "<h4>ʿ-L-M: bilmek</h4><p><span lang=\"ar\">عِلْم</span> ʿilm (ilim) · <span lang=\"ar\">عَالِم</span> ʿālim (âlim) · <span lang=\"ar\">مُعَلِّم</span> muʿallim (muallim) · <span lang=\"ar\">مَعْلُوم</span> maʿlūm (malum)</p>",
+    hat: "<h3>Hat sanatı</h3><p>Yazı, kamıştan yontulmuş bir kalem ve isten yapılmış mürekkeple yazılırdı. Arap dünyasında yazı başlı başına bir sanata dönüştü.</p>" +
+        "<ul><li><b>Kûfî</b>: köşeli, anıtsal; erken dönem Kur'an nüshaları ve yapı yazıtları</li><li><b>Nesih</b>: yuvarlak, okunaklı kitap yazısı; bugünkü matbaa harflerinin temeli</li><li><b>Sülüs</b>: görkemli başlık ve kitabe yazısı</li><li><b>Divânî</b> ve <b>Rik'a</b>: resmî yazışma ve gündelik yazı</li></ul>" +
+        "<p>10. yüzyılda vezir <b>İbn Mukle</b>, harfleri eliften ve kalemin bıraktığı noktadan türeyen oranlara bağlayan bir ölçü sistemi kurdu; “oranlı yazı” (<i>el-hatt el-mansûb</i>) böyle doğdu.</p>",
+    ceviri: "<h3>Çeviri hareketi</h3><p>8.–10. yüzyıllarda Abbasi Bağdat'ında Yunanca eserler (çoğu kez Süryanice aracılığıyla), Farsça ve Sanskritçe metinler büyük bir çeviri hareketiyle Arapçaya aktarıldı. Aristoteles, Galenos, Öklid ve Batlamyus böylece yeni bir dilde okunmaya başladı.</p>" +
+        "<ul><li><b>Huneyn b. İshak</b> (809–873): Galenos'un tıp külliyatının ve Aristoteles'in bazı eserlerinin çevirmeni</li><li><b>Harezmî</b> (ö. ~850): <i>el-Cebr ve'l-Mukabele</i> ile cebire adını verdi; “algoritma” sözcüğü onun adından gelir</li></ul>" +
+        "<p>Terimler de yolculuğa çıktı: <i>falsafa</i> ← <i>philosophia</i>, <i>hayûlâ</i> (madde) ← <i>hylē</i>. Usturlap ise gökyüzünü ölçmek için kullanılan bir hesap aletidir; bu dönemde çok gelişti.</p>" +
+        "<p class=\"pn-not\">Beytülhikme'nin tam olarak nasıl bir kurum olduğu tarihçiler arasında tartışmalıdır: bir saray kütüphanesi ve bilgin topluluğu olduğu düşünülür.</p>",
+    kindi: "<h3>Kindî ve Arapça felsefe</h3><p><b>el-Kindî</b> (ö. ~870), “Arapların filozofu” diye anılır; Yunan felsefesini Arapçada ilk sistemli biçimde işleyenlerdendir. <i>İlk Felsefe Üzerine</i> adlı eserinde hakikati, nereden, hatta uzak milletlerden gelse bile, kabul etmekten utanılmaması gerektiğini söyler.</p>" +
+        "<ul><li><b>Fârâbî</b> (ö. 950): Aristoteles'ten sonraki “İkinci Öğretmen” (<i>el-Muallim es-Sânî</i>)</li><li><b>İbn Sînâ</b> (ö. 1037): <i>Kitâbü'ş-Şifâ</i>; öz ile varlık ayrımı, “uçan adam” düşünce deneyi</li><li><b>İbn Rüşd</b> (ö. 1198): Aristoteles şerhleriyle Latin Avrupa'da kısaca “Şârih” (<i>Commentator</i>) diye anıldı</li></ul>" +
+        "<p>İbn Sînâ'nın öz–varlık ayrımı, Latince çevirileri üzerinden Thomas Aquinas'a kadar uzanan metafizik tartışmaları besledi.</p>"
+  };
+  function revak(sol) {
+    /* perspektifte sivri kemerli revak: avlunun iki yanından derine doğru */
+    var s = "", n = 5;
+    for (var i = 0; i < n; i++) {
+      var f = i / n, f2 = (i + 1) / n, x0 = sol ? f * 470 : 1600 - f * 470, x1 = sol ? f2 * 470 : 1600 - f2 * 470;
+      var ust = 250 + f * 170, alt = 900 - f * 330, ust2 = 250 + f2 * 170, alt2 = 900 - f2 * 330;
+      var w = Math.abs(x1 - x0), gX = Math.min(x0, x1), kx = gX + w / 2, yuk = alt - ust, kemer = ust + yuk * 0.2;
+      s += '<path d="M' + x0 + " " + ust + "L" + x1 + " " + ust2 + "L" + x1 + " " + alt2 + "L" + x0 + " " + alt + 'Z" fill="#c9a676"/>';
+      s += '<path d="M' + (gX + w * 0.16).toFixed(1) + " " + (alt - yuk * 0.04).toFixed(1) + "V" + (kemer + yuk * 0.2).toFixed(1) + "C" + (gX + w * 0.16).toFixed(1) + " " + (kemer + yuk * 0.07).toFixed(1) + " " + (kx - w * 0.12).toFixed(1) + " " + (kemer + yuk * 0.02).toFixed(1) + " " + kx.toFixed(1) + " " + kemer.toFixed(1) +
+        "C" + (kx + w * 0.12).toFixed(1) + " " + (kemer + yuk * 0.02).toFixed(1) + " " + (gX + w * 0.84).toFixed(1) + " " + (kemer + yuk * 0.07).toFixed(1) + " " + (gX + w * 0.84).toFixed(1) + " " + (kemer + yuk * 0.2).toFixed(1) + "V" + (alt - yuk * 0.04).toFixed(1) + 'Z" fill="#3a2a1e"/>';
+      s += '<rect x="' + (gX + w * 0.24).toFixed(1) + '" y="' + (alt - yuk * 0.44).toFixed(1) + '" width="' + (w * 0.52).toFixed(1) + '" height="' + (yuk * 0.34).toFixed(1) + '" fill="url(#aRaf)" opacity=".85"/>';
+      s += '<circle cx="' + kx.toFixed(1) + '" cy="' + (alt - yuk * 0.5).toFixed(1) + '" r="' + (w * 0.5).toFixed(1) + '" fill="url(#aK)" opacity=".7"/>';
+      s += '<path d="M' + x0 + " " + (ust + 14 * (1 - f)).toFixed(1) + "L" + x1 + " " + (ust2 + 14 * (1 - f2)).toFixed(1) + '" stroke="#2a7a7a" stroke-width="' + (10 * (1 - f * 0.6)).toFixed(1) + '"/>';
+    }
+    return s;
+  }
+  function kandilA(x, ust, uzun, s, d) {
+    return '<g class="asili" style="--s:' + s + "s;--d:-" + d + 's;--a:2.5deg"><path d="M' + x + " " + ust + "V" + (ust + uzun) + '" stroke="#8a6a2a" stroke-width="2"/>' +
+      '<g transform="translate(' + x + " " + (ust + uzun) + ')"><circle cy="34" r="80" fill="url(#aK)" class="hale" style="animation-delay:-' + d + 's"/><path d="M-10 0h20l14 18c4 20 -2 38 -24 44c-22 -6 -28 -24 -24 -44Z" fill="#c9a24a"/><path d="M-12 22h24c2 16 -2 28 -12 32c-10 -4 -14 -16 -12 -32Z" fill="#ffd27a" opacity=".85"/>' +
+      '<path d="M-8 62h16l-8 14Z" fill="#b08a3a"/><circle cy="-4" r="4" fill="#d9b25e"/></g></g>';
+  }
+  function hurma(x, taban, boy, d) {
+    var s = '<g transform="translate(' + x + " " + taban + ')"><path d="M-6 0C-10 -' + boy * 0.4 + " 4 -" + boy * 0.7 + " 0 -" + boy + "L8 -" + boy + "C12 -" + boy * 0.7 + " -2 -" + boy * 0.4 + ' 6 0Z" fill="#5a3e24"/>';
+    s += '<g class="sallan" style="--s:' + (5 + d) + "s;--d:-" + d + 's;--a:2deg"><g transform="translate(4 -' + boy + ')">';
+    [-160, -130, -100, -70, -40, -10, 20].forEach(function (a) { s += '<path d="M0 0C30 -20 70 -10 100 20" transform="rotate(' + a + ')" stroke="#3a5a2a" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M0 0C30 -20 70 -10 100 20" transform="rotate(' + (a + 4) + ')" stroke="#6a8a3a" stroke-width="2" fill="none" stroke-dasharray="4 5"/>'; });
+    return s + "</g></g></g>";
+  }
   S.kaydet("arapca", {
-    ad: "Arapça", ust: "diller", yer: "Bağdat · Beytülhikme · 9. yüzyıl", vurgu: "#D9B25E", alan: "diller",
-    alt: "Kandiller sallanıyor, dışarıda hilal. Yunanca eserlerin Arapçaya çevrildiği bu salonlarda Aristoteles yeniden okundu, cebir doğdu.",
-    parcacik: { tur: "toz", adet: 60 },
-    soz: { metin: "العلم نور", dil: "ar", ceviri: "İlim nurdur.", kaynak: "Arap atasözü" },
+    ad: "Arapça", ust: "diller", yer: "Bağdat · Beytülhikme'nin avlusu · 9. yüzyıl", vurgu: "#E6C36A", alan: "diller",
+    alt: "Akşam serinliği; şadırvanın suyu şırıldıyor, revakların altında kandiller yanıyor. Yunanca eserlerin Arapçaya çevrildiği bu avluda Aristoteles yeniden okundu, cebir doğdu.",
+    parcacik: { tur: "toz", adet: 50 }, sozYer: "sag", isaret: "kristal", sandik: { x: 40, y: 91 },
+    sozler: [
+      { metin: "وخير جليس في الزمان كتاب", dil: "ar", ceviri: "Zamanın en iyi yoldaşı kitaptır.", kaynak: "el-Mütenebbî, 10. yüzyıl" },
+      { metin: "العلم نور", dil: "ar", ceviri: "İlim nurdur.", kaynak: "Arap atasözü" },
+      { metin: "بيت الحكمة", dil: "ar", ceviri: "Bilgelik Evi.", kaynak: "Abbasi Bağdat'ı" }
+    ],
     arka: function () {
-      var s = '<rect width="1600" height="900" fill="url(#aD)"/>';
-      s += '<path d="M560 900V430C560 300 680 230 800 150C920 230 1040 300 1040 430V900Z" fill="url(#aG)"/>';
-      s += h.yildizlar(60, 5, 580, 170, 1020, 520, "#f6ecd2");
-      s += '<path d="M905 250a40 40 0 1 0 20 70a32 32 0 1 1 -20 -70Z" fill="#f6e6b0"/><circle cx="905" cy="290" r="90" fill="url(#aAy)"/>';
-      s += '<g fill="#0a141c"><path d="M560 620h480v280H560Z"/><path d="M600 620a60 60 0 0 1 120 0Z"/><rect x="655" y="520" width="10" height="100"/><path d="M650 520h20l-10 -30Z"/><path d="M760 620a90 90 0 0 1 180 0Z"/><path d="M940 620a50 50 0 0 1 100 0Z"/><rect x="890" y="470" width="14" height="150"/><path d="M884 470h26l-13 -40Z"/></g>';
-      s += '<g fill="#e0b060" opacity=".7">' + [610, 640, 700, 790, 830, 870, 960, 1000].map(function (x, i) { return '<rect x="' + x + '" y="' + (640 + (i % 3) * 30) + '" width="6" height="9"/>'; }).join("") + "</g>";
-      s += '<path d="M560 900V430C560 300 680 230 800 150C920 230 1040 300 1040 430V900" fill="none" stroke="#d9b25e" stroke-width="10"/><path d="M540 900V430C540 290 670 210 800 124C930 210 1060 290 1060 430V900" fill="none" stroke="#7a5a2a" stroke-width="4"/>';
-      [[120, 460], [1180, 460]].forEach(function (a) {
-        s += '<path d="M' + a[0] + " 900V" + (a[1] + 140) + "C" + a[0] + " " + (a[1] + 60) + " " + (a[0] + 80) + " " + (a[1] + 10) + " " + (a[0] + 150) + " " + (a[1] - 40) + "C" + (a[0] + 220) + " " + (a[1] + 10) + " " + (a[0] + 300) + " " + (a[1] + 60) + " " + (a[0] + 300) + " " + (a[1] + 140) + 'V900Z" fill="#120e0b"/>';
-        s += kitaplik(a[0] + 30, a[1] + 110, 240, 360);
-        s += '<path d="M' + a[0] + " 900V" + (a[1] + 140) + "C" + a[0] + " " + (a[1] + 60) + " " + (a[0] + 80) + " " + (a[1] + 10) + " " + (a[0] + 150) + " " + (a[1] - 40) + "C" + (a[0] + 220) + " " + (a[1] + 10) + " " + (a[0] + 300) + " " + (a[1] + 60) + " " + (a[0] + 300) + " " + (a[1] + 140) + 'V900" fill="none" stroke="#b08a3e" stroke-width="6"/>';
-      });
-      s += '<rect x="440" y="44" width="720" height="70" fill="#123030" stroke="#d9b25e" stroke-width="3"/>';
-      s += '<text x="800" y="96" text-anchor="middle" direction="rtl" font-family="\'Amiri\', \'Scheherazade New\', \'Noto Naskh Arabic\', \'Traditional Arabic\', \'Arabic Typesetting\', serif" font-size="48" fill="#f0cf82">بيت الحكمة</text>';
-      for (var i = 0; i < 18; i++) s += yildiz8(40 + i * 90, 190, 20, "rgba(217,178,94,.28)");
-      for (var j = 0; j < 18; j++) s += yildiz8(40 + j * 90, 820, 18, "rgba(217,178,94,.22)");
-      s += '<g transform="translate(800 280)" opacity=".0"></g>';
-      s += '<polygon points="380,900 1220,900 1080,760 520,760" fill="#5a1c1c"/><polygon points="420,890 1180,890 1060,772 540,772" fill="none" stroke="#d9b25e" stroke-width="3" opacity=".7"/>';
-      s += '<g opacity=".5">' + [0, 1, 2, 3, 4].map(function (k) { return yildiz8(640 + k * 80, 830, 16, "#d9b25e", 2); }).join("") + "</g>";
-      s += kandil(260, 0, 240, 5, 0) + kandil(700, 0, 120, 6, 1.5) + kandil(1020, 0, 190, 5.5, 3) + kandil(1400, 0, 250, 6.5, 2);
-      s += '<g transform="translate(470 780)"><path d="M-80 0L0 -40L80 0L0 40Z" fill="#6a3a1e"/><path d="M-80 0L-80 60L0 100L0 40Z" fill="#4a2814"/><path d="M80 0L80 60L0 100L0 40Z" fill="#3a1e0e"/>' +
+      var s = '<rect width="1600" height="900" fill="url(#aG)"/>';
+      s += h.yildizlar(70, 5, 300, 0, 1300, 300, "#fff6dc");
+      s += '<path d="M1030 120a44 44 0 1 0 22 78a36 36 0 1 1 -22 -78Z" fill="#fff0c0"/><circle cx="1030" cy="160" r="110" fill="url(#aAy)"/>';
+      s += '<g fill="#3a3050" opacity=".9"><rect x="380" y="470" width="840" height="90"/>' +
+        '<path d="M470 470a60 60 0 0 1 120 0Z"/><rect x="620" y="360" width="12" height="110"/><path d="M614 360h24l-12 -34Z"/><path d="M700 470a100 100 0 0 1 200 0Z"/>' +
+        '<path d="M940 470a70 70 0 0 1 140 0Z"/><rect x="1110" y="380" width="14" height="90"/><path d="M1104 380h26l-13 -40Z"/></g>';
+      s += '<g fill="#ffd27a" opacity=".6">' + [430, 520, 690, 760, 850, 980, 1050, 1160].map(function (x, i) { return '<rect x="' + x + '" y="' + (500 + (i % 3) * 18) + '" width="6" height="9"/>'; }).join("") + "</g>";
+      s += '<rect x="0" y="540" width="1600" height="360" fill="url(#aZ)"/>';
+      for (var i = -10; i <= 10; i++) s += '<path d="M800 470L' + (800 + i * 170) + ' 900" stroke="rgba(90,60,30,.18)" stroke-width="1.5"/>';
+      [575, 605, 645, 700, 770, 860].forEach(function (y) { s += '<path d="M0 ' + y + 'H1600" stroke="rgba(90,60,30,.18)" stroke-width="1.5"/>'; });
+      s += '<g opacity=".35">' + [0, 1, 2, 3, 4, 5, 6].map(function (k) { return yildiz8(560 + k * 80, 860, 18, "#2a7a7a", 2.5); }).join("") + "</g>";
+      s += '<path d="M660 560V400C660 340 730 300 800 270C870 300 940 340 940 400V560Z" fill="#c9a676"/><path d="M690 560V410C690 360 745 330 800 305C855 330 910 360 910 410V560Z" fill="#3a2a1e"/>';
+      s += '<rect x="712" y="440" width="176" height="110" fill="url(#aRaf)"/><circle cx="800" cy="460" r="120" fill="url(#aK)" opacity=".8"/>';
+      s += '<rect x="620" y="210" width="360" height="56" fill="#1e5a5a" stroke="#e6c36a" stroke-width="3"/><text x="800" y="250" text-anchor="middle" direction="rtl" font-family="\'Amiri\', \'Scheherazade New\', \'Noto Naskh Arabic\', \'Traditional Arabic\', \'Arabic Typesetting\', serif" font-size="36" fill="#f6dc8a">بيت الحكمة</text>';
+      s += revak(true) + revak(false);
+      s += hurma(560, 600, 250, 0) + hurma(1050, 596, 230, 2);
+      s += '<g transform="translate(800 720)"><ellipse rx="190" ry="44" fill="#8aa6a0"/><ellipse rx="176" ry="38" fill="url(#aSu)"/><path d="M-190 0V26C-190 50 190 50 190 26V0" fill="#b8987a"/><ellipse rx="190" ry="44" fill="none" stroke="#e6c36a" stroke-width="3"/>' +
+        '<ellipse class="halka-su" rx="60" ry="14" fill="none" stroke="#dff4f0" stroke-width="2"/><ellipse class="halka-su s2" rx="60" ry="14" fill="none" stroke="#dff4f0" stroke-width="2"/>' +
+        '<rect x="-12" y="-70" width="24" height="70" fill="#c9a676"/><ellipse cy="-70" rx="34" ry="9" fill="#b8987a"/>' +
+        '<g fill="none" stroke="#dff4f0" stroke-width="3" stroke-linecap="round"><path class="su" d="M0 -78C-10 -120 -50 -110 -70 -10"/><path class="su" d="M0 -78C10 -120 50 -110 70 -10"/><path class="su" d="M0 -78C0 -130 0 -130 0 -90"/></g></g>';
+      s += kandilA(170, 250, 150, 5, 0) + kandilA(380, 330, 120, 6, 1.5) + kandilA(1220, 330, 120, 5.5, 3) + kandilA(1430, 250, 150, 6.5, 2);
+      s += '<g transform="translate(360 800)"><path d="M-80 0L0 -40L80 0L0 40Z" fill="#6a3a1e"/><path d="M-80 0L-80 60L0 100L0 40Z" fill="#4a2814"/><path d="M80 0L80 60L0 100L0 40Z" fill="#3a1e0e"/>' +
         '<path d="M-64 -8C-40 -24 -10 -24 0 -12C10 -24 40 -24 64 -8L0 20Z" fill="#efe2c2"/><path d="M-50 -10h36M-48 -4h34M-46 2h30M12 -12h34M14 -6h32M16 0h28" stroke="#3a2a1a" stroke-width="1.6" opacity=".7"/>' +
         '<ellipse cx="54" cy="16" rx="12" ry="6" fill="#1a1410"/><path d="M50 12L20 -36" stroke="#c9a86c" stroke-width="3"/></g>';
-      s += '<g transform="translate(200 700)">' + [0, 1, 2, 3, 4].map(function (k) { return '<rect x="' + (-60 + (k % 2) * 8) + '" y="' + (-k * 22) + '" width="' + (110 - k * 6) + '" height="20" rx="2" fill="' + ["#6a2a22", "#2a4a3a", "#7a5a2a", "#3a2a4a", "#8a4a2a"][k] + '"/><rect x="' + (-60 + (k % 2) * 8) + '" y="' + (-k * 22 + 8) + '" width="' + (110 - k * 6) + '" height="3" fill="#d9b25e" opacity=".6"/>'; }).join("") + "</g>";
-      s += '<g transform="translate(1210 700)"><path d="M0 60v100M-40 160h80" stroke="#8a6a2a" stroke-width="6"/><circle r="64" fill="#b08a3e"/><circle r="56" fill="#2a2016"/><circle r="56" fill="none" stroke="#d9b25e" stroke-width="2"/>' +
-        [0, 30, 60, 90, 120, 150].map(function (a) { return '<path d="M0 0L0 -56" transform="rotate(' + a + ')" stroke="#6a5a3a" stroke-width="1"/><path d="M0 0L0 56" transform="rotate(' + a + ')" stroke="#6a5a3a" stroke-width="1"/>'; }).join("") +
+      s += '<g transform="translate(250 670)">' + [0, 1, 2, 3, 4].map(function (k) { return '<rect x="' + (-60 + (k % 2) * 8) + '" y="' + (-k * 22) + '" width="' + (110 - k * 6) + '" height="20" rx="2" fill="' + ["#6a2a22", "#2a4a3a", "#7a5a2a", "#3a2a4a", "#8a4a2a"][k] + '"/><rect x="' + (-60 + (k % 2) * 8) + '" y="' + (-k * 22 + 8) + '" width="' + (110 - k * 6) + '" height="3" fill="#d9b25e" opacity=".6"/>'; }).join("") + "</g>";
+      s += '<g transform="translate(1230 720)"><path d="M0 60v100M-40 160h80" stroke="#8a6a2a" stroke-width="6"/><circle r="64" fill="#b08a3e"/><circle r="56" fill="#2a2016"/><circle r="56" fill="none" stroke="#d9b25e" stroke-width="2"/>' +
+        [0, 30, 60, 90, 120, 150].map(function (a) { return '<path d="M0 -56V56" transform="rotate(' + a + ')" stroke="#6a5a3a" stroke-width="1"/>'; }).join("") +
         '<g class="don" style="--s:40s"><circle r="40" fill="none" stroke="#e8c870" stroke-width="3"/><circle cy="-10" r="30" fill="none" stroke="#e8c870" stroke-width="2"/><path d="M-30 -30L0 -46L30 -30M-40 10L-52 16M40 10L52 18M0 40L0 54" stroke="#e8c870" stroke-width="3" stroke-linecap="round"/></g>' +
         '<g class="don don-ters" style="--s:25s"><path d="M0 0L0 -52" stroke="#fff0c0" stroke-width="2.5"/></g><circle r="5" fill="#e8c870"/><circle cy="-70" r="8" fill="none" stroke="#b08a3e" stroke-width="4"/></g>';
       return h.svg(s,
-        '<linearGradient id="aD" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0f2226"/><stop offset=".6" stop-color="#1a2a28"/><stop offset="1" stop-color="#1c140e"/></linearGradient>' +
-        '<linearGradient id="aG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#061220"/><stop offset=".7" stop-color="#16304a"/><stop offset="1" stop-color="#2a3a4a"/></linearGradient>' +
-        '<radialGradient id="aAy"><stop offset="0" stop-color="#f6e6b0" stop-opacity=".35"/><stop offset="1" stop-color="#f6e6b0" stop-opacity="0"/></radialGradient>' +
+        '<linearGradient id="aG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1c2a50"/><stop offset=".35" stop-color="#4a4a7a"/><stop offset=".55" stop-color="#c8806a"/><stop offset=".62" stop-color="#f0b070"/></linearGradient>' +
+        '<linearGradient id="aZ" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d8bc90"/><stop offset="1" stop-color="#9a7a56"/></linearGradient>' +
+        '<linearGradient id="aSu" x1="0" x2="1"><stop offset="0" stop-color="#3a8a8a"/><stop offset=".5" stop-color="#7ac8c0"/><stop offset="1" stop-color="#3a8a8a"/></linearGradient>' +
+        '<linearGradient id="aRaf" x1="0" x2="1"><stop offset="0" stop-color="#6a2a22"/><stop offset=".2" stop-color="#2a4a3a"/><stop offset=".4" stop-color="#7a5a2a"/><stop offset=".6" stop-color="#3a2a4a"/><stop offset=".8" stop-color="#8a6a3a"/><stop offset="1" stop-color="#5a3020"/></linearGradient>' +
+        '<radialGradient id="aAy"><stop offset="0" stop-color="#fff0c0" stop-opacity=".3"/><stop offset="1" stop-color="#fff0c0" stop-opacity="0"/></radialGradient>' +
         '<radialGradient id="aK"><stop offset="0" stop-color="#ffc862" stop-opacity=".5"/><stop offset=".4" stop-color="#ff9a3a" stop-opacity=".15"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>'
       );
     },
-    on: function () {
-      return h.svg('<path d="M0 0H1600V40H0Z" fill="#0a1214"/><g opacity=".5">' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(function (k) { return '<path d="M' + (k * 100) + " 40a50 30 0 0 0 100 0" + '" fill="#0a1214"/>'; }).join("") + "</g>");
-    },
     eserler: [
-      { x: 50, y: 9, ad: "Kitabe", panel:
-        "<h3>Alfabe ve yazı</h3><p>Arap alfabesi <b>28 harftir</b> ve sağdan sola yazılır. Harflerin çoğu birbirine bağlanır; her harf sözcükteki yerine göre (tek başına, başta, ortada, sonda) biçim değiştirir:</p>" +
-        "<table class=\"pn-tablo\"><tr><th>Tek</th><th>Başta</th><th>Ortada</th><th>Sonda</th></tr><tr><td lang=\"ar\">ه</td><td lang=\"ar\">هـ</td><td lang=\"ar\">ـهـ</td><td lang=\"ar\">ـه</td></tr><tr><td lang=\"ar\">ع</td><td lang=\"ar\">عـ</td><td lang=\"ar\">ـعـ</td><td lang=\"ar\">ـع</td></tr></table>" +
-        "<p>Kısa ünlüler çoğunlukla yazılmaz; gerekince harfin üstüne ya da altına konan işaretlerle (<i>hareke</i>) gösterilir. Alfabe, Nabatî yazısından gelişti.</p><p>Kemerdeki yazı: <span class=\"yabanci\" lang=\"ar\">بيت الحكمة</span> <i>Beyt el-Hikme</i>, “Bilgelik Evi”.</p>" },
-      { x: 12, y: 70, ad: "Kitap yığını", panel:
-        "<h3>Kök sistemi</h3><p>Arapça bir Sami dilidir: sözcükler çoğunlukla <b>üç ünsüzlü bir kökten</b>, belli kalıplara (<i>vezin</i>) ünlüler ve ekler yerleştirilerek türetilir. Kök anlamı taşır, kalıp işlevi.</p>" +
-        "<h4>K-T-B: yazmak</h4><table class=\"pn-tablo\"><tr><th>Sözcük</th><th>Anlam</th><th>Türkçede</th></tr><tr><td lang=\"ar\">كَتَبَ</td><td>kataba: yazdı</td><td></td></tr><tr><td lang=\"ar\">كِتَاب</td><td>kitāb: kitap</td><td>kitap</td></tr><tr><td lang=\"ar\">كَاتِب</td><td>kātib: yazan</td><td>kâtip</td></tr><tr><td lang=\"ar\">مَكْتَب</td><td>maktab: yazı yeri, okul</td><td>mektep</td></tr><tr><td lang=\"ar\">مَكْتُوب</td><td>maktūb: yazılmış</td><td>mektup</td></tr><tr><td lang=\"ar\">مَكْتَبَة</td><td>maktaba: kütüphane</td><td></td></tr></table>" +
-        "<h4>ʿ-L-M: bilmek</h4><p><span lang=\"ar\">عِلْم</span> ʿilm (ilim) · <span lang=\"ar\">عَالِم</span> ʿālim (âlim) · <span lang=\"ar\">مُعَلِّم</span> muʿallim (muallim) · <span lang=\"ar\">مَعْلُوم</span> maʿlūm (malum)</p>" },
-      { x: 29, y: 84, ad: "Rahle", panel:
-        "<h3>Hat sanatı</h3><p>Yazı, kamıştan yontulmuş bir kalem ve isten yapılmış mürekkeple yazılırdı. Arap dünyasında yazı başlı başına bir sanata dönüştü.</p>" +
-        "<ul><li><b>Kûfî</b>: köşeli, anıtsal; erken dönem Kur'an nüshaları ve yapı yazıtları</li><li><b>Nesih</b>: yuvarlak, okunaklı kitap yazısı; bugünkü matbaa harflerinin temeli</li><li><b>Sülüs</b>: görkemli başlık ve kitabe yazısı</li><li><b>Divânî</b> ve <b>Rik'a</b>: resmî yazışma ve gündelik yazı</li></ul>" +
-        "<p>10. yüzyılda vezir <b>İbn Mukle</b>, harfleri eliften ve kalemin bıraktığı noktadan türeyen oranlara bağlayan bir ölçü sistemi kurdu; “oranlı yazı” (<i>el-hatt el-mansûb</i>) böyle doğdu.</p>" },
-      { x: 76, y: 76, ad: "Usturlap", panel:
-        "<h3>Çeviri hareketi</h3><p>8.–10. yüzyıllarda Abbasi Bağdat'ında Yunanca eserler (çoğu kez Süryanice aracılığıyla), Farsça ve Sanskritçe metinler büyük bir çeviri hareketiyle Arapçaya aktarıldı. Aristoteles, Galenos, Öklid ve Batlamyus böylece yeni bir dilde okunmaya başladı.</p>" +
-        "<ul><li><b>Huneyn b. İshak</b> (809–873): Galenos'un tıp külliyatının ve Aristoteles'in bazı eserlerinin çevirmeni</li><li><b>Harezmî</b> (ö. ~850): <i>el-Cebr ve'l-Mukabele</i> ile cebire adını verdi; “algoritma” sözcüğü onun adından gelir</li></ul>" +
-        "<p>Terimler de yolculuğa çıktı: <i>falsafa</i> ← <i>philosophia</i>, <i>hayûlâ</i> (madde) ← <i>hylē</i>. Usturlap ise gökyüzünü ölçmek için kullanılan bir hesap aletidir; bu dönemde çok gelişti.</p>" +
-        "<p class=\"pn-not\">Beytülhikme'nin tam olarak nasıl bir kurum olduğu tarihçiler arasında tartışmalıdır: bir saray kütüphanesi ve bilgin topluluğu olduğu düşünülür.</p>" },
-      { x: 64, y: 30, ad: "Kandil", panel:
-        "<h3>Kindî ve Arapça felsefe</h3><p><b>el-Kindî</b> (ö. ~870), “Arapların filozofu” diye anılır; Yunan felsefesini Arapçada ilk sistemli biçimde işleyenlerdendir. <i>İlk Felsefe Üzerine</i> adlı eserinde hakikati, nereden, hatta uzak milletlerden gelse bile, kabul etmekten utanılmaması gerektiğini söyler.</p>" +
-        "<ul><li><b>Fârâbî</b> (ö. 950): Aristoteles'ten sonraki “İkinci Öğretmen” (<i>el-Muallim es-Sânî</i>)</li><li><b>İbn Sînâ</b> (ö. 1037): <i>Kitâbü'ş-Şifâ</i>; öz ile varlık ayrımı, “uçan adam” düşünce deneyi</li><li><b>İbn Rüşd</b> (ö. 1198): Aristoteles şerhleriyle Latin Avrupa'da kısaca “Şârih” (<i>Commentator</i>) diye anıldı</li></ul>" +
-        "<p>İbn Sînâ'nın öz–varlık ayrımı, Latince çevirileri üzerinden Thomas Aquinas'a kadar uzanan metafizik tartışmaları besledi.</p>" }
+      { x: 50, y: 26, ad: "Kitabe", panel: ARAP_PANEL.kitabe },
+      { x: 16, y: 70, ad: "Kitap yığını", panel: ARAP_PANEL.kok },
+      { x: 23, y: 86, ad: "Rahle", panel: ARAP_PANEL.hat },
+      { x: 77, y: 80, ad: "Usturlap", panel: ARAP_PANEL.ceviri },
+      { x: 76, y: 52, ad: "Kandil", panel: ARAP_PANEL.kindi }
     ]
   });
 })();
