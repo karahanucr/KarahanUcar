@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evren bir matematiksel yapı mı? — Karahan Uçar</title>
+  <meta name="description" content="Max Tegmark'ın “The Mathematical Universe” makalesinin adım adım, kaydırarak okunan Türkçe özeti ve soyut nesneler açısından değerlendirmesi.">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Evren bir matematiksel yapı mı?">
+  <meta property="og:description" content="Tegmark'ın Matematiksel Evren Hipotezi, adım adım: dış gerçeklik, yapılar, Gödel ve soyut nesneler sorusu.">
+  <meta property="og:image" content="../assets/og-kapak.jpg">
+  <link rel="stylesheet" href="../css/style.css?v=20260923b">
+  <script>try { if (localStorage.getItem("tema") === "gunduz") document.documentElement.classList.add("gunduz"); } catch (e) {}</script>
+  <style>
+    /* Adım adım okuma: solda sabit duran çizim, sağda kaydırdıkça ilerleyen adımlar */
+    .okuma-bas { padding: clamp(2.5rem, 7vw, 5rem) 0 1.5rem; text-align: center; border-bottom: 1px solid var(--line); }
+    .okuma-bas h1 { margin-bottom: .6rem; }
+    .okuma-bas .kaynak { color: var(--muted); font-size: .95rem; }
+    .geri { display: inline-block; margin-bottom: 1.4rem; font-size: .92rem; }
+    .serit { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding-block: 2rem 4rem; }
+    @media (min-width: 52rem) { .serit { grid-template-columns: 1.05fr 1fr; gap: 3rem; } }
+    .cizim { position: sticky; top: 4.2rem; height: min(70vh, 30rem); display: grid; place-items: center; z-index: 2;
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    @media (max-width: 51.99rem) { .cizim { height: 15rem; } }
+    .cizim svg { width: 92%; height: 92%; }
+    .cizim [data-k] { opacity: .12; transition: opacity .7s ease, transform .7s ease; transform-box: fill-box; transform-origin: center; }
+    .cizim[data-adim="1"] [data-k~="1"], .cizim[data-adim="2"] [data-k~="2"], .cizim[data-adim="3"] [data-k~="3"], .cizim[data-adim="4"] [data-k~="4"],
+    .cizim[data-adim="5"] [data-k~="5"], .cizim[data-adim="6"] [data-k~="6"], .cizim[data-adim="7"] [data-k~="7"] { opacity: 1; }
+    .cizim text { font: 500 15px var(--sans); fill: var(--ivory); }
+    .cizim .ince { font-size: 12px; fill: var(--muted); }
+    .adim { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; padding-block: 1rem; opacity: .35; transition: opacity .5s ease; }
+    .adim.etkin { opacity: 1; }
+    .adim .no { font: 500 .8rem/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem; }
+    .adim h2 { font: 500 1.5rem/1.25 var(--serif); margin-bottom: .7rem; }
+    .adim p { color: var(--muted); text-align: justify; text-align-last: left; }
+    .adim p + p { margin-top: .7rem; }
+    .adim .soru { margin-top: 1rem; padding: .8rem 1rem; border-left: 3px solid var(--gold); background: rgba(232, 189, 98, .07); color: var(--ivory); border-radius: 0 8px 8px 0; }
+    .son { border-top: 1px solid var(--line); padding-block: 2rem 3rem; color: var(--muted); font-size: .92rem; }
+    @media (prefers-reduced-motion: reduce) { .adim { opacity: 1; } .cizim [data-k] { opacity: 1; } }
+  </style>
+</head>
+<body>
+<main id="top">
+  <header class="okuma-bas">
+    <div class="wrap">
+      <a class="geri" href="../index.html#bilgi">← Bilgi içeriklerine dön</a>
+      <p class="eyebrow">Adım adım okuma · ontoloji ve bilim felsefesi</p>
+      <h1>Evren bir matematiksel yapı mı?</h1>
+      <p class="kaynak">Max Tegmark, “The Mathematical Universe”, <i>Foundations of Physics</i> 38 (2008) ·
+        <a href="https://arxiv.org/abs/0704.0646" target="_blank" rel="noopener">arXiv:0704.0646</a></p>
+    </div>
+  </header>
+
+  <div class="wrap serit">
+    <figure class="cizim" data-adim="1" aria-hidden="true">
+      <svg viewBox="0 0 400 320" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- 1 dış gerçeklik -->
+        <g data-k="1 2 3 4 5 6 7"><circle cx="200" cy="160" r="128" stroke="var(--line)" stroke-width="2"/></g>
+        <g data-k="1"><circle cx="200" cy="160" r="40" fill="rgba(232,189,98,.12)" stroke="var(--gold)" stroke-width="2"/>
+          <text x="200" y="165" text-anchor="middle">gerçeklik</text><text class="ince" x="200" y="300" text-anchor="middle">insanlardan bağımsız bir dış gerçeklik</text>
+          <circle cx="92" cy="92" r="14" stroke="var(--muted)" stroke-width="2"/><path d="M106 102L160 140" stroke="var(--muted)" stroke-dasharray="4 5"/></g>
+        <!-- 2 bagajsız betimleme -->
+        <g data-k="2"><path d="M80 200h60M80 216h40M80 232h52" stroke="var(--muted)" stroke-width="3"/><path d="M150 216h36" stroke="var(--gold)" stroke-width="2"/><path d="M180 210l8 6-8 6" stroke="var(--gold)" stroke-width="2"/>
+          <text x="262" y="210" text-anchor="middle">a ∘ b = c</text><text x="262" y="232" text-anchor="middle" class="ince">yalnız ilişkiler</text></g>
+        <!-- 3 yapı -->
+        <g data-k="3 4 5"><g stroke="var(--gold)" stroke-width="2"><circle cx="160" cy="120" r="9"/><circle cx="240" cy="120" r="9"/><circle cx="200" cy="190" r="9"/><circle cx="140" cy="200" r="9"/><circle cx="262" cy="196" r="9"/>
+          <path d="M169 120h62M165 128l29 54M235 128l-29 54M149 200h42M209 192l44 4"/></g><text class="ince" x="200" y="252" text-anchor="middle">öğeler + aralarındaki bağıntılar</text></g>
+        <!-- 4 çoklu evren -->
+        <g data-k="4"><circle cx="86" cy="80" r="26" stroke="var(--muted)" stroke-width="1.5"/><circle cx="318" cy="84" r="20" stroke="var(--muted)" stroke-width="1.5"/><circle cx="320" cy="240" r="28" stroke="var(--muted)" stroke-width="1.5"/><circle cx="78" cy="244" r="18" stroke="var(--muted)" stroke-width="1.5"/>
+          <text class="ince" x="200" y="300" text-anchor="middle">her matematiksel yapı, bir “evren”</text></g>
+        <!-- 5 gödel -->
+        <g data-k="5"><path d="M200 36v26M190 52l10 10 10-10" stroke="var(--gold)" stroke-width="2"/><text x="200" y="30" text-anchor="middle">hesaplanabilir mi?</text></g>
+        <!-- 6 soyut nesneler -->
+        <g data-k="6"><rect x="150" y="110" width="100" height="100" rx="10" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 6"/><text x="200" y="165" text-anchor="middle">soyut nesne?</text></g>
+        <!-- 7 eleştiri -->
+        <g data-k="7"><path d="M120 250l30-30 30 30M220 250l30-30 30 30" stroke="var(--muted)" stroke-width="2"/><text x="200" y="290" text-anchor="middle">açık sorular</text></g>
+      </svg>
+    </figure>
+
+    <div class="adimlar">
+      <section class="adim" data-adim="1">
+        <p class="no">Adım 1</p>
+        <h2>Dış Gerçeklik Hipotezi</h2>
+        <p>Tegmark işe çoğu fizikçinin sessizce kabul ettiği bir varsayımla başlar: bizden, gözlemcilerden ve kavramlarımızdan tamamen bağımsız bir dış gerçeklik vardır.</p>
+        <p>Bu kulağa zararsız gelir; makalenin iddiası ise bu varsayımın beklenenden çok daha ağır sonuçları olduğudur.</p>
+      </section>
+      <section class="adim" data-adim="2">
+        <p class="no">Adım 2</p>
+        <h2>“Bagajsız” bir betimleme</h2>
+        <p>Gerçeklik bizden bağımsızsa, onun tam betimi insana ait kavramlara (“elektron”, “renk”, “sıcak”) dayanmamalıdır. Tegmark bu insan kaynaklı sözcüklere “bagaj” der.</p>
+        <p>Bagajı atınca geriye yalnızca şeylerin birbirleriyle ilişkileri kalır; bu da bir matematiksel betimlemedir.</p>
+        <p class="soru">Bir şeyi yalnızca ilişkileriyle betimleyebilir miyiz, yoksa ilişkilerin taşıyıcısı olan bir “şey” her zaman artakalır mı?</p>
+      </section>
+      <section class="adim" data-adim="3">
+        <p class="no">Adım 3</p>
+        <h2>Matematiksel Evren Hipotezi</h2>
+        <p>Buradan cüretkâr sonuç çıkar: fiziksel dünya matematikle yalnızca <em>betimlenen</em> bir şey değildir, kendisi soyut bir matematiksel yapıdır.</p>
+        <p>Bir yapı, öğeler ve aralarındaki bağıntılardan ibarettir; öğelerin “ne olduğu” ayrıca sorulmaz. Tegmark'a göre bizim evrenimiz de böyledir.</p>
+      </section>
+      <section class="adim" data-adim="4">
+        <p class="no">Adım 4</p>
+        <h2>Her yapı bir evren: Düzey IV çoklu evren</h2>
+        <p>Eğer bir matematiksel yapı olmak fiziksel olarak var olmak için yeterliyse, yalnızca bizimki değil, bütün matematiksel yapılar var olmalıdır.</p>
+        <p>Tegmark bunu çoklu evren sınıflandırmasının en üst basamağı olarak sunar: “Düzey IV”.</p>
+      </section>
+      <section class="adim" data-adim="5">
+        <p class="no">Adım 5</p>
+        <h2>Gödel ve hesaplanabilirlik</h2>
+        <p>Her yapıyı kabul etmek sorun doğurur: Gödel'in eksiklik sonuçları, bazı yapılarda doğru olan her şeyin kanıtlanamayacağını gösterir.</p>
+        <p>Tegmark bu yüzden daha dar bir öneri de dile getirir: yalnızca hesaplanabilir (ve Gödel anlamında karar verilebilir) yapılar vardır. Bunun fizik yasalarının neden bu kadar basit göründüğünü açıklamaya yardım edebileceğini düşünür.</p>
+      </section>
+      <section class="adim" data-adim="6">
+        <p class="no">Adım 6</p>
+        <h2>Soyut nesneler sorusu</h2>
+        <p>Felsefe açısından en ilginç nokta şudur: Hipotez, matematiksel Platonculuğun güçlü bir biçimini varsayar. Soyut yapılar yalnızca var olmakla kalmaz, “somut” dünyanın ta kendisidir.</p>
+        <p>Böylece soyut/somut ayrımı ortadan kalkar gibi görünür. Ama bu, soyut nesnelerin nasıl bir varlığı olduğu sorusunu çözmez; soruyu evrenin tamamına taşır.</p>
+        <p class="soru">Soyut nesneler nedensel olarak etkisizse, nedensel ilişkilerle dolu bir dünya nasıl “yalnızca” soyut bir yapı olabilir?</p>
+      </section>
+      <section class="adim" data-adim="7">
+        <p class="no">Adım 7</p>
+        <h2>Açık sorular ve eleştiriler</h2>
+        <p>Makale geniş bir tartışma başlattı. Sık dile getirilen itirazlar: “yapı” kavramı yeterince net mi; bir betimlemeyi betimlenen şeyle özdeşleştirmek kategori hatası mı; bilinç ve gözlemci bu yapının içinde nasıl yer alır?</p>
+        <p>Hipotez sınanabilir mi, yoksa bir metafizik tercih mi, sorusu da açık kalır. Yine de ontoloji ile fizik arasında nadir kurulan bir köprü olarak okumaya değer.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="wrap son">
+    <p>Bu sayfa makalenin kendisi değil, Karahan Uçar için hazırlanmış bir okuma özetidir; ifadeler özgündür, alıntı içermez. Asıl metin için: <a href="https://arxiv.org/abs/0704.0646" target="_blank" rel="noopener">arxiv.org/abs/0704.0646</a>.</p>
+    <p><a href="../index.html#bilgi">← Ana sayfaya dön</a></p>
+  </div>
+</main>
+<script>
+  /* Kaydırdıkça etkin adımı bulur ve çizimde ilgili katmanları öne çıkarır */
+  (function () {
+    var cizim = document.querySelector(".cizim"), adimlar = document.querySelectorAll(".adim");
+    if (!("IntersectionObserver" in window)) { adimlar.forEach(function (a) { a.classList.add("etkin"); }); return; }
+    var io = new IntersectionObserver(function (kayitlar) {
+      kayitlar.forEach(function (k) {
+        if (!k.isIntersecting) return;
+        adimlar.forEach(function (a) { a.classList.toggle("etkin", a === k.target); });
+        cizim.setAttribute("data-adim", k.target.getAttribute("data-adim"));
+      });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    adimlar.forEach(function (a) { io.observe(a); });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+SES DOSYALARI - KAYNAK VE LİSANS (indirme: 2026-09-22, Karahan'ın onayıyla)
+
+1) somine.wav  (şömine çıtırtısı)
+   Özgün ad : fire-1.wav  (OpenGameArt "Fire Crackling")
+   Yazar    : AntumDeluge
+   Sayfa    : https://opengameart.org/content/fire-crackling
+   Dosya    : https://opengameart.org/sites/default/files/fire-1.wav
+   Lisans   : CC0 1.0 (kamu malı; atıf gerekmez)
+   Boyut    : 253232 bayt | SHA-256: 26702DE8A195BCBAFEAE72034861D875A1B7917168A25106F4E1957ECDDDF7E5
+
+2) yagmur.mp3  (yağmur döngüsü)
+   Özgün ad : ambience-rain-33.mp3  (SFXMint "Looping Leafy Forest Rain 33", 8,9 sn)
+   Sayfa    : https://sfxmint.com/sounds/ambience-rain-33
+   Dosya    : https://sfxmint.com/dl/ambience-rain-33.mp3
+   Lisans   : CC0 1.0 (sitede "No attribution required" olarak belirtiliyor)
+   Boyut    : 143821 bayt | SHA-256: 05C4E79A7CC0734032B067FD3323AEA001E49334C90296A0BE2DE087C30E69C1
+
+Notlar
+- Rüzgâr ve gök gürültüsü sesleri dosya değildir; tarayıcıda (WebAudio) üretilir.
+- İki dosya yüklenemezse site şömine ve yağmur sesini yine tarayıcıda üretir (yedek).
+- Lisans durumu indirme anında ilgili sayfalardan okunmuştur; yayına almadan önce sayfaları yeniden kontrol etmek iyi olur.

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Karahan Uçar — Felsefe, metafizik ve zihin felsefesi</title>
+  <meta name="description" content="Karahan Uçar: felsefe araştırmacısı. Metafizik, zihin felsefesi, epistemoloji ve dil felsefesi; yayınlar, sunumlar ve bilgi içerikleri.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <!-- Paylaşım önizlemesi (WhatsApp, LinkedIn, X...). Alan adı alınınca og:image ve og:url tam adrese (https://karahanucar.com/...) çevrilmeli; site-kontrol.py hatırlatır. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Karahan Uçar">
+  <meta property="og:title" content="Karahan Uçar — Düşüncenin Eşiğinde">
+  <meta property="og:description" content="Felsefe araştırmacısı: metafizik, zihin felsefesi, epistemoloji ve dil felsefesi. Yayınlar, etkileşimli sunumlar ve bilgi notları.">
+  <meta property="og:image" content="assets/og-kapak.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Karlı bir gecede şömineli kütüphane, ortada altın phi-alev logo, masada kitap okuyan kuzgun maskot">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="css/style.css?v=20260923e">
+  <script>document.documentElement.classList.add("js");
+    /* Tema: ay/güneş tıklamasıyla seçilen gündüz hâli, boyamadan önce uygulanır (yanıp sönme olmasın) */
+    try { if (localStorage.getItem("tema") === "gunduz") document.documentElement.classList.add("gunduz"); } catch (e) {}</script>
+</head>
+<body>
+
+<!-- Dışarıdaki hava (kar/yağmur) ve şömine ışığı: sayfanın arkasında sabit katmanlar -->
+<canvas id="hava" aria-hidden="true"></canvas>
+<div class="ates-isigi" aria-hidden="true"></div>
+<div class="simsek" aria-hidden="true"></div>
+
+<!-- Ateş dalgalanması: logoya uygulanan hafif ısı-titreşimi filtresi (şekli yeniden çizmez) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="ates" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="ates-gurultu" type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/logo-seffaf.svg" alt="" width="32" height="32"><span>Karahan Uçar</span></a>
+    <nav aria-label="Ana menü">
+      <a href="#hakkinda">Hakkında</a>
+      <span class="ayir" aria-hidden="true">·</span>
+      <a href="#yayinlar">Yayınlar</a>
+      <span class="ayir" aria-hidden="true">·</span>
+      <a href="#kanal">Kanal &amp; Sunumlar</a>
+      <span class="ayir" aria-hidden="true">·</span>
+      <a href="#bilgi">Bilgi</a>
+      <span class="ayir" aria-hidden="true">·</span>
+      <a href="#randevu">Randevu</a>
+      <span class="ayir" aria-hidden="true">·</span>
+      <a href="#iletisim">İletişim</a>
+      <span class="ayir" aria-hidden="true">·</span>
+      <div class="dil-menu">
+        <a href="#dil" class="dil-tetik" aria-haspopup="true">Dil</a>
+        <ul class="dil-liste">
+          <li><button type="button" data-dil="tr" lang="tr" data-sabit>Türkçe</button></li>
+          <li><button type="button" data-dil="en" lang="en" data-sabit>English</button></li>
+          <li><button type="button" data-dil="de" lang="de" data-sabit>Deutsch</button></li>
+          <li><button type="button" data-dil="fr" lang="fr" data-sabit>Français</button></li>
+          <li><button type="button" data-dil="la" lang="la" data-sabit>Latina</button></li>
+          <li><button type="button" data-dil="el" lang="grc" data-sabit>Ἑλληνικά</button></li>
+          <li><button type="button" data-dil="ar" lang="ar" data-sabit>العربية</button></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <button type="button" class="ay" aria-pressed="false" aria-label="Gündüze geç (güneşi doğur)" title="Güneşi doğur"></button>
+    <div class="yildizlar" aria-hidden="true"></div>
+    <div class="orman" aria-hidden="true"></div>
+    <canvas id="kor" aria-hidden="true"></canvas>
+    <div class="wrap hero-in">
+      <div class="flame-wrap">
+        <img class="flame" src="assets/logo-seffaf.svg" alt="Karahan Uçar logosu: altın rengi phi ve alev" width="144" height="144">
+      </div>
+      <p class="eyebrow">Felsefe araştırmacısı</p>
+      <h1>Karahan Uçar</h1>
+      <p class="lead">Varlığı, zihni, bilgiyi ve dili düşünmeye çalışıyorum; bu sayfa yayınlarımı, sunumlarımı ve bilgi notlarımı bir araya getiriyor.</p>
+      <ul class="tags" aria-label="Çalışma alanları">
+        <li class="cycle"><span>Metafizik</span><span>Varlık felsefesi</span></li>
+        <li>Zihin felsefesi</li>
+        <li class="cycle"><span>Epistemoloji</span><span>Bilgi felsefesi</span></li>
+        <li>Dil felsefesi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sahne" role="img" aria-label="Mum ışığında bir kütüphanede kitap okuyan kuzgun maskot">
+    <div class="sahne-in">
+      <img src="assets/gpt/maskotlu-kutuphane.webp" alt="" width="1915" height="821">
+    </div>
+  </div>
+
+  <!-- İki görsel bandı arasındaki eşik: kart çerçevelerindeki gibi dönen ışıklı, üstten ve alttan yazıyı çevreleyen çizgi -->
+  <div class="wrap">
+    <div class="esik"><span class="esik-yazi">Düşüncenin eşiğinde</span></div>
+  </div>
+
+<!-- Kabin iç mekânı (GPT Image üretimi, deneme): şömine, karlı pencere ve lamba ışığı üzerinde hafif hareket -->
+  <div class="kabin-kap">
+    <div class="kabin" role="img" aria-label="Ormanın ortasında kitaplıklı bir kabin: kuzgun maskot şöminenin önündeki deri koltukta kitap okuyor, kemerli pencerenin ardında karlı çam ormanı ve dolunay görünüyor">
+      <div class="kabin-in">
+        <img src="assets/gpt/kabin-maskot-koltuk-v3.webp" alt="" width="1915" height="821" loading="lazy">
+        <div class="k-somine"></div>
+        <div class="k-lamba"></div>
+        <div class="k-kar"></div>
+        <button type="button" class="gramofon" style="--x:0.455;--y:0.555;--w:0.06" aria-haspopup="dialog" aria-expanded="false">
+          <span class="sr-only">Müzik çal</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Radyo çubuğu: gramofona tıklayınca sayfanın altında açılır; YouTube API yalnız o zaman yüklenir.
+       Video karesi küçük tutulur, gerçek kontrol (çal/duraklat/ileri/geri/kapat) kendi düğmelerimizle yapılır. -->
+  <div class="radyo" hidden role="region" aria-label="Müzik çubuğu">
+    <div class="radyo-kare"><div id="radyo-oynatici"></div></div>
+    <div class="radyo-bilgi">
+      <span class="radyo-baslik">Müzik yükleniyor…</span>
+      <span class="radyo-durum"></span>
+    </div>
+    <div class="radyo-kontrol">
+      <button type="button" class="radyo-geri" aria-label="Önceki parça">⏮</button>
+      <button type="button" class="radyo-oynat" aria-label="Çal / Duraklat" aria-pressed="false">▶</button>
+      <button type="button" class="radyo-ileri" aria-label="Sonraki parça">⏭</button>
+      <button type="button" class="radyo-sessiz" aria-label="Sesi kapat/aç" aria-pressed="false">🔊</button>
+    </div>
+    <button type="button" class="radyo-kapat" aria-label="Müziği kapat">×</button>
+  </div>
+
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path class="yaz" pathLength="1" d="M14 72C26 66 32 76 44 70S60 66 72 72S92 76 126 70"/>
+      <g class="tuy">
+        <path d="M100 8C88 16 70 32 62 52L58 60L66 57C86 52 98 34 100 8Z"/>
+        <path d="M58 60L44 74M74 30C68 38 64 46 62 52"/>
+      </g>
+    </svg>
+  </div>
+
+  <section id="hakkinda" class="reveal">
+    <div class="wrap head head-portre">
+      <figure class="portre">
+        <img src="assets/portre.webp" alt="Karahan Uçar’ın portresi" width="600" height="800" loading="lazy">
+      </figure>
+      <div>
+        <h2>Hakkında</h2>
+        <p class="sub">İstanbul Üniversitesi’nde felsefe lisansımı tamamladım; şimdi İstanbul Üniversitesi ve Ruhr-Universität Bochum’da yüksek lisans yapıyorum. Metafizik, zihin felsefesi, epistemoloji ve dil felsefesiyle ilgileniyorum; özellikle varlık felsefesinde soyut ve olmayan nesneler üzerine çalışıyorum. Bu sitede yayınlarımı, sunumlarımı ve bilgi notlarımı paylaşıyorum.<span class="draft">taslak</span></p>
+      </div>
+      <img class="maskot maskot-yan" src="assets/gpt/maskot-seffaf.webp" alt="Kanadını çenesine dayamış, meraklı bakan kuzgun maskot" width="640" height="649" loading="lazy">
+    </div>
+    <div class="wrap">
+      <ul class="timeline">
+        <li><span class="when">2020 – 2024</span><br>Lisans, İstanbul Üniversitesi</li>
+        <li><span class="when">2024 – sürüyor</span><br>Yüksek lisans, İstanbul Üniversitesi ve Ruhr-Universität Bochum</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="kitap-ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 22V72C30 66 55 66 70 74C85 66 110 66 132 72V22"/>
+      <path d="M70 20C55 12 32 12 14 18V66C32 60 55 60 70 68Z"/>
+      <path d="M70 20C85 12 108 12 126 18V66C108 60 85 60 70 68Z"/>
+      <path d="M70 20V68"/>
+      <path class="satir" d="M24 28C34 26 46 27 58 31M24 38C34 36 46 37 58 41M24 48C34 46 46 47 58 51"/>
+      <path class="sayfa" d="M70 20C85 12 108 12 126 18V66C108 60 85 60 70 68Z"/>
+    </svg>
+  </div>
+
+  <section id="yayinlar" class="reveal">
+    <div class="wrap">
+      <h2>Yayınlar ve sunumlar</h2>
+      <p class="sub">Sunum, seminer ve proje çalışmaları. Yayımlanan makaleler ve bildiriler eklendikçe burada listelenecek; tam liste profillerimde.<span class="draft">taslak</span></p>
+      <div class="pubs">
+        <details>
+          <summary>Non-Existence Seminar: Meinong and the Problem of Intentionality</summary>
+          <p class="meta">Haziran 2026 · Sunum</p>
+          <p><a href="https://philpeople.org/profiles/karahan-ucar" rel="noopener">PhilPeople profilim</a> · <a href="https://istanbul.academia.edu/KarahanU%C3%A7ar" rel="noopener">Academia profilim</a></p>
+        </details>
+        <details>
+          <summary>Information: Modality</summary>
+          <p class="meta">Temmuz 2026 · Sunum</p>
+          <p><a href="https://philpeople.org/profiles/karahan-ucar" rel="noopener">PhilPeople profilim</a> · <a href="https://istanbul.academia.edu/KarahanU%C3%A7ar" rel="noopener">Academia profilim</a></p>
+        </details>
+        <details>
+          <summary>Europa Macht Schule (EMS) projesi</summary>
+          <p class="meta">Mayıs 2026 · Proje</p>
+          <p><a href="https://www.linkedin.com/in/karahan-undefined-ba685223a/" rel="noopener">LinkedIn profilim</a></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="20" y="10" width="100" height="54" rx="7"/>
+      <path d="M70 64V72M48 74H92"/>
+      <path class="oynat" d="M62 24L88 36L62 48Z"/>
+      <path d="M34 56H106" opacity=".25"/>
+      <path class="ilerle" pathLength="1" d="M34 56H106"/>
+    </svg>
+  </div>
+
+  <section id="kanal" class="reveal">
+    <div class="wrap head">
+      <div>
+        <h2>Kanal &amp; Sunumlar</h2>
+        <p class="sub">“Düşüncenin Eşiğinde” — merak, akıl, anlam. Konu anlatımları ve etkileşimli sunumlar.<span class="draft">taslak</span></p>
+      </div>
+      <img class="maskot maskot-yan" src="assets/maskot/kesfetti.png" alt="Neşeli kuzgun maskot iki kanadını açmış" width="170" height="141" loading="lazy">
+    </div>
+    <figure class="wrap kanal-banner">
+      <img src="assets/kanal-banner.webp" alt="Kanal kapağı: karlı bir gecede şömineli kütüphane, ortada altın phi-alev logo, masada kitap okuyan kuzgun maskot" width="1920" height="525" loading="lazy">
+    </figure>
+    <div class="wrap">
+      <div class="grid">
+        <article class="card">
+          <h3>Yaşamın sınırları</h3>
+          <p>Biyoloji felsefesi üzerine etkileşimli sunum.</p>
+          <a class="go" href="sunumlar/biyoloji-felsefesi/index.html" target="_blank" rel="noopener">Sunumu aç →</a>
+        </article>
+        <article class="card">
+          <h3>Metafizik</h3>
+          <p>Aristoteles’ten Hegel’e metafizik sorunlar.</p>
+          <a class="go" href="sunumlar/metafizik/index.html" target="_blank" rel="noopener">Sunumu aç →</a>
+        </article>
+        <article class="card">
+          <h3>YouTube kanalı</h3>
+          <p>Videolar ve yeni yayınlar.</p>
+          <a class="go" href="https://www.youtube.com/@karahan6927" rel="noopener">Kanala git →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 24H118M22 38H104M22 52H112M22 66H88" opacity=".42"/>
+      <g class="mercek">
+        <circle cx="66" cy="38" r="20"/>
+        <path class="parilti" d="M53 30A14 14 0 0 1 63 24" stroke-width="2.2"/>
+        <path d="M80 53L100 74" stroke-width="5.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <section id="bilgi" class="reveal">
+    <div class="wrap">
+      <h2>Bilgi içerikleri</h2>
+      <p class="sub">Alan alan düzenlenmiş notlar ve kaynak listeleri.<span class="draft">taslak</span></p>
+      <div class="grid">
+        <article class="card kitap"><h3>Felsefe</h3><p>Epistemoloji, normatiflik, argüman haritaları, metin tahlilleri.</p></article>
+        <article class="card kitap"><h3>Diller</h3><p>Dil öğrenim notları, sözlük ve çeviri çalışmaları.</p></article>
+        <article class="card kitap"><h3>Bilimler</h3><p>Doğa, formel ve sosyal bilimlerden notlar.</p></article>
+      </div>
+      <h3 class="alt-baslik">Adım adım okumalar</h3>
+      <!-- Okuma karuseli: yeni okuma eklemek için .okuma-serit içine bir <article class="card okuma"> daha koy; gerisi otomatik. -->
+      <div class="okuma-karusel" role="region" aria-roledescription="karusel" aria-label="Adım adım okumalar">
+        <div class="okuma-serit" aria-live="polite">
+          <article class="card okuma">
+            <h3>Evren bir matematiksel yapı mı?</h3>
+            <p>Tegmark’ın “Matematiksel Evren” makalesi kaydırarak, adım adım: dış gerçeklik, yapılar, Gödel ve soyut nesneler sorusu.</p>
+            <a class="go" href="bilgi/matematiksel-evren.html">Okumaya başla →</a>
+          </article>
+          <article class="card okuma">
+            <h3>Yeni bir okuma <span class="draft">taslak</span></h3>
+            <p>Bu ikinci yer, karuselin birden fazla okumayla nasıl çalıştığını göstermek için eklendi; içerik henüz yazılmadı.</p>
+            <a class="go" href="bilgi/yeni-okuma.html">Okumaya başla →</a>
+          </article>
+        </div>
+        <div class="okuma-kontrol">
+          <span class="okuma-sayac" aria-hidden="true">1 / 1</span>
+          <button type="button" class="okuma-geri" aria-label="Önceki okuma">‹</button>
+          <button type="button" class="okuma-dur" aria-label="Otomatik geçişi durdur" aria-pressed="false">❚❚</button>
+          <button type="button" class="okuma-ileri" aria-label="Sonraki okuma">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="28" y="14" width="84" height="58" rx="7"/>
+      <path d="M28 30H112M50 8V20M90 8V20"/>
+      <path d="M42 42h.01M98 42h.01M42 60h.01M98 60h.01" stroke-width="5" opacity=".45"/>
+      <path class="yaz" pathLength="1" d="M54 51L64 60L86 40"/>
+    </svg>
+  </div>
+
+  <section id="randevu" class="reveal">
+    <div class="wrap">
+      <h2>Randevu</h2>
+      <p class="sub">Görüşme, danışma ya da sohbet için ücretsiz randevu. Uygun saatleri Google Takvim sayfasından seçebilirsin.</p>
+      <p><a class="button" href="https://calendar.app.google/ZSN4GiqtzyHujUwp6" target="_blank" rel="noopener">Randevu al →</a></p>
+    </div>
+  </section>
+
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path class="kapak" d="M24 28L70 58L116 28"/>
+      <g class="mektup">
+        <rect x="38" y="12" width="64" height="44" rx="3" class="dolgu"/>
+        <path d="M48 24H92M48 34H82" opacity=".6"/>
+      </g>
+      <rect x="24" y="28" width="92" height="46" rx="6" class="dolgu"/>
+      <path d="M24 72L56 48M116 72L84 48"/>
+    </svg>
+  </div>
+
+  <section id="iletisim" class="reveal">
+    <div class="wrap head">
+      <div>
+        <h2>İletişim</h2>
+        <p class="sub">Akademik profillerim ve sosyal hesaplarım. Görüşmek için yukarıdaki randevu bağlantısını kullanabilirsin.</p>
+      </div>
+      <img class="maskot maskot-yan" src="assets/maskot/selamliyor.png" alt="Gözlüklü kuzgun maskot kanadını kaldırıp selam veriyor" width="170" height="141" loading="lazy">
+    </div>
+    <div class="wrap">
+      <ul class="links" aria-label="Akademik profiller">
+        <li><a href="https://istanbul.academia.edu/KarahanU%C3%A7ar" rel="noopener">Academia</a></li>
+        <li><a href="https://philpeople.org/profiles/karahan-ucar" rel="noopener">PhilPeople</a></li>
+        <li><a href="https://www.researchgate.net/profile/Karahan-Ucar" rel="noopener">ResearchGate</a></li>
+        <li><a href="https://github.com/karahanucr" rel="noopener">GitHub</a></li>
+      </ul>
+      <ul class="links" aria-label="Sosyal hesaplar">
+        <li><a href="https://www.youtube.com/@karahan6927" rel="noopener">YouTube</a></li>
+        <li><a href="https://www.linkedin.com/in/karahan-undefined-ba685223a/" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/karahan.ucr/" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </section>
+  <div class="wrap ayrac" aria-hidden="true">
+    <svg class="ikon" viewBox="0 0 140 80" width="112" height="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="70" cy="40" r="28"/>
+      <path d="M42 40H98"/>
+      <ellipse class="meridyen" cx="70" cy="40" rx="12" ry="28"/>
+      <path d="M46 26Q70 34 94 26M46 54Q70 46 94 54" opacity=".7"/>
+    </svg>
+  </div>
+
+  <section id="dil" class="reveal">
+    <div class="wrap">
+      <h2>Dil</h2>
+      <p class="sub">Sayfayı okumak istediğin dili seç.</p>
+      <div class="diller" role="group" aria-label="Dil">
+        <button type="button" class="dil" data-dil="tr" lang="tr"><span class="dil-ad" data-sabit>Türkçe</span><span class="dil-tr">Türkçe</span></button>
+        <button type="button" class="dil" data-dil="en" lang="en"><span class="dil-ad" data-sabit>English</span><span class="dil-tr">İngilizce</span></button>
+        <button type="button" class="dil" data-dil="de" lang="de"><span class="dil-ad" data-sabit>Deutsch</span><span class="dil-tr">Almanca</span></button>
+        <button type="button" class="dil" data-dil="fr" lang="fr"><span class="dil-ad" data-sabit>Français</span><span class="dil-tr">Fransızca</span></button>
+        <button type="button" class="dil" data-dil="la" lang="la"><span class="dil-ad" data-sabit>Latina</span><span class="dil-tr">Latince</span></button>
+        <button type="button" class="dil" data-dil="el" lang="grc"><span class="dil-ad" data-sabit>Ἑλληνικά</span><span class="dil-tr">Grekçe</span></button>
+        <button type="button" class="dil" data-dil="ar" lang="ar"><span class="dil-ad" data-sabit>العربية</span><span class="dil-tr">Arapça</span></button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="motto">MERAK · AKIL · ANLAM</p>
+    <p>© 2026 Karahan Uçar</p>
+  </div>
+</footer>
+
+<script src="js/hareket.js?v=20260923e"></script>
+<script src="js/diller.js?v=20260923e"></script>
+<script src="js/yazi.js?v=20260923e"></script>
+<script src="js/tema.js?v=20260923e"></script>
+<script src="js/okuma.js?v=20260923e"></script>
+</body>
+</html>
