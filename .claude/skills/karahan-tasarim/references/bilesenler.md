@@ -65,12 +65,16 @@ Her satır: hareketli tür simgesi (daire içinde), TÜR etiketi, serif başlık
 Parşömen kâğıt üzerinde kesik çizgili kırmızı-kahve yol (Catmull-Rom ile duraklardan geçer), maskeyle çizilerek belirir; duraklar mühür gibi
 numaralı kırmızı daireler (seçilen parlar, geçilenler altın olur), üst/alt dönüşümlü etiket (yıl + ad), köşede pusula gülü, silik kara parçaları.
 Parlayan bir **yolcu** yol boyunca seçilen durağa yürür. Yanda (dar ekranda altta) açıklama kartı ve ‹ n / N ›. Dar ekranda yol dikey.
-Veri: `{ yil, ad, metin }` listesi. Kod: `motor.js › haritaAc / haritaSec`.
+Kenarlar feTurbulence ile yanık/yırtık; arkada dönem kuşakları (renkli, adlı), altta yıl cetveli, denizde dalgacıklar ve küçük bir gemi.
+"Yolculuğa çık" düğmesi durakları 6 sn arayla kendiliğinden gezer. Kart: yıl · yer, ad, metin, "Anahtar eser", söz (alıntı bloğu), kavram çipleri.
+Veri: `{ yil, ad, yer, eser, kavram[], metin, soz }` + `donemler`. Kod: `motor.js › haritaAc / haritaSec / turDur`.
 
 ## 9. Çalışmalarım sandığı
 Ahşap sandık (kapak üzerine gelince aralanır, açılınca içinden ışık), önünde logolu kilit plakası. Açılınca: logolu başlık, sahne adı,
 çekmece gibi 18 sekme (Tümü + ALIŞTIRMA, BİLDİRİ, ÇALIŞTAY, ÇEVİRİ, İZLENCE, KİTAP, KONFERANS, MAKALE, NOTLAR, ÖDEVLER, POSTER, PROJE,
 SEMİNER, SEMPOZYUM, SUNUM, TEZLER, VİDEO), boş çekmece: "❦ Bu çekmece henüz boş; yakında dolacak."
+Kayıtlar yerinde açılır: video ve belge satır içi (kayıt genişler), poster küçük resmi büyütülür; etiket çipleri tıklanınca sandık o etikete süzülür.
+Merkez odalarda "Bu alandaki içerikler" de akış listesi gibi kayar (3'ten fazlaysa 4,5 sn'de bir); her satırda "→ Oda adı" ve #etiketler.
 
 ## 10. Yörünge (merkez oda)
 Kapılar ortadaki logonun çevresinde elips yörüngede yavaşça döner (75 sn/tur): öndeki büyük ve parlak, arkadaki küçük ve sönük
@@ -87,4 +91,5 @@ Sözlükçede olan terimler metinde noktalı altın alt çizgiyle işaretlenir (
 - **Kayan şerit**: "Varlık Felsefesi *(Metafizik)* · Zihin Felsefesi · Bilgi Felsefesi *(Epistemoloji)* · Dil Felsefesi" soldan sağa sürekli kayar, kenarlar maskeyle söner.
 - **Ay ↔ güneş**: tema değişirken gök cismi ağaçların arkasına batar, diğeri doğar.
 - **Okuma ilerlemesi**: menünün altında soldan sağa yanan kor çizgisi.
+- **Kitaplık canlıları**: ağaçta yavaşça yürüyen salyangoz ve uğur böceği, fenerin çevresinde dönen güve, iki kitaptan başını çıkaran kitap kurdu, raflar arasında ateş böcekleri; altta sayaç "6 alan · N oda · N harita · N terim" ve "✦ Rastgele bir oda aç".
 - **Katlanır ortam paneli**: sol altta "› Ses: Şömine · Yağmur · Rüzgâr · Kapalı · Tık sesi" ve "› Dışarıda: Kar · Yağmur · Rüzgâr"; etikete basınca seçenekler içine çekilir.

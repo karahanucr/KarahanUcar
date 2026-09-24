@@ -10,7 +10,11 @@ Site: `karahanucar-com/` (durağan HTML/CSS/JS, derleme yok, harici bağımlıl�
 | `js/icerik.js` | **Bütün içerik tek listede** (sunum, makale, video, not…). Bilgi/Yayınlar/Kanal listeleri ve sahne sandıkları buradan beslenir. yazi.js'ten önce yüklenir. |
 | `js/kitaplik.js` | Kitaplık rafları (`RAFLAR`) ve kitap sırtı motifleri (`MOTIF`); ağacı çizer. |
 | `js/sahne/motor.js` | Sahne motoru: kitap açılışı, geçişler, parıldayan nesneler, panel, alıntılar, harita, sandık, sözlükçe, yörünge, panorama. |
-| `js/sahne/{felsefe,diller,doga,diger}.js` | Sahne tanımları (`SAHNE.kaydet`). |
+| `js/sahne/{felsefe,diller,doga,diger}.js` | İlk sahne tanımları (`SAHNE.kaydet`). |
+| `js/sahne/kit.js` | Ortak çizim kiti `SAHNE.kit`: `gokGece/gokAksam/gokGun`, `ay`, `gunes`, `tepe`, `zemin`, `duvar`, `pencere`, `raf`, `masa`, `mum`, `kagit`, `kitaplar`, `sutun`, `tapinak`, `agac`, `servi`, `kapi(renk, ic, zemin)` (200×250 kapı sanatı). |
+| `js/sahne/ek-{felsefe,diller,doga,formel,sosyal,estetik}.js` | Sonradan eklenen odalar; her dosya kendi merkezine `S.merkezeEkle(merkez, kapilar)` ile kapı ekler. |
+| `js/sahne/ek-nesneler.js` | Var olan odalara çizimi bozmadan yeni nesne/alıntı ekler (`ek(id, {cizim, eserler, sozler, genislik})`). |
+| `js/haritalar-ek.js` | Yeni odaların haritaları (aynı biçim). |
 | `js/haritalar.js` | Her alt sahnenin "… haritası" durakları. |
 | `js/arsiv.js` | Çalışmalarım sandığının çekmece (tür) sırası. |
 | `js/sozlukce.js` | Sözlükçe terimleri (felsefe, doga, formel, sosyal, estetik). |
@@ -19,7 +23,9 @@ Site: `karahanucar-com/` (durağan HTML/CSS/JS, derleme yok, harici bağımlıl�
 | `js/diller.js` | 6 dilde çeviri sözlüğü (Türkçe metin → çeviri). |
 | `css/style.css`, `css/sahne.css` | Ana sayfa ve sahne stilleri (sona eklenen bloklar öncekileri ezer). |
 
-Betik sırası index.html'de önemlidir: hareket → icerik → kitaplik → ses → diller → yazi → tema → kutuphane → arsiv → sozlukce → haritalar → terimce → sahne/motor → sahne/*.
+Betik sırası index.html'de önemlidir: hareket → icerik → kitaplik → ses → diller → yazi → tema → kutuphane → arsiv → sozlukce → haritalar → terimce → sahne/motor → sahne/{felsefe,diller,doga,diger} → sahne/kit → sahne/ek-* → sahne/ek-nesneler.
+
+**Tercih edilen yol:** yeni odayı ilgili `ek-*.js` dosyasına yaz, çizimde `S.kit` parçalarını kullan, kapıyı `S.merkezeEkle` ile ekle.
 
 ## Örnek: "Sosyal Bilimler içine Tarih odası aç"
 
@@ -47,11 +53,13 @@ S.kaydet("tarih", {
 - Koordinatlar 1600×900 çizimin yüzdesidir; kenarlardan en az %6 içeride tut (motor taşanı içeri iter ama çizimle kayar).
 - SVG'de sınıflar hazır canlanır: `yp` (yıldız pırıltısı), `don` / `don-ters` (döner, `--s` süre), `yuz` (yüzer), `alev` + `h.alev(x,y,ölçek)`, `h.bulut(...)`, `h.yildizlar(...)`, `pencere-isik`, `dalga-x`.
 - Gradyan kimlikleri sahneye özgü önek alsın (`trG`, `trM`…) ki diğer sahnelerle çakışmasın.
-- **Çok nesne gerekiyorsa**: `genislik: 1.6` ver ve çizimi `viewBox="0 0 2560 900"` genişliğinde yap; kamera sürükleyerek/kenara yaklaşınca kayar.
-- Başlığın solundaki harita ve sağındaki Çalışmalarım sandığı **kendiliğinden** gelir (alt sahnelerde).
+- **Çok nesne gerekiyorsa**: `genislik: 1.5` ver ve çizimi `h.svg(icerik, defs, 1.5)` ile 2400×900 yap; nesne `x` değeri 100'ü aşabilir (ör. 126 = 2016. piksel). Kamera sürükleyince/kenara yaklaşınca/ok tuşlarıyla kayar. Örnek: Astronomi (`ek-nesneler.js`).
+- **Alt-alt sahne (geçit)**: bir nesneye `hedef: "ft-antik"` verirsen panel yerine o sahneye geçilir; nesne kemerli halka ve "→" ile görünür. Hedef sahnenin `ust`'ü geçidin bulunduğu oda olmalı. Örnek: Felsefe Tarihi → Antik Yunan · Roma · Rönesans.
+- Bir odada 6–8 nesne ve 2–4 alıntı iyi dengedir; alıntı sol altta ise nesneleri sağa/üste, `sozYer: "sag"` ise sola/alta yerleştir.
+- Başlığın sağında harita düğmesi ve hemen yanında Çalışmalarım sandığı **kendiliğinden** gelir (alt sahnelerde).
 
-### 2) Merkez odaya kapı ekle (aynı dosyada `sosyal-bilimler` tanımı)
-`kapilar` listesine `{ hedef: "tarih", sanat: kapiTarih, aciklama: "Arşiv mahzeni: belgeler, mühürler, takvimler." }` ekle (`sanat` = 200×250'lik
+### 2) Merkez odaya kapı ekle
+`S.merkezeEkle("sosyal-bilimler", [{ hedef: "tarih", sanat: K.kapi("#8a5a2e", "…iç çizim…"), aciklama: "…" }])` (ek-*.js içinde) ya da doğrudan `kapilar` listesine `{ hedef: "tarih", sanat: kapiTarih, aciklama: "Arşiv mahzeni: belgeler, mühürler, takvimler." }` ekle (`sanat` = 200×250'lik
 bir SVG), `yakinda` listesinden "Tarih"i çıkar. Kapılar logonun çevresinde yörüngede kendiliğinden dizilir.
 
 ### 3) Kitabı canlandır — `js/kitaplik.js › RAFLAR`
@@ -59,9 +67,11 @@ bir SVG), `yakinda` listesinden "Tarih"i çıkar. Kapılar logonun çevresinde y
 
 ### 4) Harita — `js/haritalar.js`
 ```js
-tarih: { alt: "Herodotos'tan dijital arşivlere.", duraklar: [ { yil: "MÖ 430", ad: "Herodotos", metin: "…" }, … ] }
+tarih: { alt: "Herodotos'tan dijital arşivlere.", donemler: [[0, 2, "Antik Çağ"], [3, 5, "Modern"]],
+  duraklar: [ { yil: "MÖ 430", ad: "Herodotos", yer: "Halikarnassos", eser: "Historiai", kavram: ["historia", "tanıklık"],
+               metin: "…", soz: { metin: "…", kaynak: "…" } }, … ] }
 ```
-8–10 durak; her metin 1–2 cümle. Durak sayısı değişince harita kendini düzenler.
+7–10 durak; her metin 1–2 cümle. `donemler` = [ilk durak sırası, son durak sırası, ad]; `yer`, `eser`, `kavram`, `soz` isteğe bağlıdır ama kartı zenginleştirir. Durak sayısı değişince harita kendini düzenler.
 
 ### 5) Ses — `js/ses.js`
 `HARITA` (ortam sesi) ve `KAPI`/`NOKTA` (tık sesi) sözlüklerine `tarih: "…"` ekle (ör. ortam `"kutuphane"`, tık `"sayfa"`). Yeni bir ortam gerekirse `ORTAM`'a ekle.
@@ -69,8 +79,10 @@ tarih: { alt: "Herodotos'tan dijital arşivlere.", duraklar: [ { yil: "MÖ 430",
 ### 6) İçerik ve sandık — `js/icerik.js`
 ```js
 { id: "tarih-notlari-1", tur: "notlar", baslik: "Kaynak eleştirisi", aciklama: "…", tarih: "2026-10",
-  alan: ["sosyal-bilimler"], sandik: ["tarih"], belge: "belgeler/tarih/kaynak-elestirisi.pdf" }
+  alan: ["sosyal-bilimler"], sandik: ["tarih"], belge: "belgeler/tarih/kaynak-elestirisi.pdf",
+  gorsel: "belgeler/tarih/poster.jpg", etiketler: ["kaynak eleştirisi", "arşiv"] }
 ```
+Sandıkta: `youtube`/`dosya` → "İzle" (satır içi oynatıcı), `belge` → "Oku" (satır içi okuyucu), `gorsel` → küçük resim ve büyütme; `etiketler` sandıkta süzgeç olur ve merkez odadaki içerik akışında `#etiket` olarak görünür. `sandik` alanındaki odalar akışta "→ Tarih" diye yazılır.
 `tur`: alistirma · bildiri · calistay · ceviri · izlence · kitap · konferans · makale · notlar · odevler · poster · proje · seminer · sempozyum · sunum · tezler · video.
 `belge` varsa Yayınlar'da indirilebilir; `tur: "video"` + `youtube: "KIMLIK"` ise Kanal'da oynar. Her kayıt Bilgi › Son eklenenler'de görünür.
 

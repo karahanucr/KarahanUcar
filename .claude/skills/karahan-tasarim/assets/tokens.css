@@ -10,7 +10,7 @@
   --golge: 0 24px 50px rgba(0, 0, 0, .45);
   --vurgu: var(--gold); /* odanın rengi: #F09A4A mağara, #C8B0FF metafizik, #9FB8FF zihin, #B7E07A biyoloji, #9FC8FF gök, #E89AC8 estetik */
 }
-html.gunduz { --bg: #f3ead6; --bg-2: #eadcbf; --line: rgba(138, 94, 30, .28); --gold: #764b0c; --gold-2: #8a5a14; --gold-3: #6b430c; --ivory: #2b2117; --ivory-2: #2b2117; --muted: #5e4e3a; --golge: 0 18px 40px rgba(80, 55, 20, .2); }
+html.gunduz { --bg: #f5eddc; --bg-2: #ece0c7; --line: rgba(118, 78, 20, .24); --kagit: #fbf6ea; --murekkep: #33506a; --adacayi: #566b4f; --gold: #764b0c; --gold-2: #8a5a14; --gold-3: #6b430c; --ivory: #2b2117; --ivory-2: #2b2117; --muted: #5e4e3a; --golge: 0 18px 40px rgba(80, 55, 20, .2); }
 @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 
 /* Metin */

@@ -19,14 +19,16 @@
 ### Gündüz (her zaman birlikte düşünülür)
 | Rol | Değer |
 |---|---|
-| Zemin | `#f3ead6` |
-| Yüzey | `#eadcbf` |
-| Çizgi | `rgba(138,94,30,.28)` |
+| Zemin (parşömen) | `#f5eddc` |
+| Yüzey | `#ece0c7` · kart kâğıdı `#fbf6ea` |
+| Çizgi | `rgba(118,78,20,.24)` |
 | Vurgu (altının yerine) | `#764b0c` (kremde 6:1 kontrast) |
 | Metin | `#2b2117` |
 | Sönük | `#5e4e3a` |
+| Serin tamamlayıcı (mürekkep mavisi) | `#33506a`: küçük başlıklar (eyebrow), üzerine gelme, ikincil düğme |
+| Adaçayı | `#566b4f`: çift sıradaki etiketler, doğa vurguları |
 | Gündüz göğü | `#8fc3e8 → #b6d8ef → #d9e9ef → #efe6cf` |
-Gündüzde altın/açık sarı ışıklar kremde kaybolur → koyu kehribar (`#a8741e`, `#8a5a14`) kullanılır. Kar/yağmur koyu mavi-gri olur.
+Gündüz üçlüsü: parşömen zemin + koyu mürekkep metin + bakır vurgu; mavi ve adaçayı yalnızca küçük dozda. Gündüzde altın/açık sarı ışıklar kremde kaybolur → koyu kehribar (`#a8741e`, `#8a5a14`) kullanılır. Kar/yağmur koyu mavi-gri olur.
 
 ### Oda (sahne) vurgu renkleri
 Felsefe `#E8BD62` · Epistemoloji (mağara) `#F09A4A` · Metafizik (boşluk) `#C8B0FF` · Zihin `#9FB8FF` · Diller/Latince `#E8BD62` ·
