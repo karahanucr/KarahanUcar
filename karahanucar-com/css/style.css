@@ -1092,3 +1092,62 @@ html.gunduz .terim:hover, html.gunduz .terim:focus-visible { color: inherit; bac
 .terim-ipucu .ti-koken { font: italic .8rem var(--serif); color: rgba(239, 230, 207, .6); }
 .terim-ipucu p:last-child { color: rgba(239, 230, 207, .88); }
 .kraf-levha { padding-top: 1rem; }
+
+/* ════════ 2026-09-25: düzeltmeler ════════ */
+/* Raflar geniş ekranda kaydırma kutusu olmasın: harf motifleri ya da eğik kitap 1–2 px taşınca kaydırma çubuğu belirip kitaplar yeniden boyutlanıyordu */
+.kraf-kitaplar { overflow: visible; }
+.kitap-motif.mo-harf { overflow: hidden; }
+.kitap:nth-child(5n+2) { transform: rotate(-1.2deg); }
+.kitap.cek { animation: kitap-cek 1.7s cubic-bezier(.3, .7, .3, 1); }
+@keyframes kitap-cek { 0%, 100% { translate: 0 0; } 35%, 55% { translate: 0 -.6rem; } }
+@media (max-width: 40rem) { .kraf-kitaplar { overflow-x: auto; overflow-y: hidden; } }
+
+/* Ağacın sakinleri: salyangoz, uğur böceği, güve, kitap kurdu (ateş böcekleri tuvalde) */
+.salyangoz { animation: salyangoz 140s linear infinite; }
+@keyframes salyangoz { 0% { transform: translate(var(--x0), var(--y)); } 49.5% { transform: translate(var(--x1), var(--y)); } 50%, 100% { transform: translate(var(--x1), var(--y)) scaleX(-1); } }
+.salyangoz { animation-name: salyangoz-git; }
+@keyframes salyangoz-git { 0% { transform: translate(var(--x0), var(--y)) scaleX(1); } 49.5% { transform: translate(var(--x1), var(--y)) scaleX(1); } 50% { transform: translate(var(--x1), var(--y)) scaleX(-1); } 99.5% { transform: translate(var(--x0), var(--y)) scaleX(-1); } 100% { transform: translate(var(--x0), var(--y)) scaleX(1); } }
+.sy-govde { animation: sy-uza 2.4s ease-in-out infinite; transform-origin: 0 0; }
+@keyframes sy-uza { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(1.08); } }
+.ugur { animation: ugur-yuru 70s ease-in-out infinite; }
+@keyframes ugur-yuru { 0%, 8% { transform: translate(var(--x0), var(--y0)) rotate(0deg); } 45%, 55% { transform: translate(var(--x1), var(--y1)) rotate(0deg); } 56% { transform: translate(var(--x1), var(--y1)) rotate(180deg); } 92% { transform: translate(var(--x0), var(--y0)) rotate(180deg); } 100% { transform: translate(var(--x0), var(--y0)) rotate(360deg); } }
+.ug-govde { animation: ug-sallan .5s ease-in-out infinite alternate; }
+@keyframes ug-sallan { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+.guve { animation: guve-don 7s linear infinite; }
+@keyframes guve-don { from { transform: rotate(0deg) scaleY(.55); } to { transform: rotate(360deg) scaleY(.55); } }
+.gv-kanat { transform-box: fill-box; transform-origin: center; animation: gv-cirp .12s linear infinite alternate; }
+@keyframes gv-cirp { from { transform: scaleX(1); } to { transform: scaleX(.35); } }
+.kitap-kurdu { position: absolute; left: 50%; top: 0; width: 1.1rem; height: 1.4rem; translate: -50% 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.kitap-kurdu svg { display: block; width: 100%; height: 100%; transform: translateY(105%); animation: kurt 14s ease-in-out var(--kd, 0s) infinite; }
+.kitap-kurdu { top: -1.3rem; }
+@keyframes kurt { 0%, 62% { transform: translateY(105%); } 68% { transform: translateY(8%); } 72% { transform: translateY(8%) rotate(-10deg); } 78% { transform: translateY(8%) rotate(8deg); } 84% { transform: translateY(8%); } 90%, 100% { transform: translateY(105%); } }
+.kitaplik-alt { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin: -.1rem 0 .4rem; }
+.kl-sayac { font: 500 .95rem/1.2 var(--serif); color: var(--muted); letter-spacing: .02em; }
+.kl-sayac [data-sabit] { font-size: 1.25rem; color: var(--gold); font-variant-numeric: tabular-nums; }
+.rastgele-oda { font: inherit; font-size: .88rem; color: var(--gold); cursor: pointer; padding: .42rem 1.1rem; border-radius: 999px; border: 1px solid var(--gold); background: transparent; transition: background .3s, color .3s, transform .3s; }
+.rastgele-oda:hover { background: var(--gold); color: var(--bg); transform: translateY(-2px); }
+.rastgele-oda span { display: inline-block; animation: m-parilti 2.4s ease-in-out infinite; }
+.kitap.secilen { transform: translateY(-1.2rem) rotate(-2deg); box-shadow: inset 0 0 0 1px #FFE2A0, 0 0 28px rgba(255, 220, 150, .8); z-index: 3; }
+
+/* ── 2026-09-25 · Gündüz paleti: parşömen, mürekkep ve bakır ──
+   Tek sıcak tona yaslanan gündüz görünümü üç ayağa oturur: parşömen zemin (#f5eddc / #ece0c7), koyu mürekkep metin (#2b2117),
+   bakır vurgu (--gold #764b0c). Tamamlayıcı olarak serin bir mürekkep mavisi (#33506a) küçük başlıklarda, adaçayı yeşili (#566b4f) etiketlerde. */
+html.gunduz {
+  --bg: #f5eddc; --bg-2: #ece0c7; --line: rgba(118, 78, 20, .24);
+  --murekkep: #33506a; --adacayi: #566b4f; --kagit: #fbf6ea;
+}
+html.gunduz body { background: radial-gradient(120% 60% at 50% 0%, rgba(255, 252, 240, .55), transparent 60%) fixed, var(--bg); }
+html.gunduz .eyebrow, html.gunduz .kl-sayac, html.gunduz .kraf-levha small { color: var(--murekkep); }
+html.gunduz .top { background: rgba(245, 237, 220, .92); border-bottom-color: rgba(51, 80, 106, .18); }
+html.gunduz .top nav a:hover, html.gunduz .top nav a:focus-visible { color: var(--murekkep); text-shadow: none; }
+html.gunduz a:hover { color: var(--murekkep); }
+html.gunduz .card, html.gunduz .randevu-kart { background-color: var(--kagit); }
+html.gunduz .card.kitap { background: linear-gradient(90deg, #7a4e2c 0, #5e3b20 .95rem, var(--kagit) .95rem); }
+html.gunduz[dir="rtl"] .card.kitap { background: linear-gradient(270deg, #7a4e2c 0, #5e3b20 .95rem, var(--kagit) .95rem); }
+html.gunduz .tags li:nth-child(even) { color: #3d4f38; border-color: rgba(86, 107, 79, .5); background: rgba(232, 240, 222, .6); }
+html.gunduz .timeline::before { background: linear-gradient(to bottom, rgba(51, 80, 106, .35), rgba(118, 78, 20, .45)); }
+html.gunduz .kitaplik { background: radial-gradient(40% 30% at 86% 47%, rgba(255, 170, 80, .16), transparent 70%), radial-gradient(90% 60% at 18% 0%, rgba(255, 252, 235, .7), transparent 62%), linear-gradient(#ebdcbc, #dfcaa2 60%, #d3bb90); }
+html.gunduz .rastgele-oda { color: var(--murekkep); border-color: rgba(51, 80, 106, .4); }
+html.gunduz .rastgele-oda:hover, html.gunduz .rastgele-oda:focus-visible { background: var(--murekkep); color: #fbf6ea; }
+html.gunduz section { border-bottom-color: rgba(118, 78, 20, .16); }
+html.gunduz .terim { text-decoration-color: rgba(51, 80, 106, .55); }

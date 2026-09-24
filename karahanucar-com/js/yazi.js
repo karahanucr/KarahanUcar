@@ -102,20 +102,14 @@
       var ad = b.querySelector(".dil-ad"), et = b.querySelector(".dil-tr");
       if (ad && et) b.classList.toggle("ayni", norm(ad.textContent) === norm(et.textContent));
     });
-    if (!azalt) {
-      kayitlar.forEach(function (r) {
-        if (r.sev) bol(r, r.sev === "harf" && yeni !== "ar"); // Arapça'da harfler bitişik yazılır: kelime düzeyinde kal
-      });
-      eller = [].slice.call(document.querySelectorAll(FLING));
-      eller.forEach(function (e) { gozle.observe(e); });
-    }
+    /* Kaydırınca harflerin savrulması isteğe göre kaldırıldı (2026-09-25); bol()/birlestir() yerinde duruyor, çağrılmıyor. */
     try { window.localStorage.setItem("dil", yeni); } catch (e) {}
     document.dispatchEvent(new CustomEvent("dil-sonrasi"));
   }
 
   /* 4) Kaydırınca savrulma: aşağı inerken yukarı, yukarı çıkarken aşağı doğru (yönle ters, rüzgâr gibi) */
   var eller = [], gorunen = new Set(), gozle = { observe: function () {} };
-  if (!azalt && "IntersectionObserver" in window) {
+  if (false && !azalt && "IntersectionObserver" in window) {
     gozle = new IntersectionObserver(function (kayit) {
       kayit.forEach(function (k) { if (k.isIntersecting) gorunen.add(k.target); else { gorunen.delete(k.target); k.target.style.removeProperty("--lift"); } });
     }, { rootMargin: "80px" });

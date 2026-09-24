@@ -43,8 +43,8 @@
   }
   </script>
   <link rel="preload" as="image" href="assets/gpt/maskotlu-kutuphane.webp" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=20260924f">
-  <link rel="stylesheet" href="css/sahne.css?v=20260924f">
+  <link rel="stylesheet" href="css/style.css?v=20260925a">
+  <link rel="stylesheet" href="css/sahne.css?v=20260925a">
   <script>document.documentElement.classList.add("js");
     /* Tema: ay/güneş tıklamasıyla seçilen gündüz hâli, boyamadan önce uygulanır (yanıp sönme olmasın) */
     try { if (localStorage.getItem("tema") === "gunduz") document.documentElement.classList.add("gunduz"); } catch (e) {}</script>
@@ -223,6 +223,11 @@
            Pirinç levha alanın odasını, kitap o dalın sahnesini açar; sahnesi olmayan kitap alanın odasına götürür. -->
       <div class="kitaplik" id="kitaplik"></div>
       <p class="raf-ipucu">Her raf bir alan. Pirinç levhaya dokununca alanın odası, kitaba dokununca o dalın dünyası açılır; parıldayan kitapların kendi sahnesi var.</p>
+      <!-- Kitaplığın özeti ve tesadüf düğmesi: raftan rastgele bir kitap çekip odasını açar -->
+      <div class="kitaplik-alt">
+        <p class="kl-sayac" aria-live="polite"><span data-sabit class="kl-s-alan">6</span> <span>alan</span> · <span data-sabit class="kl-s-oda">0</span> <span>oda</span> · <span data-sabit class="kl-s-harita">0</span> <span>harita</span> · <span data-sabit class="kl-s-terim">0</span> <span>terim</span></p>
+        <button type="button" class="rastgele-oda"><span aria-hidden="true">✦</span> Rastgele bir oda aç</button>
+      </div>
 
       <div class="dizin-bas">
         <h3 class="alt-baslik">Son eklenenler</h3>
@@ -407,22 +412,31 @@
   </div>
 </footer>
 
-<script src="js/hareket.js?v=20260924f"></script>
-<script src="js/icerik.js?v=20260924f"></script>
-<script src="js/kitaplik.js?v=20260924f"></script>
-<script src="js/ses.js?v=20260924f"></script>
-<script src="js/diller.js?v=20260924f"></script>
-<script src="js/yazi.js?v=20260924f"></script>
-<script src="js/tema.js?v=20260924f"></script>
-<script src="js/kutuphane.js?v=20260924f"></script>
-<script src="js/arsiv.js?v=20260924f"></script>
-<script src="js/sozlukce.js?v=20260924f"></script>
-<script src="js/haritalar.js?v=20260924f"></script>
-<script src="js/terimce.js?v=20260924f"></script>
-<script src="js/sahne/motor.js?v=20260924f"></script>
-<script src="js/sahne/diller.js?v=20260924f"></script>
-<script src="js/sahne/doga.js?v=20260924f"></script>
-<script src="js/sahne/felsefe.js?v=20260924f"></script>
-<script src="js/sahne/diger.js?v=20260924f"></script>
+<script src="js/hareket.js?v=20260925a"></script>
+<script src="js/icerik.js?v=20260925a"></script>
+<script src="js/kitaplik.js?v=20260925a"></script>
+<script src="js/ses.js?v=20260925a"></script>
+<script src="js/diller.js?v=20260925a"></script>
+<script src="js/yazi.js?v=20260925a"></script>
+<script src="js/tema.js?v=20260925a"></script>
+<script src="js/kutuphane.js?v=20260925a"></script>
+<script src="js/arsiv.js?v=20260925a"></script>
+<script src="js/sozlukce.js?v=20260925a"></script>
+<script src="js/haritalar.js?v=20260925a"></script>
+<script src="js/haritalar-ek.js?v=20260925a"></script>
+<script src="js/terimce.js?v=20260925a"></script>
+<script src="js/sahne/motor.js?v=20260925a"></script>
+<script src="js/sahne/diller.js?v=20260925a"></script>
+<script src="js/sahne/doga.js?v=20260925a"></script>
+<script src="js/sahne/felsefe.js?v=20260925a"></script>
+<script src="js/sahne/diger.js?v=20260925a"></script>
+<script src="js/sahne/kit.js?v=20260925a"></script>
+<script src="js/sahne/ek-felsefe.js?v=20260925a"></script>
+<script src="js/sahne/ek-diller.js?v=20260925a"></script>
+<script src="js/sahne/ek-doga.js?v=20260925a"></script>
+<script src="js/sahne/ek-formel.js?v=20260925a"></script>
+<script src="js/sahne/ek-sosyal.js?v=20260925a"></script>
+<script src="js/sahne/ek-estetik.js?v=20260925a"></script>
+<script src="js/sahne/ek-nesneler.js?v=20260925a"></script>
 </body>
 </html>

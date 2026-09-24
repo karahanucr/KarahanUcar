@@ -235,6 +235,34 @@
   var m = location.hash.match(/^#yayin-([\w-]+)$/);
   if (m) setTimeout(function () { yayinAc(m[1]); }, 300);
 
+  /* ── Kitaplığın özeti (alan · oda · harita · terim, sayarak artar) ve "Rastgele bir oda aç" ── */
+  document.addEventListener("DOMContentLoaded", function () {
+    var S = window.SAHNE; if (!S || !S.liste) return;
+    var odalar = S.liste().filter(function (id) { var d = S.tanim(id); return !d.kapilar && !d.sozlukce; });
+    var terim = 0; Object.keys(window.SOZLUKCE || {}).forEach(function (k) { terim += (window.SOZLUKCE[k] || []).length; });
+    var hedef = { "kl-s-oda": odalar.length, "kl-s-harita": Object.keys(window.HARITA || {}).length, "kl-s-terim": terim };
+    Object.keys(hedef).forEach(function (sinif) {
+      var el = document.querySelector("." + sinif); if (!el) return;
+      var n = hedef[sinif];
+      if (azalt || !("IntersectionObserver" in window)) { el.textContent = n; return; }
+      var io = new IntersectionObserver(function (g) {
+        if (!g[0].isIntersecting) return; io.disconnect();
+        var t0 = performance.now();
+        (function adim(t) { var k = Math.min(1, (t - t0) / 1400); el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(adim); })(t0);
+      });
+      io.observe(el);
+    });
+    var btn = document.querySelector(".rastgele-oda");
+    if (btn) btn.addEventListener("click", function () {
+      var kitaplar = [].slice.call(document.querySelectorAll("#kitaplik .kitap-sahne")).filter(function (k) { return S.var(k.dataset.sahne) && !/^sozlukce/.test(k.dataset.sahne); });
+      var k = kitaplar[Math.floor(Math.random() * kitaplar.length)];
+      if (!k) return;
+      k.scrollIntoView({ block: "center", behavior: azalt ? "auto" : "smooth" });
+      k.classList.add("secilen");
+      setTimeout(function () { k.classList.remove("secilen"); S.ac(k.dataset.sahne, k); }, azalt ? 0 : 900);
+    });
+  });
+
   /* ── Menü: ilerleme çizgisi ve etkin bölüm ── */
   var ilerleme = document.querySelector(".ilerleme");
   var baglar = [].slice.call(document.querySelectorAll(".top nav > a[href^='#']"));

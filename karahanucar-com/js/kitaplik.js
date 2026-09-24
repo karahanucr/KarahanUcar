@@ -8,27 +8,27 @@
   var RAFLAR = [
     { alan: "felsefe", ad: "Felsefe", sahne: "felsefe", kitaplar: [
       { ad: "Bilgi Felsefesi", sahne: "epistemoloji", motif: "goz" }, { ad: "Dil Felsefesi", motif: "balon" }, { ad: "Varlık Felsefesi", sahne: "metafizik", motif: "kup" },
-      { ad: "Zihin Felsefesi", sahne: "zihin", motif: "beyin" }, { ad: "Mantık Felsefesi", motif: "mantik" }, { ad: "Bilim Felsefesi", motif: "atom" },
-      { ad: "Politik Felsefe", motif: "sutun" }, { ad: "Etik", motif: "terazi" }, { ad: "Din Felsefesi", motif: "isik" },
-      { ad: "Tarih Felsefesi", motif: "kumsaati" }, { ad: "Sanat Felsefesi", motif: "firca" }, { ad: "Felsefe Tarihi", motif: "parsomen" },
+      { ad: "Zihin Felsefesi", sahne: "zihin", motif: "beyin" }, { ad: "Mantık Felsefesi", motif: "mantik" }, { ad: "Bilim Felsefesi", sahne: "bilim-felsefesi", motif: "atom" },
+      { ad: "Politik Felsefe", sahne: "politik-felsefe", motif: "sutun" }, { ad: "Etik", motif: "terazi" }, { ad: "Din Felsefesi", motif: "isik" },
+      { ad: "Tarih Felsefesi", motif: "kumsaati" }, { ad: "Sanat Felsefesi", motif: "firca" }, { ad: "Felsefe Tarihi", sahne: "felsefe-tarihi", motif: "parsomen" },
       { ad: "Metafelsefe", motif: "ayna" }, { ad: "Sözlükçe", sahne: "sozlukce-felsefe", motif: "sozluk" } ] },
     { alan: "diller", ad: "Diller", sahne: "diller", kitaplar: [
       { ad: "Latince", sahne: "latince", motif: "spqr" }, { ad: "Antik Yunanca", sahne: "yunanca", motif: "lir" }, { ad: "Arapça", sahne: "arapca", motif: "hilal" },
-      { ad: "Almanca", motif: "harf", harfler: "ß·Ä·Ö·Ü" }, { ad: "Fransızca", motif: "harf", harfler: "ç·é·œ·à" }, { ad: "İngilizce", motif: "harf", harfler: "W·æ·þ·Q" } ] },
+      { ad: "Almanca", sahne: "almanca", motif: "harf", harfler: "ß·Ä·Ö·Ü" }, { ad: "Fransızca", sahne: "fransizca", motif: "harf", harfler: "ç·é·œ·à" }, { ad: "İngilizce", sahne: "ingilizce", motif: "harf", harfler: "W·æ·þ·Q" } ] },
     { alan: "doga-bilimleri", ad: "Doğa Bilimleri", sahne: "doga-bilimleri", kitaplar: [
-      { ad: "Astronomi", sahne: "astronomi", motif: "yildiz" }, { ad: "Biyoloji", sahne: "biyoloji", motif: "yaprak" }, { ad: "Ekoloji", motif: "dongu" },
+      { ad: "Astronomi", sahne: "astronomi", motif: "yildiz" }, { ad: "Biyoloji", sahne: "biyoloji", motif: "yaprak" }, { ad: "Ekoloji", sahne: "ekoloji", motif: "dongu" },
       { ad: "Fizik", sahne: "fizik", motif: "sarkac" }, { ad: "Jeoloji", motif: "katman" }, { ad: "Kimya", motif: "sise" },
-      { ad: "Mühendislik", motif: "cark" }, { ad: "Tıp", motif: "nabiz" }, { ad: "Sözlükçe", sahne: "sozlukce-doga", motif: "sozluk" } ] },
+      { ad: "Mühendislik", sahne: "muhendislik", motif: "cark" }, { ad: "Tıp", sahne: "tip", motif: "nabiz" }, { ad: "Sözlükçe", sahne: "sozlukce-doga", motif: "sozluk" } ] },
     { alan: "formel-bilimler", ad: "Formel Bilimler", sahne: "formel-bilimler", kitaplar: [
-      { ad: "Bilişim", motif: "kod" }, { ad: "Geometri", sahne: "geometri", motif: "pergel" }, { ad: "Mantık", motif: "mantik" },
-      { ad: "Matematik", motif: "sonsuz" }, { ad: "Sözlükçe", sahne: "sozlukce-formel", motif: "sozluk" } ] },
+      { ad: "Bilişim", sahne: "bilisim", motif: "kod" }, { ad: "Geometri", sahne: "geometri", motif: "pergel" }, { ad: "Mantık", sahne: "mantik", motif: "mantik" },
+      { ad: "Matematik", sahne: "matematik", motif: "sonsuz" }, { ad: "Sözlükçe", sahne: "sozlukce-formel", motif: "sozluk" } ] },
     { alan: "sosyal-bilimler", ad: "Sosyal Bilimler", sahne: "sosyal-bilimler", kitaplar: [
-      { ad: "Antropoloji", motif: "insan" }, { ad: "Arkeoloji", motif: "comlek" }, { ad: "Coğrafya", sahne: "cografya", motif: "pusula" },
-      { ad: "Dilbilimi", motif: "ses" }, { ad: "Ekonomi", motif: "grafik" }, { ad: "Hukuk", motif: "terazi" }, { ad: "İlahiyat", motif: "isik" },
-      { ad: "Siyaset ve Sosyoloji", motif: "ag" }, { ad: "Psikoloji ve Psikanaliz", motif: "psi" }, { ad: "Tarih", motif: "kumsaati" },
+      { ad: "Antropoloji", sahne: "antropoloji", motif: "insan" }, { ad: "Arkeoloji", motif: "comlek" }, { ad: "Coğrafya", sahne: "cografya", motif: "pusula" },
+      { ad: "Dilbilimi", motif: "ses" }, { ad: "Ekonomi", sahne: "ekonomi", motif: "grafik" }, { ad: "Hukuk", motif: "terazi" }, { ad: "İlahiyat", motif: "isik" },
+      { ad: "Siyaset ve Sosyoloji", motif: "ag" }, { ad: "Psikoloji ve Psikanaliz", motif: "psi" }, { ad: "Tarih", sahne: "tarih", motif: "kumsaati" },
       { ad: "Sözlükçe", sahne: "sozlukce-sosyal", motif: "sozluk" } ] },
     { alan: "estetik", ad: "Estetik", sahne: "estetik", kitaplar: [
-      { ad: "Edebiyat", motif: "kalem" }, { ad: "Görsel Sanatlar", sahne: "film", motif: "film" }, { ad: "Müzik", motif: "nota" },
+      { ad: "Edebiyat", sahne: "edebiyat", motif: "kalem" }, { ad: "Görsel Sanatlar", sahne: "film", motif: "film" }, { ad: "Müzik", sahne: "muzik", motif: "nota" },
       { ad: "Sözlükçe", sahne: "sozlukce-estetik", motif: "sozluk" } ] }
   ];
   var RENK = ["#5c2b25", "#2b3a52", "#2f4533", "#303548", "#5b4521", "#4a2a3d", "#284543", "#6a3a1e", "#3a2a4a", "#1e3a3a", "#5a2a1a", "#2a3a2a", "#4a3a5a", "#3a1e1e"];
@@ -167,12 +167,13 @@
       doku += '<path d="M' + pts.join("L") + '" stroke="' + (d % 2 ? "rgba(0,0,0,.45)" : "rgba(255,214,170,.07)") + '" stroke-width="' + (d % 2 ? 2.2 : 1.4) + '" fill="none" stroke-dasharray="' + (30 + Math.abs(d) * 9) + " " + (8 + Math.abs(d) * 5) + '"/>';
     }
     /* raf dalları: her rafın altında, gövdeden sola */
-    var dallar = "", ucYaprak = "";
+    var dallar = "", ucYaprak = "", raflar = [];
     [].slice.call(kap.querySelectorAll(".kraf")).forEach(function (raf, i) {
       var kit = raf.querySelector(".kraf-kitaplar"), lev = raf.querySelector(".kraf-levha");
       var rb = kit.getBoundingClientRect(), lb = lev.getBoundingClientRect();
       var y = rb.bottom - kr.top, xa = mobil ? 4 : Math.min(lb.left, rb.left) - kr.left - 26, xb = cx(y) - cw(y) * 0.25;
       var kal = mobil ? 16 : 24;
+      raflar.push({ y: y, xa: xa, xb: xb });
       dallar += dal([xb, y + kal / 2, xb - (xb - xa) * 0.35, y + kal / 2 + 3, xa + (xb - xa) * 0.3, y + 8, xa, y + 6], kal + 8, 11, "kabuk dal");
       if (!mobil) {
         dallar += dal([xa + 6, y + 7, xa - 26, y + 12, xa - 34, y - 16, xa - 16, y - 26], 10, 1.5, "kabuk dal");
@@ -199,8 +200,22 @@
         '<circle class="fener-hale" cx="' + f(fx) + '" cy="' + f(fy + 10) + '" r="60" fill="url(#fenerG)"/>' +
         '<g class="fener" transform="translate(' + f(fx) + " " + f(fy + 6) + ')"><path d="M0 -26V-20" stroke="#8a6a3a" stroke-width="1.5"/><path d="M-9 -20H9L7 -16H-7Z" fill="#6a4a24"/><rect x="-8" y="-16" width="16" height="22" rx="3" fill="#ffcf7a" opacity=".85"/><path d="M-8 -9H8M0 -16V6" stroke="#6a4a24" stroke-width="1.4"/><path d="M-10 6H10L8 10H-8Z" fill="#6a4a24"/></g>';
     }
+    /* Ağacın küçük sakinleri: dal boyunca gezinen salyangoz, gövdede inip çıkan uğur böceği, fenerin çevresinde dönen güve */
+    var canli = "";
+    if (!azalt) {
+      var r2 = raflar[2] || raflar[0], r4 = raflar[4] || raflar[raflar.length - 1];
+      if (r2) canli += '<g class="salyangoz" style="--x0:' + f(r2.xa + 40) + "px;--x1:" + f(r2.xb - 70) + "px;--y:" + f(r2.y + (mobil ? 4 : 7)) + 'px"><g class="sy-govde">' +
+        '<path d="M-14 0C-14 -3 -8 -4 0 -4H10C13 -4 15 -7 16 -10M16 -10L18 -15M16 -10L14 -15" fill="none" stroke="#c9b48a" stroke-width="1.4" stroke-linecap="round"/>' +
+        '<path d="M-15 1H12C14 1 15 0 14 -2L10 -4H-10C-13 -4 -15 -2 -15 1Z" fill="#d9c49a"/><circle cx="-4" cy="-9" r="7.5" fill="#8a5a2a" stroke="#5a3a18" stroke-width="1"/>' +
+        '<path d="M-4 -9m-4.5 0a4.5 4.5 0 1 0 9 0a3 3 0 1 0 -6 0a1.5 1.5 0 1 0 3 0" fill="none" stroke="#e8c070" stroke-width="1"/><circle cx="18" cy="-15.5" r="1.2" fill="#2a1a0c"/><circle cx="14" cy="-15.5" r="1.2" fill="#2a1a0c"/></g></g>';
+      if (r4 && !mobil) { var ty1 = r4.y - 30, ty2 = raflar[1] ? raflar[1].y + 30 : H * 0.3;
+        canli += '<g class="ugur" style="--x0:' + f(cx(ty1) - cw(ty1) * 0.18) + "px;--y0:" + f(ty1) + "px;--x1:" + f(cx(ty2) - cw(ty2) * 0.18) + "px;--y1:" + f(ty2) + 'px"><g class="ug-govde">' +
+          '<ellipse rx="5.2" ry="6" fill="#d8322a"/><path d="M0 -6V6" stroke="#2a0a08" stroke-width=".9"/><circle cx="-2.4" cy="-1" r="1.1" fill="#1a0808"/><circle cx="2.6" cy="1.8" r="1.2" fill="#1a0808"/><circle cx="-2" cy="3.4" r=".9" fill="#1a0808"/>' +
+          '<circle cy="-7" r="2.6" fill="#1a0808"/><path d="M-1.4 -9L-3 -12M1.4 -9L3 -12" stroke="#1a0808" stroke-width=".7"/></g></g>'; }
+      if (!mobil) canli += '<g transform="translate(' + f(fx) + " " + f(fy + 2) + ')"><g class="guve"><g transform="translate(34 0)"><path class="gv-kanat" d="M0 0C-5 -6 -9 -4 -8 0C-9 4 -5 6 0 0C5 -6 9 -4 8 0C9 4 5 6 0 0Z" fill="#d8cbb0" opacity=".85"/></g></g></g>';
+    }
     svg.setAttribute("viewBox", "0 0 " + f(W) + " " + f(H));
-    svg.innerHTML = s + '<g class="agac-govde">' + kok + govde + doku + dallar + tac + "</g>" + kovuk + '<g class="agac-yaprak">' + ucYaprak + "</g>";
+    svg.innerHTML = s + '<g class="agac-govde">' + kok + govde + doku + dallar + tac + "</g>" + kovuk + '<g class="agac-yaprak">' + ucYaprak + "</g>" + canli;
     if (toz) toz.boyut(W, H, tx);
   }
 
@@ -209,7 +224,10 @@
   if (!azalt && tuval.getContext) {
     toz = (function () {
       var c = tuval.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, ps = [], gorunur = false;
+      var TX = 0, bocek = [];
       function yeni(ilk) { return { x: Math.random() * W, y: ilk ? Math.random() * H : H + 5, r: 0.5 + Math.random() * 1.5, v: 0.08 + Math.random() * 0.22, f: Math.random() * 6.28 }; }
+      /* ateş böcekleri: tacın ve fenerin çevresinde gezinip yanıp söner */
+      function yeniBocek() { var tac = Math.random() < 0.6; return { x: tac ? Math.random() * W : TX - 60 + Math.random() * 120, y: tac ? 20 + Math.random() * 90 : H * (0.3 + Math.random() * 0.35), f: Math.random() * 6.28, s: Math.random() }; }
       function kare() {
         if (gorunur && !document.hidden) {
           c.clearRect(0, 0, W, H);
@@ -223,16 +241,38 @@
             c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.fill();
             if (p.y < -4) ps[i] = yeni(false);
           }
+          for (var j = 0; j < bocek.length; j++) {
+            var q = bocek[j]; q.f += 0.012 + q.s * 0.01; q.x += Math.cos(q.f * 0.7) * 0.45; q.y += Math.sin(q.f * 0.9) * 0.3;
+            var ya = Math.max(0, Math.sin(q.f * 2.2 + q.s * 9)); ya = ya * ya;
+            var g = c.createRadialGradient(q.x, q.y, 0, q.x, q.y, 8);
+            g.addColorStop(0, "rgba(" + (gun ? "150,190,40," : "220,255,120,") + (ya * 0.95).toFixed(3) + ")"); g.addColorStop(1, "rgba(200,255,100,0)");
+            c.fillStyle = g; c.beginPath(); c.arc(q.x, q.y, 8, 0, 6.283); c.fill();
+            if (q.x < -10 || q.x > W + 10 || q.y < 0 || q.y > H) bocek[j] = yeniBocek();
+          }
         }
         requestAnimationFrame(kare);
       }
       new IntersectionObserver(function (k) { gorunur = k[0].isIntersecting; }).observe(tuval);
       requestAnimationFrame(kare);
-      return { boyut: function (w, h) {
-        W = w; H = h; tuval.width = W * dpr; tuval.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { boyut: function (w, h, tx) {
+        W = w; H = h; TX = tx || W - 90;
+        bocek = []; for (var b = 0; b < (W < 640 ? 6 : 14); b++) bocek.push(yeniBocek()); tuval.width = W * dpr; tuval.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
         ps = []; var n = Math.round(W * H / 9000); for (var i = 0; i < Math.min(n, 110); i++) ps.push(yeni(true));
       } };
     })();
+  }
+
+  /* Kitap kurtları: iki kitabın tepesinden ara sıra gözlüklü başını uzatıp etrafa bakar */
+  if (!azalt) {
+    var tum = [].slice.call(kap.querySelectorAll(".kitap"));
+    [tum[3], tum[Math.floor(tum.length * 0.6)]].forEach(function (k, i) {
+      if (!k) return;
+      var kurt = document.createElement("span");
+      kurt.className = "kitap-kurdu"; kurt.setAttribute("aria-hidden", "true"); kurt.style.setProperty("--kd", (-i * 7) + "s");
+      kurt.innerHTML = '<svg viewBox="0 0 24 30"><path d="M12 30V14C12 8 14 5 17 5" fill="none" stroke="#9cc46a" stroke-width="7" stroke-linecap="round"/><path d="M12 26h0M12 20h0" stroke="#7aa24a" stroke-width="8" stroke-linecap="round" opacity=".5"/>' +
+        '<circle cx="15" cy="6" r="1.8" fill="#1a1a0c"/><circle cx="20" cy="6" r="1.8" fill="#1a1a0c"/><circle cx="15" cy="6" r="3" fill="none" stroke="#e8c070" stroke-width=".9"/><circle cx="20" cy="6" r="3" fill="none" stroke="#e8c070" stroke-width=".9"/><path d="M18 6h-0" stroke="#e8c070"/></svg>';
+      k.appendChild(kurt);
+    });
   }
 
   var bekle = 0;
@@ -248,5 +288,5 @@
     var kitaplar = kap.querySelectorAll(".kitap"), k = kitaplar[Math.floor(Math.random() * kitaplar.length)];
     if (!k || k.matches(":hover")) return;
     k.classList.remove("cek"); void k.offsetWidth; k.classList.add("cek");
-  }, 2600);
+  }, 5200);
 })();

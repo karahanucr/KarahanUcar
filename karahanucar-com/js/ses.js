@@ -229,7 +229,10 @@
   };
   var HARITA = { diller: "kutuphane", latince: "roma", yunanca: "atina", arapca: "bagdat", "doga-bilimleri": "gece", biyoloji: "orman", astronomi: "gece", fizik: "lab",
     felsefe: "ocak", epistemoloji: "magara", metafizik: "bosluk", zihin: "sinir", "formel-bilimler": "kutu", geometri: "deniz", "sosyal-bilimler": "sehir", cografya: "ufuk",
-    estetik: "sahne", film: "yazlik" };
+    estetik: "sahne", film: "yazlik",
+    "bilim-felsefesi": "ufuk", "politik-felsefe": "sehir", "felsefe-tarihi": "kutuphane", "ft-antik": "atina", "ft-roma": "ocak", "ft-ronesans": "ufuk",
+    almanca: "ocak", fransizca: "kutuphane", ingilizce: "deniz", ekoloji: "orman", tip: "atina", muhendislik: "ufuk",
+    bilisim: "lab", mantik: "atina", matematik: "kutuphane", tarih: "magara", antropoloji: "deniz", ekonomi: "sehir", edebiyat: "ocak", muzik: "sahne" };
 
   function ortam(anahtar) {
     if (!anahtar) { ortamAnahtar = null; if (ortamSimdi) sondur(ortamSimdi); ortamSimdi = null; return; }
@@ -257,8 +260,12 @@
   }
 
   /* ── Tıklamanın bağlamına göre efekt ── */
-  var KAPI = { latince: "boru", yunanca: "lir", arapca: "ud", biyoloji: "kus", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "pergel", cografya: "ruzgar", film: "projektor" };
-  var NOKTA = { latince: "tas", yunanca: "lir", arapca: "ud", biyoloji: "yaprak", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "kristal", cografya: "tik", film: "projektor" };
+  var KAPI = { latince: "boru", yunanca: "lir", arapca: "ud", biyoloji: "kus", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "pergel", cografya: "ruzgar", film: "projektor",
+    "bilim-felsefesi": "kus", "politik-felsefe": "boru", "felsefe-tarihi": "sayfa", almanca: "metal", fransizca: "kristal", ingilizce: "sayfa", ekoloji: "kus", tip: "kristal", muhendislik: "metal",
+    bilisim: "sinaps", mantik: "kristal", matematik: "pergel", tarih: "sayfa", antropoloji: "yaprak", ekonomi: "metal", edebiyat: "sayfa", muzik: "lir" };
+  var NOKTA = { latince: "tas", yunanca: "lir", arapca: "ud", biyoloji: "yaprak", astronomi: "can", fizik: "metal", epistemoloji: "ates", metafizik: "kristal", zihin: "sinaps", geometri: "kristal", cografya: "tik", film: "projektor",
+    "bilim-felsefesi": "kristal", "politik-felsefe": "tas", "felsefe-tarihi": "sayfa", "ft-antik": "lir", "ft-roma": "tas", "ft-ronesans": "can", almanca: "metal", fransizca: "kristal", ingilizce: "sayfa",
+    ekoloji: "yaprak", tip: "kristal", muhendislik: "metal", bilisim: "sinaps", mantik: "kristal", matematik: "pergel", tarih: "sayfa", antropoloji: "yaprak", ekonomi: "metal", edebiyat: "sayfa", muzik: "lir" };
   var DIL = { la: "boru", el: "lir", ar: "ud" };
   function baglam(el) {
     if (el.closest(".gramofon, .radyo, .sk-panel-kapat, .sk-kapat, .sk-arsiv-kapat, .sk-ses, .efekt-anahtar, .hr-durak, .hr-gez, .sk-harita-btn")) return null;

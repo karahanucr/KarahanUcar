@@ -19,28 +19,30 @@
      sahne     "epistemoloji" → sahneyi açar
      belge     "belgeler/dosya.pdf" → Yayınlar'da indirme bağlantısı ("" = belge henüz yüklenmedi)
      youtube   "VIDEO_KIMLIGI" (youtube.com/watch?v=BURASI)   ya da   dosya: "videolar/dosya.mp4"
+     gorsel    "belgeler/poster.jpg" → sandıkta küçük resim, dokununca büyür (posterler için)
+     etiketler ["Meinong", "yönelimsellik"] → sandıkta ve merkez odalarda etiket; sandıkta etikete dokununca o etiketle süzülür
    ───────────────────────────────────────────────────────────────────────────── */
 window.ICERIK = [
-  { id: "tegmark", tur: "okuma", baslik: "Evren bir matematiksel yapı mı?", tarih: "2026-09",
+  { id: "tegmark", etiketler: ["Tegmark", "matematiksel evren", "soyut nesneler", "Gödel"], tur: "okuma", baslik: "Evren bir matematiksel yapı mı?", tarih: "2026-09",
     aciklama: "Tegmark’ın “Matematiksel Evren” makalesi kaydırarak, adım adım: dış gerçeklik, yapılar, Gödel ve soyut nesneler sorusu.",
     alan: ["felsefe", "doga-bilimleri", "formel-bilimler"], sandik: ["astronomi", "metafizik"], bag: "bilgi/matematiksel-evren.html" },
-  { id: "magara", tur: "sahne", baslik: "Platon’un Mağarası", tarih: "2026-09", sahne: "epistemoloji",
+  { id: "magara", etiketler: ["Platon", "Devlet", "bilgi"], tur: "sahne", baslik: "Platon’un Mağarası", tarih: "2026-09", sahne: "epistemoloji",
     aciklama: "Duvarda kayan gölgeler, ateş ve gün ışığı: bilgi nedir, nereden bileceğiz?", alan: ["felsefe"] },
-  { id: "senato", tur: "sahne", baslik: "Roma Senatosu’nda Latince", tarih: "2026-09", sahne: "latince",
+  { id: "senato", etiketler: ["Cicero", "Roma", "dilbilgisi"], tur: "sahne", baslik: "Roma Senatosu’nda Latince", tarih: "2026-09", sahne: "latince",
     aciklama: "Cicero kürsüde: alfabe, dilbilgisi, Latincenin serüveni ve ünlü sözler.", alan: ["diller"] },
-  { id: "metafizik-sunum", tur: "sunum", baslik: "Metafizik", tarih: "2026-08", bag: "sunumlar/metafizik/index.html", yeniSekme: true,
+  { id: "metafizik-sunum", etiketler: ["Aristoteles", "Hegel", "ontoloji"], tur: "sunum", baslik: "Metafizik", tarih: "2026-08", bag: "sunumlar/metafizik/index.html", yeniSekme: true,
     aciklama: "Aristoteles’ten Hegel’e metafizik sorunlar.", alan: ["felsefe"], sandik: ["metafizik"] },
-  { id: "orman", tur: "sahne", baslik: "Ormanın içinde biyoloji", tarih: "2026-09", sahne: "biyoloji",
+  { id: "orman", etiketler: ["hücre", "evrim", "genetik"], tur: "sahne", baslik: "Ormanın içinde biyoloji", tarih: "2026-09", sahne: "biyoloji",
     aciklama: "Karınca izleri, yapraklar ve mantarlar arasında hücre, evrim ve genetik.", alan: ["doga-bilimleri"] },
-  { id: "yasamin-sinirlari", tur: "sunum", baslik: "Yaşamın sınırları", tarih: "2026-08", bag: "sunumlar/biyoloji-felsefesi/index.html", yeniSekme: true,
+  { id: "yasamin-sinirlari", etiketler: ["yaşam", "biyoloji felsefesi"], tur: "sunum", baslik: "Yaşamın sınırları", tarih: "2026-08", bag: "sunumlar/biyoloji-felsefesi/index.html", yeniSekme: true,
     aciklama: "Biyoloji felsefesi üzerine etkileşimli sunum.", alan: ["felsefe", "doga-bilimleri"], sandik: ["biyoloji"] },
-  { id: "modality", tur: "sunum", baslik: "Information: Modality", tarih: "2026-07", belge: "",
+  { id: "modality", etiketler: ["modalite", "olası dünyalar", "zorunluluk"], tur: "sunum", baslik: "Information: Modality", tarih: "2026-07", belge: "",
     aciklama: "Modalite üzerine sunum: zorunluluk, olanak ve olası dünyalar.", alan: ["felsefe"], sandik: ["metafizik"] },
-  { id: "meinong-seminer", tur: "seminer", baslik: "Non-Existence Seminar: Meinong and the Problem of Intentionality", tarih: "2026-06", belge: "",
+  { id: "meinong-seminer", etiketler: ["Meinong", "olmayan nesneler", "yönelimsellik"], tur: "seminer", baslik: "Non-Existence Seminar: Meinong and the Problem of Intentionality", tarih: "2026-06", belge: "",
     aciklama: "Meinong’un olmayan nesneler kuramı ve yönelimsellik sorunu üzerine seminer sunumu.", alan: ["felsefe"], sandik: ["metafizik", "zihin"] },
-  { id: "ems", tur: "proje", baslik: "Europa Macht Schule (EMS) projesi", tarih: "2026-05", belge: "",
+  { id: "ems", etiketler: ["Avrupa", "eğitim"], tur: "proje", baslik: "Europa Macht Schule (EMS) projesi", tarih: "2026-05", belge: "",
     aciklama: "Avrupalı öğrencilerin okullarda kendi ülkelerini ve dillerini tanıttığı değişim projesi.", alan: [] },
-  { id: "kanal", tur: "video", baslik: "Düşüncenin Eşiğinde — YouTube kanalım", bag: "https://www.youtube.com/@karahan6927",
+  { id: "kanal", etiketler: ["YouTube", "video"], tur: "video", baslik: "Düşüncenin Eşiğinde — YouTube kanalım", bag: "https://www.youtube.com/@karahan6927",
     aciklama: "Merak, akıl, anlam: konu anlatımları ve yeni videolar. Videolar eklendikçe burada, oynatıcıda izlenebilecek.", alan: [], sandik: ["film"] },
   { id: "yakinda", tur: "yakinda", baslik: "Sıradaki okuma", aciklama: "Yeni bir adım adım okuma hazırlanıyor.", alan: [] }
 ];
