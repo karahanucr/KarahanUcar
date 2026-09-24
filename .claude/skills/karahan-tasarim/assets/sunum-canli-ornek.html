@@ -223,13 +223,28 @@ html.gunduz .imlec { mix-blend-mode: multiply; background: radial-gradient(close
 html.gunduz .terim-arka { background: linear-gradient(160deg, #fbf6ea, #ece0c7); color: #2b2117; }
 html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
 @media (prefers-reduced-motion: reduce) { .imlec { display: none; } .terim-ic { transition: none; } }
+
+/* ── Higgsfield (Z Image) ile üretilmiş sahne görselleri: yavaş Ken Burns yakınlaşması, metni koruyan koyu gradyanlar ── */
+.fon { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: var(--bg); }
+.fon::before { content: ""; position: absolute; inset: -4%; background: var(--resim, none) center / cover no-repeat; opacity: 0; transition: opacity 1.6s ease; transform-origin: 60% 50%; }
+.fon.hazir::before { opacity: 1; }
+.aktif .fon::before { animation: kenburns 26s ease-in-out infinite alternate; }
+@keyframes kenburns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.1) translate(-1.5%, -1%); } }
+.fon::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14, 11, 9, .94) 0%, rgba(14, 11, 9, .72) 42%, rgba(14, 11, 9, .28) 100%), linear-gradient(0deg, rgba(14, 11, 9, .85), transparent 30%); }
+.fon-koyu::after { background: linear-gradient(rgba(14, 11, 9, .9), rgba(14, 11, 9, .74) 40%, rgba(14, 11, 9, .82)); }
+.fon-merkez::after { background: radial-gradient(ellipse 60% 55% at 50% 45%, rgba(14, 11, 9, .72), rgba(14, 11, 9, .35) 70%, rgba(14, 11, 9, .15)), linear-gradient(0deg, rgba(14, 11, 9, .7), transparent 35%); }
+.fon.hazir ~ .gok { background: transparent; } .fon.hazir ~ .gok .ay, .fon.hazir ~ .gok .orman { display: none; }
+[data-tur="sahne"] .fon::after { background: linear-gradient(90deg, rgba(14, 11, 9, .95) 0%, rgba(14, 11, 9, .8) 38%, rgba(14, 11, 9, .45) 100%); }
+html.gunduz .fon::after { background: linear-gradient(90deg, rgba(245, 237, 220, .95), rgba(245, 237, 220, .78) 45%, rgba(245, 237, 220, .45)); }
+.fon.hazir ~ .esik, [data-tur="bolum"] .esik { background: rgba(14, 11, 9, .55); backdrop-filter: blur(4px); }
+@media (prefers-reduced-motion: reduce) { .aktif .fon::before { animation: none; } }
 </style>
 </head>
 <body>
 <div class="sahne"><div class="tuval" id="tuval"><canvas class="toz" aria-hidden="true"></canvas><div class="imlec" aria-hidden="true"></div>
   <!-- 1 · KAPAK -->
   <section class="slayt" data-tur="kapak">
-    <div class="gok"><div class="yildizlar"></div><div class="ay"></div>
+    <div class="fon fon-merkez" data-g="0" aria-hidden="true"></div><div class="gok"><div class="yildizlar"></div><div class="ay"></div>
       <svg class="orman" viewBox="0 0 1600 250" preserveAspectRatio="none"></svg></div>
     <div class="merkez">
       <div class="logo logo-cizen" role="img" aria-label="Karahan Uçar logosu"><svg class="logo-ciz" viewBox="0 0 1254 1254" ><defs><mask id="kc-sol" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="kc-sag" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="kc-govde" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s3" d="M626 446 L626 985" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="butt" stroke-linejoin="round"/><path class="lc-kalem" data-seg="s4" d="M546 1046 L712 1046" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><g class="lc-yollar" fill="none" stroke="none"><path data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916"/><path data-seg="g1" d="M526 916 C570 930 670 934 716 924"/><path data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452"/><path data-seg="g2" d="M716 452 C690 444 650 440 626 446"/><path data-seg="s3" d="M626 446 L626 985"/><path data-seg="g3" d="M626 985 C600 1010 570 1030 546 1046"/><path data-seg="s4" d="M546 1046 L712 1046"/></g><path d="M521.5,928.54 C460.61,914.05 408.37,885.5 366.92,844.07 C266.74,743.95 264.28,620.33 360.29,511.33 C397.94,468.58 433.27,440.98 518.5,387.71 C549.74,368.18 581.23,347.16 597.5,334.96 C664.27,284.92 690.4,244.4 688.73,193.5 C688.12,174.79 685.81,165.64 676.28,144.06 C675.51,142.33 684.53,148.56 695.5,157.35 C761.79,210.45 774.74,287.3 729.17,357.07 C702.55,397.81 671.31,423.54 574.5,484.47 C509.55,525.34 482.59,544.82 460,567.16 C403.95,622.58 387.6,694.64 414.54,767.53 C434.71,822.11 474.3,869.49 533.57,909.96 C548.46,920.13 551.21,924.64 545.69,929.83 C542.53,932.79 538.45,932.57 521.5,928.54 Z" fill="#E8BD62" mask="url(#kc-sol)"/><path d="M705.56,929.78 C701.52,924.01 704.49,919.2 716.26,912.43 C750.14,892.94 781.56,865.09 805.86,833 C863.09,757.43 873.79,667.62 835,588.5 C811.06,539.69 762.46,488.57 715.72,463.04 C705.29,457.34 702.62,452.3 707.04,446.67 C709.94,442.98 714.07,442.56 728.85,444.44 C803.1,453.89 882.99,507.02 924.87,574.79 C962.13,635.1 970.15,703.83 946.93,764.03 C915.04,846.71 827.55,912.74 726.46,930.43 C713.33,932.72 707.49,932.54 705.56,929.78 Z" fill="#E8BD62" mask="url(#kc-sag)"/><path d="M528.45,1058.63 C525,1053.71 527.2,1049.89 536.63,1044.42 C554.39,1034.1 565.05,1018.44 569.66,995.91 C571.24,988.16 571.42,970.14 571.94,766.5 L572.5,545.5 L575.12,538.76 C582.37,520.14 596.84,504.08 628.56,479.46 C642.03,469.02 660.47,455.66 672.5,447.65 L679.5,442.99 L680.07,715.24 C680.47,905.02 680.97,989.01 681.72,992.5 C686.36,1013.9 690.56,1022.63 701.47,1033.51 C706.38,1038.41 711.93,1042.81 715.74,1044.82 C722.35,1048.3 724,1050.23 724,1054.5 C724,1061.28 732.59,1060.74 625.99,1060.72 L529.91,1060.71 L528.45,1058.63 Z" fill="#E8BD62" mask="url(#kc-govde)"/><circle class="lc-uc" cx="688" cy="152" r="46" fill="#fff3c8"/></svg></div>
@@ -241,7 +256,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
   </section>
 
   <!-- 2 · BÖLÜM I -->
-  <section class="slayt" data-tur="bolum" data-arka="I" style="--vurgu:#E8BD62">
+  <section class="slayt" data-tur="bolum" data-arka="I" style="--vurgu:#E8BD62"><div class="fon " data-g="1" aria-hidden="true"></div>
     <p class="bolum-no gel">I</p>
     <h2>Bir ölüm ilanı ve bir diriliş</h2>
     <p class="esik gel2">Metafizik anlamsız mı, yoksa bilimin en genel kısmı mı?</p>
@@ -249,7 +264,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
 
   <!-- 3 · KARŞITLIK: Carnap / Quine -->
   <section class="slayt" data-tur="karsitlik">
-    <p class="ust">1948 – 1951 <span class="ayir">·</span> Kurucu tartışma</p>
+    <div class="fon fon-koyu" data-g="7" aria-hidden="true"></div><p class="ust">1948 – 1951 <span class="ayir">·</span> Kurucu tartışma</p>
     <h2>Carnap ve Quine</h2>
     <div class="karsit">
       <div><h3>Carnap · Çerçeveler</h3><p><b>“Deneycilik, Anlambilim ve Ontoloji” (1950).</b> Varlık soruları ya bir dil çerçevesinin <b>içinde</b> sorulur (“5’ten büyük bir asal sayı var mı?”: basit, çoğu zaman önemsiz) ya da çerçevenin <b>dışında</b> (“Sayılar gerçekten var mı?”): bu kuramsal değil, hangi dili kullanacağımıza dair <b>pratik</b> bir sorudur. Geleneksel metafizik bu ikisini karıştırır.</p></div><div class="terazi" aria-hidden="true"><svg viewBox="0 0 120 420"><path d="M60 60V400M30 400H90" stroke="currentColor" stroke-width="3"/><g class="kol"><path d="M10 70H110" stroke="currentColor" stroke-width="3"/><path d="M10 70L-4 120H24ZM110 70L96 120H124Z" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="10" cy="122" rx="16" ry="4" fill="currentColor"/><ellipse cx="110" cy="122" rx="16" ry="4" fill="currentColor"/></g><circle cx="60" cy="56" r="7" fill="currentColor"/></svg></div>
@@ -289,7 +304,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
   </section>
 
   <!-- 6 · BÖLÜM II -->
-  <section class="slayt" data-tur="bolum" data-arka="II" style="--vurgu:#C8B0FF">
+  <section class="slayt" data-tur="bolum" data-arka="II" style="--vurgu:#C8B0FF"><div class="fon " data-g="3" aria-hidden="true"></div>
     <p class="bolum-no gel">II</p>
     <h2>Büyük tartışmalar</h2>
     <p class="esik gel2">Olanaklılık · Özellikler · Parçalar ve bütünler · Zaman ve kalıcılık</p>
@@ -297,7 +312,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
 
   <!-- 7 · SAHNE: olası dünyalar -->
   <section class="slayt" data-tur="sahne">
-    <p class="ust">Kip metafiziği · 1970’ler</p>
+    <div class="fon " data-g="2" aria-hidden="true"></div><p class="ust">Kip metafiziği · 1970’ler</p>
     <h2>Olası dünyalar</h2>
     <p class="ipucu" style="left:96px;right:auto">Parıldayan nesnelere dokun.</p><p class="yazi">“Sokrates filozof olmayabilirdi” ne demektir? Kripke’nin kip anlambilimi olası dünyalardan söz eder; peki bu dünyalar <b>nedir</b>? Dünyaların arasında dolaş.</p>
     <div class="cizim">
@@ -348,7 +363,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
 
   <!-- 10 · KARŞITLIK: kalıcılık ve zaman -->
   <section class="slayt" data-tur="karsitlik">
-    <p class="ust">Zaman <span class="ayir">·</span> Kalıcılık</p>
+    <div class="fon fon-koyu" data-g="4" aria-hidden="true"></div><p class="ust">Zaman <span class="ayir">·</span> Kalıcılık</p>
     <h2>Nesneler zamanda nasıl sürer?</h2>
     <div class="karsit">
       <div><svg class="zaman-ciz" viewBox="0 0 520 90" aria-hidden="true"><path d="M10 70H510" stroke="rgba(232,189,98,.4)" stroke-width="2"/><g class="uc-b"><circle cy="40" r="22" fill="#E8BD62"/><circle cy="40" r="32" fill="#E8BD62" opacity=".15"/></g><text x="10" y="88" font-size="12" fill="#A9A38F">t₁</text><text x="494" y="88" font-size="12" fill="#A9A38F">t₂</text></svg><h3>Üç boyutçuluk</h3><p><b>Endurantizm:</b> nesne her anda <b>bütünüyle</b> bulunur; değişim aynı nesnenin farklı zamanlarda farklı özellikler taşımasıdır. Çoğu zaman <b>şimdicilik</b> ile birlikte savunulur: yalnızca şimdiki var (Prior, Zimmerman, Markosian). Lewis’in itirazı: geçici içsel özellikler sorunu.</p></div><div class="terazi" aria-hidden="true"><svg viewBox="0 0 120 420"><path d="M60 60V400M30 400H90" stroke="currentColor" stroke-width="3"/><g class="kol"><path d="M10 70H110" stroke="currentColor" stroke-width="3"/><path d="M10 70L-4 120H24ZM110 70L96 120H124Z" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="10" cy="122" rx="16" ry="4" fill="currentColor"/><ellipse cx="110" cy="122" rx="16" ry="4" fill="currentColor"/></g><circle cx="60" cy="56" r="7" fill="currentColor"/></svg></div>
@@ -357,7 +372,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
   </section>
 
   <!-- 11 · BÖLÜM III -->
-  <section class="slayt" data-tur="bolum" data-arka="III" style="--vurgu:#9FD0E0">
+  <section class="slayt" data-tur="bolum" data-arka="III" style="--vurgu:#9FD0E0"><div class="fon " data-g="5" aria-hidden="true"></div>
     <p class="bolum-no gel">III</p>
     <h2>Metametafizik</h2>
     <p class="esik gel2">Carnap geri döndü: bu tartışmaların gerçek bir konusu var mı?</p>
@@ -420,7 +435,7 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
 
   <!-- 15 · KAPANIŞ -->
   <section class="slayt" data-tur="kapanis">
-    <div class="gok"><div class="yildizlar"></div><svg class="orman" viewBox="0 0 1600 250" preserveAspectRatio="none"></svg></div>
+    <div class="fon fon-merkez" data-g="6" aria-hidden="true"></div><div class="gok"><div class="yildizlar"></div><svg class="orman" viewBox="0 0 1600 250" preserveAspectRatio="none"></svg></div>
     <div class="merkez">
       <div class="logo" style="width:120px"><img src="logo-seffaf.svg" data-gunduz="logo-seffaf-gunduz.svg" alt=""></div>
       <h1 style="font-size:96px">Teşekkürler</h1>
@@ -615,6 +630,18 @@ html.gunduz .karsit > div:not(.terazi) { background: rgba(255, 250, 238, .5); }
     setTimeout(ciz, 700);
     new MutationObserver(function () { if (kapak.classList.contains("aktif")) setTimeout(ciz, 500); }).observe(kapak, { attributes: true, attributeFilter: ["class"] });
   }
+})();
+</script>
+
+<script>
+/* Sahne görselleri: önce yerel gorsel/gN.png (gorselleri-indir ile indirilir), yoksa Higgsfield sunucusundaki asıl dosya */
+(function () {
+  var U = ["hf_20260924_145300_79bb9734-7f54-4b67-bea9-439820b921eb", "hf_20260924_145313_2321eb24-d6a4-4ab5-a4c3-7edb7dafb460", "hf_20260924_145314_1edfdd2c-c754-4685-bced-87da1bf1755d", "hf_20260924_145314_bed82dad-5af5-44b5-9eee-ae3c3b593020", "hf_20260924_145314_faeb42c8-df64-4aaa-87dc-cb6d8ef20391", "hf_20260924_145314_ce93d964-898e-4490-91c6-fc90cd642937", "hf_20260924_145345_397767b3-c5c6-402f-b7b6-3756c6c67fe2", "hf_20260924_145345_f76d13ee-cc70-4d1c-bc3b-c197a00bf8ce"], B = "https://d8j0ntlcm91z4.cloudfront.net/user_3Jcviuh0jli0uOYsJXGfqvG22US/";
+  document.querySelectorAll(".fon[data-g]").forEach(function (f) {
+    var n = +f.dataset.g, yerel = "gorsel/g" + n + ".png", uzak = B + U[n] + ".png";
+    var dene = function (src, sonra) { var im = new Image(); im.onload = function () { f.style.setProperty("--resim", "url('" + src + "')"); f.classList.add("hazir"); }; im.onerror = sonra; im.src = src; };
+    dene(yerel, function () { dene(uzak, function () {}); });
+  });
 })();
 </script>
 </body>
