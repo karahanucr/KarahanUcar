@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Işığın Tarihi — Karahan Uçar</title>
+<!-- Karahan Uçar sunum dili × Gustave Doré gravür modeli. Tek dosya; harici font/CDN yok. Logo aynı klasörde.
+     Doré modeli: bütün çizimler "oyma" çizgilerdir (tarama, çapraz tarama, ışın). Gece: gece kütüphanesinde altın mürekkeple oyulmuş levha;
+     gündüz (T): krem kâğıda koyu mürekkep, yani Doré'nin kendi baskısı. Slaytlar "levha" (Pl. I…V) olarak numaralanır, çift çizgili kitap çerçevesi içindedir.
+     Tuşlar: → ← boşluk · Home/End · T (gece/gündüz) · F (tam ekran). -->
+<style>
+:root { --bg: #16120f; --bg-2: #211b16; --line: rgba(232,189,98,.22); --gold: #E8BD62; --gold-2: #FFE2A0; --gold-3: #FFE7A8; --ivory: #EDE6D0; --ivory-2: #f6ecd2; --muted: #A9A38F;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --oyma: rgba(232,189,98,.62); --oyma-2: rgba(232,189,98,.3); --oyma-3: rgba(232,189,98,.14); --levha: #120e0b; --siluet: #0a0705; --isik: #FFE7A8; --vurgu: #E8BD62; }
+html.gunduz { --bg: #f3ead6; --bg-2: #eadcbf; --line: rgba(118,78,20,.26); --gold: #764b0c; --gold-2: #8a5a14; --gold-3: #6b430c; --ivory: #2b2117; --ivory-2: #2b2117; --muted: #5e4e3a;
+  --oyma: #3a2915; --oyma-2: rgba(58,41,21,.55); --oyma-3: rgba(58,41,21,.25); --levha: #f6eed9; --siluet: #2b2117; --isik: #fffaf0; --vurgu: #764b0c; }
+@property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@property --sp { syntax: "<percentage>"; initial-value: -20%; inherits: false; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #07060a; overflow: hidden; }
+body { font: 26px/1.55 var(--sans); color: var(--ivory); }
+html.gunduz body { background: #d8c9a8; }
+.sahne { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+.tuval { position: relative; width: 1600px; height: 900px; flex: none; transform-origin: 50% 50%; overflow: hidden; border-radius: 6px; background: var(--bg); box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+/* Doré: kitap levhası çerçevesi ve oyma dokusu */
+.cerceve { position: absolute; inset: 26px; pointer-events: none; z-index: 4; border: 1px solid var(--oyma-2); }
+.cerceve::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--oyma-3); }
+.cerceve svg { position: absolute; width: 38px; height: 38px; fill: none; stroke: var(--oyma); stroke-width: 1.4; }
+.cerceve .k1 { left: -8px; top: -8px; } .cerceve .k2 { right: -8px; top: -8px; transform: scaleX(-1); } .cerceve .k3 { left: -8px; bottom: -8px; transform: scaleY(-1); } .cerceve .k4 { right: -8px; bottom: -8px; transform: scale(-1); }
+.doku { position: absolute; inset: 0; pointer-events: none; z-index: 3; background: repeating-linear-gradient(0deg, rgba(255,230,170,.022) 0 1px, transparent 1px 4px); }
+html.gunduz .doku { background: repeating-linear-gradient(0deg, rgba(60,40,15,.035) 0 1px, transparent 1px 4px); }
+.slayt { position: absolute; inset: 0; padding: 104px 110px 90px; opacity: 0; visibility: hidden; z-index: 1; transition: opacity .9s ease, transform 1.1s cubic-bezier(.2,.7,.2,1), filter 1s ease, visibility 0s linear 1.1s; transform: scale(.94); filter: blur(10px); }
+.slayt.aktif { opacity: 1; visibility: visible; transform: none; filter: none; transition-delay: .15s, .15s, .15s, 0s; }
+.slayt.gecmis { transform: scale(1.08); }
+.ust { font: 600 17px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--gold); }
+h1, h2 { font-family: var(--serif); font-weight: 500; color: var(--ivory-2); }
+h1 { font-size: 108px; line-height: 1.02; }
+h2 { font-size: 64px; line-height: 1.06; margin: 14px 0 16px; }
+.aktif h1, .aktif h2 { animation: harf 1.4s .25s both cubic-bezier(.2,.7,.2,1); }
+.aktif .ust, .aktif .yazi, .aktif .gel { animation: belir 1s .6s both; }
+.aktif .gel2 { animation: belir 1s 1s both; }
+@keyframes harf { from { opacity: 0; letter-spacing: .3em; filter: blur(8px); } to { opacity: 1; letter-spacing: 0; filter: blur(0); } }
+@keyframes belir { from { opacity: 0; transform: translateY(14px); } }
+.yazi { max-width: 560px; color: var(--muted); font-size: 24px; }
+.yazi b { color: var(--ivory); font-weight: 600; }
+.kor-cizgi { height: 2px; width: 560px; border-radius: 2px; margin: 24px 0; background: radial-gradient(ellipse 9% 260% at var(--sp) 50%, rgba(218,118,46,.75), rgba(170,66,28,.3) 55%, transparent 100%), linear-gradient(90deg, transparent, rgba(232,189,98,.22) 20%, rgba(232,189,98,.22) 80%, transparent); animation: korg 12s ease-in-out infinite; }
+@keyframes korg { 0% { --sp: -20%; } 62%, 100% { --sp: 120%; } }
+/* başlık üstü hareketli oyma çizimler (kalıcı kural) */
+.baslik-ciz { display: block; width: 520px; height: 58px; margin-bottom: 12px; overflow: visible; }
+.o { stroke: var(--oyma); } .o2 { stroke: var(--oyma-2); } .o3 { stroke: var(--oyma-3); }
+.fo { fill: var(--oyma); } .fo2 { fill: var(--oyma-2); } .fs { fill: var(--siluet); } .fl { fill: var(--levha); } .fi { fill: var(--isik); }
+.si { stop-color: var(--isik); } .sb { stop-color: var(--bg); }
+/* kapak */
+.gravur { position: absolute; inset: 0; width: 100%; height: 100%; }
+.merkez { position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.merkez::before { content: ""; position: absolute; left: 50%; top: 58%; width: 1100px; height: 520px; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, var(--bg) 35%, transparent); opacity: .82; z-index: -1; }
+.merkez .kor-cizgi { margin-inline: auto; }
+.merkez .ust { margin-bottom: 26px; }
+.alt { font: italic 30px/1.3 var(--serif); color: var(--gold-3); margin-top: 10px; }
+.slogan { font: 500 19px/1 var(--serif); letter-spacing: .34em; color: var(--gold); }
+.logo { position: relative; width: 150px; margin-bottom: 18px; }
+.logo-cizen svg { width: 100%; display: block; overflow: visible; }
+.logo-cizen .lc-uc { filter: drop-shadow(0 0 70px #ffd890); opacity: 0; }
+.logo-cizen.bitti svg { animation: alev 4.2s ease-in-out infinite; transform-origin: 50% 90%; filter: drop-shadow(0 0 14px rgba(232,189,98,.55)); }
+html.gunduz .logo-cizen path[fill] { fill: #7A4E0E; } /* gündüz logosunun resmî rengi (logo-seffaf-gunduz.svg) */
+@keyframes alev { 0%, 100% { transform: scale(1,1) skewX(0); } 25% { transform: scale(.985,1.02) skewX(.6deg); } 50% { transform: scale(1.01,.99) skewX(-.5deg); } }
+.bulut { animation: suz var(--d, 40s) ease-in-out infinite alternate; }
+@keyframes suz { from { transform: translateX(-24px); } to { transform: translateX(24px); } }
+/* harita (parşömen levha) */
+.kagit { position: absolute; left: 110px; right: 110px; top: 330px; bottom: 76px; border-radius: 6px; background: radial-gradient(ellipse 70% 60% at 50% 45%, #f1e3c2, #e2cc9c 70%, #c9ad76); box-shadow: inset 0 0 50px rgba(90,55,20,.45), inset 0 0 0 1px rgba(90,55,20,.5), inset 0 0 0 9px rgba(241,227,194,.6), inset 0 0 0 10px rgba(90,55,20,.45), 0 14px 30px rgba(0,0,0,.45); }
+.kagit svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.yol { stroke-dasharray: 9 9; }
+.maske { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.aktif .maske { animation: ciz 2.6s .4s cubic-bezier(.5,0,.3,1) forwards; }
+@keyframes ciz { to { stroke-dashoffset: 0; } }
+.durak { position: absolute; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; background: none; border: 0; cursor: pointer; font: inherit; color: #2e1c08; }
+.muhur { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font: 600 17px/1 var(--serif); color: #fff3d6; background: radial-gradient(circle at 38% 32%, #c0503a, #7a1e12 70%); box-shadow: 0 0 0 3px rgba(255,240,210,.6), 0 3px 6px rgba(60,20,10,.5); transition: transform .3s, box-shadow .3s; }
+.durak.secili .muhur { transform: scale(1.25); box-shadow: 0 0 0 3px #fff3d6, 0 0 0 7px rgba(192,80,58,.35), 0 0 22px rgba(255,160,60,.8); }
+.durak.gecildi .muhur { background: radial-gradient(circle at 38% 32%, #b88a3a, #6a4a18 70%); }
+.etiket { position: absolute; top: 46px; width: 200px; text-align: center; line-height: 1.2; }
+.durak.yukari .etiket { top: auto; bottom: 46px; }
+.etiket b { display: block; font-size: 14px; letter-spacing: .08em; color: #7a1e12; }
+.etiket span { font: 500 20px/1.2 var(--serif); }
+.durak-acik { position: absolute; left: 110px; right: 110px; top: 256px; font-size: 22px; color: var(--muted); min-height: 66px; }
+.durak-acik b { color: var(--gold-3); font: 500 28px var(--serif); margin-inline-end: 14px; }
+/* kartlar */
+.kartlar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 26px; }
+.kart { position: relative; padding: 30px 30px 46px; border-radius: 6px; background: var(--bg-2); border: 1px solid var(--line); font-size: 19.5px; line-height: 1.5; color: var(--muted); cursor: pointer;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s ease-out, box-shadow .4s, border-color .4s; }
+.kart::after { content: ""; position: absolute; inset: 7px; border: 1px solid var(--oyma-3); border-radius: 3px; pointer-events: none; }
+.kart::before, .esik::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--ang), transparent 0 45%, rgba(232,189,98,.35) 65%, var(--gold) 82%, var(--gold-2) 90%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: dolan 6s linear infinite; opacity: .38; transition: opacity .4s; }
+@keyframes dolan { to { --ang: 360deg; } }
+.kart:hover::before, .kart.secili::before { opacity: 1; animation-duration: 2.6s; }
+.kart:hover, .kart.secili { box-shadow: 0 18px 40px rgba(0,0,0,.35), 0 0 30px rgba(232,189,98,.12); border-color: rgba(232,189,98,.45); }
+.kart .tur { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.kart h3 { font: 500 38px/1.15 var(--serif); color: var(--ivory-2); margin: 8px 0 10px; }
+.kart .no { position: absolute; bottom: 12px; right: 22px; font: 500 40px/1 var(--serif); color: var(--oyma-3); }
+.aktif .kart { animation: belir .9s both; } .aktif .kart:nth-child(2) { animation-delay: .25s; } .aktif .kart:nth-child(3) { animation-delay: .5s; }
+.k-simge { float: right; width: 64px; height: 64px; margin: -4px -4px 6px 12px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.hat { stroke-dasharray: 60; stroke-dashoffset: 60; animation: hat 6s ease-in-out infinite; animation-delay: calc(var(--i) * .22s); }
+@keyframes hat { 0% { stroke-dashoffset: 60; opacity: 1; } 35%, 80% { stroke-dashoffset: 0; opacity: 1; } 95%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+.hat.c { animation-delay: calc(1.8s + var(--i) * .22s); }
+.huzme { transform-origin: 60px 0; animation: huzme 7s ease-in-out infinite alternate; }
+@keyframes huzme { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
+.figur { animation: figur 7s ease-in-out infinite alternate; animation-delay: var(--g); }
+@keyframes figur { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.panel { position: absolute; left: 110px; bottom: 76px; width: 640px; padding: 30px 34px; border-radius: 6px; color: #efe6cf; background: linear-gradient(160deg, rgba(34,25,17,.96), rgba(14,10,8,.97)); border: 1px solid rgba(232,189,98,.4); box-shadow: 0 30px 60px rgba(0,0,0,.55), inset 0 0 0 6px rgba(14,10,8,.9), inset 0 0 0 7px rgba(232,189,98,.2); font-size: 21px; opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s; pointer-events: none; z-index: 6; }
+.panel.acik { opacity: 1; transform: none; pointer-events: auto; }
+.panel h3 { font: 500 30px/1.2 var(--serif); color: #f6ecd2; margin-bottom: 8px; }
+.panel p { color: #d8cfb8; margin-top: 8px; } .panel b { color: #FFE7A8; } .panel i { color: #FFE7A8; }
+.pn-ust { font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: #E8BD62; margin-bottom: 6px; }
+.panel::after { content: "×"; position: absolute; right: 22px; top: 12px; font-size: 30px; color: #E8BD62; cursor: pointer; }
+.slayt[data-tur="kartlar"] .panel { left: 110px; right: 110px; width: auto; bottom: 64px; box-shadow: 0 -10px 60px rgba(0,0,0,.55); }
+/* sahne: Doré levhası + parıldayan nesneler */
+.cizim { position: absolute; right: 70px; top: 60px; width: 740px; height: 780px; }
+.cizim > svg { width: 100%; height: 100%; }
+.nokta { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); translate: -50% -50%; display: flex; flex-direction: column; align-items: center; gap: 8px; background: none; border: 0; color: #f6ecd2; cursor: pointer; font: inherit; z-index: 2; }
+.halka { position: relative; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #E8BD62; background: radial-gradient(closest-side, rgba(255,226,160,.4), rgba(255,226,160,.08) 70%, transparent); box-shadow: 0 0 18px rgba(232,189,98,.5); transition: transform .35s; }
+.halka::before, .halka::after { content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid #E8BD62; opacity: 0; animation: dalga 2.8s ease-out infinite; }
+.halka::after { animation-delay: 1.4s; }
+@keyframes dalga { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.4); opacity: 0; } }
+.nokta:hover .halka, .nokta.secili .halka { transform: scale(1.18); box-shadow: 0 0 30px rgba(255,220,150,.85); }
+.nokta-ad { font-size: 16px; letter-spacing: .06em; padding: 3px 14px; border-radius: 999px; background: rgba(12,9,7,.8); border: 1px solid rgba(232,189,98,.35); white-space: nowrap; }
+.ipucu { margin-top: 18px; font-size: 16px; letter-spacing: .08em; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.ipucu::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); animation: pir 2.4s ease-in-out infinite; }
+@keyframes pir { 0%, 100% { opacity: .3; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.2); } }
+/* son söz: alıntı + okuma + kapanış */
+.al-metin { font: italic 500 50px/1.25 var(--serif); color: var(--gold-3); min-height: 1.3em; margin-top: 12px; }
+.al-metin i { display: inline-block; width: 3px; height: .9em; margin-inline-start: 4px; vertical-align: -.1em; background: var(--gold); animation: imlec 1s steps(1) infinite; }
+@keyframes imlec { 50% { opacity: 0; } }
+.al-ceviri { margin-top: 10px; font-size: 25px; color: var(--ivory); min-height: 1.5em; }
+.al-kaynak { margin-top: 6px; font-size: 15px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); min-height: 1.5em; }
+.harfi { display: inline-block; white-space: pre; }
+.son { display: grid; grid-template-columns: 1.35fr 1fr; gap: 60px; align-items: start; margin-top: 16px; }
+.okuma h3 { font: 500 30px/1.2 var(--serif); color: var(--gold-3); margin-bottom: 10px; }
+.okuma ol { list-style: none; counter-reset: ok; font-size: 21px; line-height: 1.42; color: var(--muted); }
+.okuma li { counter-increment: ok; position: relative; padding-left: 42px; margin-bottom: 8px; }
+.okuma li::before { content: counter(ok, upper-roman); position: absolute; left: 0; top: 2px; font: 500 15px/1.4 var(--serif); color: var(--gold); letter-spacing: .06em; }
+.okuma li b { color: var(--ivory); font-weight: 600; } .okuma li i { color: var(--ivory); }
+.aktif .okuma li { animation: belir .8s both; } .aktif .okuma li:nth-child(n+3) { animation-delay: .3s; }
+.veda { position: relative; text-align: center; padding: 34px 20px 30px; border-radius: 6px; border: 1px solid var(--line); }
+.esik { position: absolute; inset: 0; border-radius: 6px; pointer-events: none; }
+.esik::before { opacity: .8; animation-duration: 5s; }
+.veda img { width: 104px; display: block; margin: 0 auto 8px; transform-origin: 50% 90%; animation: alev 4.2s ease-in-out infinite; }
+.veda h2 { font-size: 62px; margin: 4px 0 6px; }
+.veda p { font-size: 19px; color: var(--muted); }
+.veda .slogan { margin-top: 14px; font-size: 16px; }
+/* sabit çerçeve öğeleri */
+.ilerleme { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; transform-origin: 0 50%; background: linear-gradient(90deg, rgba(170,66,28,0), #c8642a 30%, var(--gold) 80%, var(--gold-2)); box-shadow: 0 0 10px rgba(232,189,98,.55); transition: transform .8s ease; z-index: 5; }
+.sayfa { position: absolute; right: 52px; bottom: 36px; font: italic 500 17px var(--serif); letter-spacing: .12em; color: var(--muted); z-index: 5; }
+.imza { position: absolute; left: 52px; bottom: 38px; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); z-index: 5; }
+.toz { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.imlec { position: absolute; left: 0; top: 0; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; z-index: 2;
+  background: radial-gradient(closest-side, rgba(255,214,140,.13), rgba(232,189,98,.05) 55%, transparent 75%); transform: translate(var(--ix, -999px), var(--iy, -999px)); mix-blend-mode: screen; }
+html.gunduz .imlec { mix-blend-mode: multiply; background: radial-gradient(closest-side, rgba(190,130,40,.14), transparent 70%); }
+.aktif .cizim, .aktif .kapak-gravur { translate: calc(var(--mx, 0) * -12px) calc(var(--my, 0) * -8px); transition: translate .5s ease-out; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .maske { stroke-dashoffset: 0; } .hat { stroke-dashoffset: 0; } }
+</style>
+</head>
+<body>
+<div class="sahne"><div class="tuval" id="tuval"><canvas class="toz" aria-hidden="true"></canvas><div class="imlec" aria-hidden="true"></div><div class="doku" aria-hidden="true"></div>
+  <div class="cerceve" aria-hidden="true">
+    <svg class="k1" viewBox="0 0 38 38"><path d="M4 34V4h30M9 34V9h25"/><path d="M4 4l9 9"/><circle cx="16" cy="16" r="2.4"/><path d="M14 22q6 -2 8 -8"/></svg>
+    <svg class="k2" viewBox="0 0 38 38"><path d="M4 34V4h30M9 34V9h25"/><path d="M4 4l9 9"/><circle cx="16" cy="16" r="2.4"/><path d="M14 22q6 -2 8 -8"/></svg>
+    <svg class="k3" viewBox="0 0 38 38"><path d="M4 34V4h30M9 34V9h25"/><path d="M4 4l9 9"/><circle cx="16" cy="16" r="2.4"/><path d="M14 22q6 -2 8 -8"/></svg>
+    <svg class="k4" viewBox="0 0 38 38"><path d="M4 34V4h30M9 34V9h25"/><path d="M4 4l9 9"/><circle cx="16" cy="16" r="2.4"/><path d="M14 22q6 -2 8 -8"/></svg>
+  </div>
+
+  <!-- PL. I · KAPAK: Doré'nin "Göksel Gül"ünden esinle ışınlar, dönen melek halkaları, taranmış bulutlar; logo ışığın merkezinde kendini çizer -->
+  <section class="slayt" data-tur="kapak" data-pl="I">
+    <svg class="gravur kapak-gravur" id="kapak-gravur" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="merkez">
+      <p class="ust">Sanat tarihi · kısa sunum · Eylül 2026</p>
+      <div class="logo logo-cizen" role="img" aria-label="Karahan Uçar logosu"><svg class="logo-ciz" viewBox="0 0 1254 1254" ><defs><mask id="kc-sol" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="kc-sag" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask><mask id="kc-govde" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><path class="lc-kalem" data-seg="s3" d="M626 446 L626 985" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="butt" stroke-linejoin="round"/><path class="lc-kalem" data-seg="s4" d="M546 1046 L712 1046" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><g class="lc-yollar" fill="none" stroke="none"><path data-seg="s1" d="M688 152 C712 212 712 282 652 356 C600 410 490 450 420 530 C352 610 332 700 372 780 C404 846 460 888 526 916"/><path data-seg="g1" d="M526 916 C570 930 670 934 716 924"/><path data-seg="s2" d="M716 924 C800 896 886 836 912 750 C936 668 902 590 850 540 C806 496 762 468 716 452"/><path data-seg="g2" d="M716 452 C690 444 650 440 626 446"/><path data-seg="s3" d="M626 446 L626 985"/><path data-seg="g3" d="M626 985 C600 1010 570 1030 546 1046"/><path data-seg="s4" d="M546 1046 L712 1046"/></g><path d="M521.5,928.54 C460.61,914.05 408.37,885.5 366.92,844.07 C266.74,743.95 264.28,620.33 360.29,511.33 C397.94,468.58 433.27,440.98 518.5,387.71 C549.74,368.18 581.23,347.16 597.5,334.96 C664.27,284.92 690.4,244.4 688.73,193.5 C688.12,174.79 685.81,165.64 676.28,144.06 C675.51,142.33 684.53,148.56 695.5,157.35 C761.79,210.45 774.74,287.3 729.17,357.07 C702.55,397.81 671.31,423.54 574.5,484.47 C509.55,525.34 482.59,544.82 460,567.16 C403.95,622.58 387.6,694.64 414.54,767.53 C434.71,822.11 474.3,869.49 533.57,909.96 C548.46,920.13 551.21,924.64 545.69,929.83 C542.53,932.79 538.45,932.57 521.5,928.54 Z" fill="#E8BD62" mask="url(#kc-sol)"/><path d="M705.56,929.78 C701.52,924.01 704.49,919.2 716.26,912.43 C750.14,892.94 781.56,865.09 805.86,833 C863.09,757.43 873.79,667.62 835,588.5 C811.06,539.69 762.46,488.57 715.72,463.04 C705.29,457.34 702.62,452.3 707.04,446.67 C709.94,442.98 714.07,442.56 728.85,444.44 C803.1,453.89 882.99,507.02 924.87,574.79 C962.13,635.1 970.15,703.83 946.93,764.03 C915.04,846.71 827.55,912.74 726.46,930.43 C713.33,932.72 707.49,932.54 705.56,929.78 Z" fill="#E8BD62" mask="url(#kc-sag)"/><path d="M528.45,1058.63 C525,1053.71 527.2,1049.89 536.63,1044.42 C554.39,1034.1 565.05,1018.44 569.66,995.91 C571.24,988.16 571.42,970.14 571.94,766.5 L572.5,545.5 L575.12,538.76 C582.37,520.14 596.84,504.08 628.56,479.46 C642.03,469.02 660.47,455.66 672.5,447.65 L679.5,442.99 L680.07,715.24 C680.47,905.02 680.97,989.01 681.72,992.5 C686.36,1013.9 690.56,1022.63 701.47,1033.51 C706.38,1038.41 711.93,1042.81 715.74,1044.82 C722.35,1048.3 724,1050.23 724,1054.5 C724,1061.28 732.59,1060.74 625.99,1060.72 L529.91,1060.71 L528.45,1058.63 Z" fill="#E8BD62" mask="url(#kc-govde)"/><circle class="lc-uc" cx="688" cy="152" r="46" fill="#fff3c8"/></svg></div>
+      <h1>Işığın Tarihi</h1>
+      <p class="alt">Mağaradan gravüre: sanatta karanlık ve aydınlık</p>
+      <div class="kor-cizgi"></div>
+      <p class="slogan">MERAK · AKIL · ANLAM</p>
+    </div>
+  </section>
+
+  <!-- PL. II · HARİTA: ışığın altı durağı -->
+  <section class="slayt" data-tur="harita" data-pl="II" style="padding-top:64px">
+    <svg class="baslik-ciz" viewBox="0 0 520 58" aria-hidden="true">
+      <defs><radialGradient id="h-isik"><stop offset="0" class="si"/><stop offset="1" class="si" stop-opacity="0"/></radialGradient></defs>
+      <path class="o2" d="M40 40H480" stroke-width="1.5" stroke-dasharray="4 5" fill="none"/>
+      <path class="o" d="M10 50q12 -26 24 0z" fill="none" stroke-width="1.6"/><path class="fo" d="M22 36q-4 -6 0 -12q4 6 0 12z"/>
+      <g fill="none" stroke-width="1.3" class="o"><circle cx="500" cy="30" r="9"/><path d="M500 12v-6M500 48v6M482 30h-6M518 30h6M488 18l-4 -4M512 42l4 4M512 18l4 -4M488 42l-4 4"/></g>
+      <g class="durak-yan"><circle cx="90" cy="40" r="4" class="fo" style="--i:0"/><circle cx="170" cy="40" r="4" class="fo" style="--i:1"/><circle cx="250" cy="40" r="4" class="fo" style="--i:2"/><circle cx="330" cy="40" r="4" class="fo" style="--i:3"/><circle cx="410" cy="40" r="4" class="fo" style="--i:4"/><circle cx="470" cy="40" r="4" class="fo" style="--i:5"/></g>
+      <circle r="14" fill="url(#h-isik)" cy="40"><animate attributeName="cx" values="40;480" dur="9s" repeatCount="indefinite"/><animate attributeName="r" values="6;18" dur="9s" repeatCount="indefinite"/></circle>
+    </svg>
+    <p class="ust">Pl. II · Zaman çizgisi</p>
+    <h2>Mağaradan gravüre: ışığın altı durağı</h2>
+    <div class="durak-acik"></div>
+    <div class="kagit"></div>
+    <script type="application/json" class="duraklar">[
+      {"yil": "yak. MÖ 15.000", "ad": "Lascaux", "metin": "Hayvan yağıyla yanan taş kandillerin titrek ışığında boyanan boğalar ve atlar. Sanatın ilk ışığı ateştir; figürler alev kıpırdadıkça canlanır."},
+      {"yil": "yak. 1305", "ad": "Giotto", "metin": "Padova, Scrovegni Şapeli: figürlere tek yönden gelen ışıkla gölge verilir; resim yeniden hacim ve ağırlık kazanır."},
+      {"yil": "1503 sonrası", "ad": "Leonardo", "metin": "Sfumato: çizginin yerini sise dönen ton geçişleri alır. Mona Lisa'nın gülümsemesi gölgenin içinde saklanır."},
+      {"yil": "1599–1600", "ad": "Caravaggio", "metin": "Aziz Matta'nın Çağrılışı: zifiri karanlığı yaran tek bir çapraz ışık. Tenebrismo buradan bütün Avrupa'ya yayılır."},
+      {"yil": "1642", "ad": "Rembrandt", "metin": "Gece Devriyesi: ışık kalabalığın içinden kişileri seçer; altın sarısı, içeriden yanan bir aydınlık."},
+      {"yil": "1861 · 1868", "ad": "Gustave Doré", "metin": "Cehennem ve Cennet levhaları: renk yok, yalnız çizgi. En parlak ışık, hiç dokunulmamış kâğıdın beyazıdır."}
+    ]</script>
+  </section>
+
+  <!-- PL. III · KARTLAR: ışığı yapmanın üç yolu -->
+  <section class="slayt" data-tur="kartlar" data-pl="III">
+    <svg class="baslik-ciz" id="kure-ciz" viewBox="0 0 520 58" aria-hidden="true">
+      <defs>
+        <pattern id="kt" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="4" class="o" stroke-width="1.3"/></pattern>
+        <pattern id="kt2" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)"><line x1="0" y1="0" x2="0" y2="4" class="o2" stroke-width="1.1"/></pattern>
+        <radialGradient id="kg"><stop offset="0" stop-color="#000"/><stop offset=".55" stop-color="#000" stop-opacity=".85"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <radialGradient id="kg2"><stop offset="0" stop-color="#000"/><stop offset=".8" stop-color="#000" stop-opacity=".9"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <mask id="km" maskUnits="userSpaceOnUse" x="0" y="0" width="520" height="80"><rect width="520" height="80" fill="#fff"/><circle id="km-a" cx="260" cy="30" r="34" fill="url(#kg)"/></mask>
+        <mask id="km2" maskUnits="userSpaceOnUse" x="0" y="0" width="520" height="80"><rect width="520" height="80" fill="#fff"/><circle id="km-b" cx="260" cy="30" r="44" fill="url(#kg2)"/></mask>
+        <clipPath id="kc"><circle cx="260" cy="30" r="26"/></clipPath>
+        <radialGradient id="k-isik"><stop offset="0" class="si"/><stop offset="1" class="si" stop-opacity="0"/></radialGradient>
+      </defs>
+      <path class="o3" d="M60 56H460" stroke-width="1.2" fill="none"/>
+      <ellipse id="k-golge" cx="260" cy="56" rx="30" ry="3.5" class="fo2"/>
+      <g clip-path="url(#kc)"><rect x="230" y="0" width="60" height="60" fill="url(#kt)" mask="url(#km)"/><rect x="230" y="0" width="60" height="60" fill="url(#kt2)" mask="url(#km2)"/></g>
+      <circle cx="260" cy="30" r="26" class="o" stroke-width="1.4" fill="none"/>
+      <g id="k-kaynak"><circle r="16" fill="url(#k-isik)"/><circle r="3.5" class="fi"/></g>
+    </svg>
+    <p class="ust">Pl. III · Yöntemler</p>
+    <h2>Işığı yapmanın üç yolu</h2>
+    <p class="yazi" style="max-width:none">Aynı soru, üç cevap: karanlığın içinden bir biçim nasıl çıkar? <b>Kartlara tıklayın.</b></p>
+    <div class="kartlar">
+      <div class="kart">
+        <svg class="k-simge" viewBox="0 0 60 60" aria-hidden="true"><defs><filter id="sis" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1"><animate attributeName="stdDeviation" values="0.4;3.4;0.4" dur="6s" repeatCount="indefinite"/></feGaussianBlur></filter></defs>
+          <g filter="url(#sis)"><ellipse cx="30" cy="30" rx="15" ry="19" class="o" stroke-width="2"/><path class="o" stroke-width="1.8" d="M23 27q3 -2 5 0M32 27q3 -2 5 0M24 38q6 3 12 0"/></g></svg>
+        <p class="tur">Leonardo · 1503 sonrası</p><h3>Sfumato</h3>
+        <p>Çizgi yok. Tonlar sis gibi birbirine erir, kenarlar dumanda kaybolur.</p>
+        <template class="detay"><h3>Sfumato: dumanlı geçiş</h3><p>İtalyanca <i>fumo</i>, "duman" sözcüğünden. Leonardo biçimi çizgiyle kapatmaz; ince, yarı saydam katmanlar üst üste sürülür ve ışıktan gölgeye fark edilmeden geçilir.</p><p><b>Mona Lisa</b>'da ağız ve göz köşeleri gölgede bırakılır; bu yüzden ifade bakana göre "kıpırdar". Işık burada bir yüzey değil, bir <b>atmosferdir</b>.</p></template>
+        <span class="no">I</span>
+      </div>
+      <div class="kart">
+        <svg class="k-simge" viewBox="0 0 60 60" aria-hidden="true"><rect x="4" y="4" width="52" height="52" class="o2" stroke-width="1.5"/>
+          <g class="huzme"><path d="M60 0L20 56L34 56Z" class="fo2"/></g>
+          <circle cx="22" cy="46" r="4" class="fo figur" style="--g:0s"/><circle cx="32" cy="44" r="4" class="fo figur" style="--g:-2.3s"/><circle cx="42" cy="47" r="4" class="fo figur" style="--g:-4.6s"/></svg>
+        <p class="tur">Caravaggio · 1599–1600</p><h3>Tenebrismo</h3>
+        <p>Zifiri karanlık ve tek, sert bir ışık. Figürler gölgeden koparılır.</p>
+        <template class="detay"><h3>Tenebrismo: karanlığı yaran ışık</h3><p>İtalyanca <i>tenebroso</i>, "karanlık". Arka plan neredeyse siyahtır; tek bir kaynaktan gelen çapraz ışık, sahnenin anlamını taşır.</p><p><b>Aziz Matta'nın Çağrılışı</b> (Roma, San Luigi dei Francesi): ışık İsa'nın uzattığı eli izler ve Matta'nın yüzüne düşer; çağrı bir <b>ışık olayı</b> olarak görünür. Ribera, Georges de La Tour ve Utrecht ressamları bu dili sürdürür; Rembrandt onu içe döndürür.</p></template>
+        <span class="no">II</span>
+      </div>
+      <div class="kart">
+        <svg class="k-simge" viewBox="0 0 60 60" aria-hidden="true"><rect x="4" y="4" width="52" height="52" class="o2" stroke-width="1.5"/>
+          <g class="o" stroke-width="1.6"><path class="hat" style="--i:0" d="M8 20L20 8"/><path class="hat" style="--i:1" d="M8 30L30 8"/><path class="hat" style="--i:2" d="M8 40L40 8"/><path class="hat" style="--i:3" d="M8 50L50 8"/><path class="hat" style="--i:4" d="M14 54L54 14"/><path class="hat" style="--i:5" d="M24 54L54 24"/>
+            <path class="hat c" style="--i:0" d="M20 54L8 42"/><path class="hat c" style="--i:1" d="M30 54L8 32"/><path class="hat c" style="--i:2" d="M40 54L8 22"/></g></svg>
+        <p class="tur">Gustave Doré · 1861–1868</p><h3>Tarama</h3>
+        <p>Renk yok, yalnız çizgi: sık çizgi karanlık, seyrek çizgi ışık.</p>
+        <template class="detay"><h3>Tarama: çizgiyle ışık</h3><p>Gravürde ton yoktur, yalnız çizgi vardır. <b>Tek yönlü tarama</b> yarı gölge, <b>çapraz tarama</b> derin gölge verir; hiç çizilmemiş kâğıt en parlak ışıktır.</p><p>Doré çizimini doğrudan şimşir ağacının enine kesitinden yapılmış bloğa yapar; bloğu Héliodore Pisan gibi usta gravürcüler oyar. Böylece <i>Cehennem</i> (1861), <i>Kutsal Kitap</i> (1866) ve <i>Cennet</i> (1868) levhaları matbaada binlerce kez basılabilir: ışık, kitabın sayfasına girer.</p></template>
+        <span class="no">III</span>
+      </div>
+    </div>
+    <div class="panel" aria-live="polite"><p class="pn-ust"></p><div class="pn-ic"></div></div>
+  </section>
+
+  <!-- PL. IV · SAHNE: Doré'nin atölyesi, çerçeveli levha ve parıldayan nesneler -->
+  <section class="slayt" data-tur="sahne" data-pl="IV">
+    <svg class="baslik-ciz" viewBox="0 0 520 58" aria-hidden="true" style="width:440px">
+      <rect x="4" y="4" width="440" height="48" class="o3" stroke-width="1.2" fill="none"/>
+      <path id="oyma-yol" d="M16 14H430Q436 17 430 20H16Q10 23 16 26H430Q436 29 430 32H16Q10 35 16 38H430Q436 41 430 44H16" class="o" stroke-width="1.4" fill="none" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1">
+        <animate attributeName="stroke-dashoffset" values="1;0;0;1" keyTimes="0;.8;.93;1" dur="9s" repeatCount="indefinite"/></path>
+      <g><path d="M0 0L-14 -5L-14 5Z" class="fo"/><path d="M-14 -3H-34V3H-14" class="fs o" stroke-width="1.2"/>
+        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1;1;0" keyTimes="0;.8;.93;1" calcMode="linear" rotate="auto"><mpath href="#oyma-yol"/></animateMotion></g>
+    </svg>
+    <p class="ust">Pl. IV · Sahne</p>
+    <h2>Doré'nin atölyesi:<br>çizgiyle ışık</h2>
+    <p class="yazi">Gustave Doré (1832–1883) renk kullanmadan ışık yaptı. Cennet levhalarında en parlak yer, <b>hiç dokunulmamış kâğıttır</b>; karanlık, çizgiler sıklaştıkça gelir.</p>
+    <p class="ipucu">Levhadaki ışıklara tıklayın</p>
+    <div class="cizim">
+      <svg id="levha" viewBox="0 0 740 780" aria-hidden="true"></svg>
+      <button class="nokta" data-panel="0" style="--x:50;--y:31"><span class="halka"></span><span class="nokta-ad">Işığın kaynağı</span></button>
+      <button class="nokta" data-panel="1" style="--x:83;--y:45"><span class="halka"></span><span class="nokta-ad">Melek halkaları</span></button>
+      <button class="nokta" data-panel="2" style="--x:72;--y:74"><span class="halka"></span><span class="nokta-ad">Taranmış bulutlar</span></button>
+      <button class="nokta" data-panel="3" style="--x:36;--y:52"><span class="halka"></span><span class="nokta-ad">İki küçük figür</span></button>
+      <button class="nokta" data-panel="4" style="--x:89;--y:90"><span class="halka"></span><span class="nokta-ad">Levha</span></button>
+    </div>
+    <template class="paneller">
+      <div data-ad="Empyreum · Cennet XXXI"><h3>Işığın kaynağı</h3><p>Dante'nin evreninde en üst gök, saf ışıktan yapılmıştır. Doré onu çizmez: merkezde kâğıdı <b>boş bırakır</b>, çevresindeki çizgileri sıklaştırarak beyazı parlatır.</p></div>
+      <div data-ad="Göksel Gül"><h3>Melek halkaları</h3><p>Kutsanmışlar bir gülün yaprakları gibi iç içe halkalar hâlinde dizilir. Doré binlerce küçük figürü tek tek değil, <b>ritimle</b> verir: yakından bir kalabalık, uzaktan bir ışık girdabı.</p></div>
+      <div data-ad="Tarama ve çapraz tarama"><h3>Taranmış bulutlar</h3><p>Ön plandaki bulutlar sık, çapraz çizgilerle koyulaştırılır; arkaya gittikçe çizgi seyrelir. Böylece renk olmadan <b>derinlik ve hava</b> doğar. Hareket eden bulut, levhanın nefesidir.</p></div>
+      <div data-ad="Ölçek ve yüce"><h3>İki küçük figür</h3><p>Dante ve Beatrice, ışığın karşısında küçücüktür. Doré'nin yüceyi ölçme yolu budur: sonsuzluğu, onu seyreden <b>insanın küçüklüğüyle</b> gösterir. Romantik "yüce" duygusunun gravürdeki karşılığı.</p></div>
+      <div data-ad="Ağaç gravür · 1868"><h3>Levha</h3><p>Doré çizimini şimşir bloğa yapar, usta gravürcüler çizgileri oyar; blok dizgiyle birlikte basılır. Kitap sayfasında resim ve metin <b>aynı mürekkeple</b> yan yana durur. Bu levha, Cennet'in XXXI. kantosundaki ünlü görüntüden esinle bu sunum için çizildi.</p></div>
+    </template>
+    <div class="panel" aria-live="polite"><p class="pn-ust"></p><div class="pn-ic"></div></div>
+  </section>
+
+  <!-- PL. V · SON SÖZ: kül olan alıntılar, okuma listesi, kapanış -->
+  <section class="slayt" data-tur="son" data-pl="V" style="padding-top:84px">
+    <svg class="baslik-ciz" viewBox="0 0 520 58" aria-hidden="true">
+      <defs><radialGradient id="m-isik"><stop offset="0" class="si" stop-opacity=".9"/><stop offset="1" class="si" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="40" cy="22" r="22" fill="url(#m-isik)"><animate attributeName="r" values="18;24;20;23;18" dur="3.2s" repeatCount="indefinite"/></circle>
+      <rect x="33" y="30" width="14" height="26" class="o" stroke-width="1.4" fill="none"/>
+      <path class="o3" d="M35 36h10M35 42h10M35 48h10" stroke-width="1"/>
+      <path class="fo" d="M40 28q-6 -8 0 -18q6 10 0 18z"><animateTransform attributeName="transform" type="skewX" values="0;4;-3;2;0" dur="2.6s" repeatCount="indefinite"/></path>
+      <g class="o2" stroke-width="1.2"><path d="M70 22H500"><animate attributeName="stroke-dasharray" values="2 14;10 6;2 14" dur="6s" repeatCount="indefinite"/></path><path d="M68 12L490 -10"><animate attributeName="stroke-dasharray" values="10 6;2 14;10 6" dur="6s" repeatCount="indefinite"/></path><path d="M68 32L490 54"><animate attributeName="stroke-dasharray" values="4 10;12 4;4 10" dur="7s" repeatCount="indefinite"/></path></g>
+    </svg>
+    <p class="ust">Pl. V · Son söz</p>
+    <p class="al-metin"></p>
+    <p class="al-ceviri"></p>
+    <p class="al-kaynak"></p>
+    <script type="application/json" class="sozler">[
+      {"metin": "luce intellettüal, piena d'amore", "ceviri": "Akla ait ışık, sevgiyle dolu.", "kaynak": "Dante · Cennet XXX, 40 · Doré 1868"},
+      {"metin": "Ombra è privazione di luce.", "ceviri": "Gölge, ışığın yoksunluğudur.", "kaynak": "Leonardo da Vinci · Resim Üzerine"},
+      {"metin": "Lasciate ogne speranza, voi ch'intrate.", "ceviri": "Ey buraya girenler, bırakın her umudu.", "kaynak": "Dante · Cehennem III, 9 · Doré 1861"}
+    ]</script>
+    <div class="kor-cizgi" style="width:100%"></div>
+    <div class="son">
+      <div class="okuma">
+        <h3>Okuma levhası</h3>
+        <ol>
+          <li><b>E. H. Gombrich</b>, <i>Sanatın Öyküsü</i> (1950) · genel çerçeve</li>
+          <li><b>E. H. Gombrich</b>, <i>Shadows: The Depiction of Cast Shadows in Western Art</i> (1995)</li>
+          <li><b>Michael Baxandall</b>, <i>Shadows and Enlightenment</i> (1995)</li>
+          <li><b>Victor I. Stoichita</b>, <i>A Short History of the Shadow</i> (1997)</li>
+          <li><b>Blanchard Jerrold</b>, <i>Life of Gustave Doré</i> (1891) · Doré'nin yakın dostundan</li>
+        </ol>
+      </div>
+      <div class="veda"><span class="esik" aria-hidden="true"></span>
+        <img src="logo-seffaf.svg" data-gunduz="logo-seffaf-gunduz.svg" alt="Karahan Uçar logosu">
+        <h2>Teşekkürler</h2>
+        <p>Karahan Uçar · karahanucar.com</p>
+        <p class="slogan">MERAK · AKIL · ANLAM</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ilerleme"></div><div class="sayfa"></div><div class="imza">Karahan Uçar · Sanat tarihi</div>
+</div></div>
+
+<script>
+/* Kendini çizen logo (karahan-tasarim/assets/logo-ciz.js): sol hilal · sağ hilal · gövde · en son taban */
+(function () {
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches, sayac = 0;
+  function kur(kap) {
+    var svg = kap.querySelector("svg"); if (!svg || kap._lc) return; kap._lc = 1;
+    var on = "lc" + (++sayac) + "-";
+    svg.querySelectorAll("mask[id]").forEach(function (m) { var eski = m.id, yeni = on + eski.replace(/^LC-|^lc-/, ""); m.id = yeni; svg.querySelectorAll('[mask="url(#' + eski + ')"]').forEach(function (p) { p.setAttribute("mask", "url(#" + yeni + ")"); }); });
+    var uc = svg.querySelector(".lc-uc");
+    var Y = [].slice.call(svg.querySelectorAll(".lc-yollar path")).map(function (p) { return { yol: p, L: p.getTotalLength(), kalem: svg.querySelector('.lc-kalem[data-seg="' + p.dataset.seg + '"]') }; });
+    var TOP = Y.reduce(function (a, y) { return a + y.L; }, 0), calis = false;
+    Y.forEach(function (y) { if (y.kalem) y.kalem.style.strokeDasharray = y.L.toFixed(1); });
+    function goster(p) {
+      var kalan = TOP * p, uj = null;
+      Y.forEach(function (y) { var q = Math.max(0, Math.min(1, kalan / y.L)); if (y.kalem) y.kalem.style.strokeDashoffset = (y.L * (1 - q)).toFixed(1); if (kalan > 0 && (kalan <= y.L || !uj)) uj = y.yol.getPointAtLength(Math.min(kalan, y.L)); kalan -= y.L; });
+      if (uj) { uc.setAttribute("cx", uj.x.toFixed(1)); uc.setAttribute("cy", uj.y.toFixed(1)); }
+      uc.style.opacity = p <= 0 || p >= 1 ? 0 : Math.min(1, p * 14, (1 - p) * 14).toFixed(2);
+    }
+    function ciz() {
+      if (azalt) { goster(1); kap.classList.add("bitti"); return; }
+      if (calis) return; calis = true; kap.classList.remove("bitti"); goster(0);
+      var t0 = null;
+      (function kare(t) { if (t0 === null) t0 = t; var x = Math.min(1, (t - t0) / 4200), p = x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; goster(p); if (x < 1) requestAnimationFrame(kare); else { calis = false; kap.classList.add("bitti"); } })(performance.now());
+    }
+    goster(azalt ? 1 : 0);
+    var slayt = kap.closest(".slayt");
+    if (slayt.classList.contains("aktif")) setTimeout(ciz, 700);
+    new MutationObserver(function () { if (slayt.classList.contains("aktif")) setTimeout(ciz, 500); }).observe(slayt, { attributes: true, attributeFilter: ["class"] });
+    kap.addEventListener("pointerenter", function () { if (kap.classList.contains("bitti")) ciz(); });
+  }
+  document.querySelectorAll(".logo-cizen").forEach(kur);
+})();
+</script>
+
+<script>
+/* Doré oyma çizimleri: ışınlar, dönen melek halkaları, taranmış bulutlar, siluetler */
+(function () {
+  var NS = "http://www.w3.org/2000/svg", R = Math.random;
+  function el(ad, at, ic) { var e = document.createElementNS(NS, ad); for (var k in at) e.setAttribute(k, at[k]); if (ic) e.innerHTML = ic; return e; }
+  function desenler(svg, on) {
+    svg.appendChild(el("defs", {}, [
+      '<pattern id="' + on + 't1" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-28)"><line x1="0" y1="0" x2="0" y2="5" class="o2" stroke-width="1.2"/></pattern>',
+      '<pattern id="' + on + 't2" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(-28)"><line x1="0" y1="0" x2="0" y2="3.4" class="o" stroke-width="1.2"/></pattern>',
+      '<pattern id="' + on + 't3" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="3.4" class="o2" stroke-width="1.1"/></pattern>',
+      '<radialGradient id="' + on + 'ig"><stop offset="0" class="si" stop-opacity=".95"/><stop offset=".35" class="si" stop-opacity=".35"/><stop offset="1" class="si" stop-opacity="0"/></radialGradient>'
+    ].join("")));
+  }
+  function isinlar(svg, cx, cy, n, r0, r1) {
+    var g = el("g", { fill: "none" }), s = "";
+    for (var i = 0; i < n; i++) { var a = i / n * Math.PI * 2 + R() * .02, r = r1 * (.55 + R() * .45), c = i % 5 === 0 ? "o" : (i % 2 ? "o3" : "o2");
+      s += '<line class="' + c + '" stroke-width="' + (.5 + R() * .9).toFixed(2) + '" x1="' + (Math.cos(a) * r0).toFixed(1) + '" y1="' + (Math.sin(a) * r0).toFixed(1) + '" x2="' + (Math.cos(a) * r).toFixed(1) + '" y2="' + (Math.sin(a) * r).toFixed(1) + '"/>'; }
+    g.innerHTML = '<g>' + s + '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="420s" repeatCount="indefinite"/></g>';
+    g.setAttribute("transform", "translate(" + cx + " " + cy + ")"); svg.appendChild(g);
+  }
+  function halkalar(svg, cx, cy, radii, basik) {
+    radii.forEach(function (r, j) {
+      var n = Math.round(r / 7), s = '<ellipse rx="' + r + '" ry="' + r + '" class="o3" stroke-width="1" fill="none"/>';
+      for (var i = 0; i < n; i++) { var a = i / n * 360; s += '<path transform="rotate(' + a.toFixed(1) + ') translate(' + r + ' 0) rotate(90)" d="M-4 1Q0 -4 4 1M0 0v4" class="' + (i % 3 ? "o2" : "o") + '" stroke-width="1.1" fill="none"/>'; }
+      var dur = (70 + j * 26) + "s", yon = j % 2 ? "-360" : "360";
+      var g = el("g", { transform: "translate(" + cx + " " + cy + ") scale(1 " + basik + ")" }, '<g>' + s + '<animateTransform attributeName="transform" type="rotate" from="0" to="' + yon + '" dur="' + dur + '" repeatCount="indefinite"/></g>');
+      svg.appendChild(g);
+    });
+  }
+  function bulut(x, y, w, h, n) {
+    /* kenarlar da yuvarlak kabarcıkla iner: dik kesik yok */
+    var adim = w / n, d = "M" + x + " " + (y + h) + "A" + (adim * .6).toFixed(1) + " " + (h * .5).toFixed(1) + " 0 0 1 " + (x + adim * .5).toFixed(1) + " " + (y + h * .45).toFixed(1);
+    for (var i = 1; i < n; i++) { var nx = x + adim * (i + .5), ny = y + h * (.2 + R() * .3), r = adim * (.55 + R() * .2); d += "A" + r.toFixed(1) + " " + (r * .8).toFixed(1) + " 0 0 1 " + nx.toFixed(1) + " " + ny.toFixed(1); }
+    return d + "A" + (adim * .6).toFixed(1) + " " + (h * .5).toFixed(1) + " 0 0 1 " + (x + w) + " " + (y + h) + "Z";
+  }
+  function bulutlar(svg, on, liste) {
+    liste.forEach(function (b) {
+      var g = el("g", { class: "bulut", style: "--d:" + b[5] + "s" }), d = bulut(b[0], b[1], b[2], b[3], b[4]);
+      g.appendChild(el("path", { d: d, class: "fl" }));
+      g.appendChild(el("path", { d: d, fill: "url(#" + on + (b[6] ? "t2" : "t1") + ")" }));
+      if (b[6]) g.appendChild(el("path", { d: d, fill: "url(#" + on + "t3)", transform: "translate(0 " + (b[3] * .35) + ")", opacity: ".9" }));
+      g.appendChild(el("path", { d: d, class: "o", "stroke-width": "1.3", fill: "none" }));
+      svg.appendChild(g);
+    });
+  }
+
+  /* Kapak: merkezde ışık (logonun arkası), ışınlar, basık gül halkaları, altta bulut kıyıları */
+  var k = document.getElementById("kapak-gravur");
+  if (k) {
+    desenler(k, "k");
+    k.appendChild(el("circle", { cx: 800, cy: 330, r: 420, fill: "url(#kig)" }));
+    isinlar(k, 800, 330, 170, 120, 1150);
+    halkalar(k, 800, 330, [170, 245, 330, 425, 530, 650], .42);
+    bulutlar(k, "k", [[-80, 690, 620, 170, 7, 46, 0], [1060, 680, 640, 180, 7, 52, 0], [-120, 790, 760, 160, 8, 38, 1], [960, 780, 780, 170, 8, 42, 1]]);
+  }
+
+  /* Levha (Pl. IV): çerçeve, ışık, halkalar, bulutlar, Dante ve Beatrice */
+  var L = document.getElementById("levha");
+  if (L) {
+    desenler(L, "l");
+    L.appendChild(el("defs", {}, '<clipPath id="lk"><rect x="40" y="40" width="660" height="620"/></clipPath>'));
+    L.appendChild(el("rect", { x: 14, y: 14, width: 712, height: 752, class: "fl o", "stroke-width": "2" }));
+    L.appendChild(el("rect", { x: 24, y: 24, width: 692, height: 732, fill: "none", class: "o2", "stroke-width": "1" }));
+    var ic = el("g", { "clip-path": "url(#lk)" }); L.appendChild(ic);
+    ic.appendChild(el("rect", { x: 40, y: 40, width: 660, height: 620, fill: "url(#lt1)", opacity: ".55" }));
+    ic.appendChild(el("circle", { cx: 370, cy: 250, r: 330, fill: "url(#lig)" }));
+    isinlar(ic, 370, 250, 130, 40, 560);
+    halkalar(ic, 370, 250, [60, 100, 145, 195, 250, 310, 375], .46);
+    ic.appendChild(el("circle", { cx: 370, cy: 250, r: 30, class: "fi", opacity: ".9" }));
+    bulutlar(ic, "l", [[20, 470, 420, 150, 6, 30, 0], [330, 500, 420, 150, 6, 36, 0], [10, 560, 740, 140, 9, 26, 1]]);
+    /* Dante ve Beatrice: bulut kıyısında iki küçük siluet; Beatrice yukarıyı gösterir */
+    ic.appendChild(el("g", { transform: "translate(150 480)" },
+      '<path class="fs o" stroke-width="1.2" d="M0 0q-2 -30 4 -46q4 -8 10 0q8 16 6 46z"/><circle class="fs o" stroke-width="1.2" cx="9" cy="-52" r="6"/><path class="fs o" stroke-width="1.2" d="M3 -56q6 -8 12 0"/>' +
+      '<path class="fs o" stroke-width="1.2" d="M28 0q-2 -28 3 -42q4 -8 10 0q7 14 6 42z"/><circle class="fs o" stroke-width="1.2" cx="36" cy="-48" r="5.5"/><path class="o" stroke-width="2" fill="none" d="M42 -36q10 -12 16 -30"/>'));
+    L.appendChild(el("path", { d: "M40 660H700", class: "o", "stroke-width": "1.5" }));
+    var yazi = el("text", { x: 370, y: 704, "text-anchor": "middle", class: "fo", style: "font: italic 500 22px var(--serif); letter-spacing: .12em" }); yazi.textContent = "Cennet · Canto XXXI"; L.appendChild(yazi);
+    var alt = el("text", { x: 370, y: 734, "text-anchor": "middle", class: "fo2", style: "font: 500 13px var(--sans); letter-spacing: .3em" }); alt.textContent = "GUSTAVE DORÉ'YE SAYGIYLA · PL. IV"; L.appendChild(alt);
+  }
+
+  /* Pl. III başlık üstü: kürenin etrafında dolaşan ışık, gölgesi karşı yöne kayar */
+  var kc = document.getElementById("kure-ciz");
+  if (kc && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var ka = kc.querySelector("#km-a"), kb = kc.querySelector("#km-b"), kk = kc.querySelector("#k-kaynak"), kg = kc.querySelector("#k-golge");
+    (function don(t) {
+      var p = (Math.sin(t / 1900) + 1) / 2, aci = Math.PI * (1.08 + p * .84), lx = 260 + Math.cos(aci) * 210, ly = 30 + Math.sin(aci) * 26;
+      kk.setAttribute("transform", "translate(" + lx.toFixed(1) + " " + ly.toFixed(1) + ")");
+      var dx = (lx - 260) / 210, dy = (ly - 30) / 26;
+      ka.setAttribute("cx", (260 + dx * 14).toFixed(1)); ka.setAttribute("cy", (30 + dy * 10).toFixed(1));
+      kb.setAttribute("cx", (260 + dx * 8).toFixed(1)); kb.setAttribute("cy", (30 + dy * 6).toFixed(1));
+      kg.setAttribute("cx", (260 - dx * 26).toFixed(1));
+      requestAnimationFrame(don);
+    })(0);
+  }
+})();
+</script>
+
+<script>
+/* Gezinme, harita, kartlar, sahne, alıntılar, canlılık katmanı */
+(function () {
+  var tuval = document.getElementById("tuval"), S = [].slice.call(tuval.querySelectorAll(".slayt")), i = 0;
+  var azalt = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function olcek() { var k = Math.min(innerWidth / 1600, innerHeight / 900); tuval.style.transform = "scale(" + k + ")"; }
+  addEventListener("resize", olcek); olcek();
+  if (azalt) document.querySelectorAll("svg").forEach(function (s) { if (s.pauseAnimations) s.pauseAnimations(); });
+
+  /* başlık üstü: harita duraklarının sırayla yanması */
+  tuval.querySelectorAll(".durak-yan circle").forEach(function (c) { c.animate([{ opacity: .25 }, { opacity: 1, offset: .12 }, { opacity: .25, offset: .3 }, { opacity: .25 }], { duration: 9000, delay: +c.style.getPropertyValue("--i") * 1350, iterations: azalt ? 0 : Infinity }); });
+
+  /* sahne: parıldayan nesne → panel */
+  tuval.querySelectorAll('[data-tur="sahne"]').forEach(function (sl) {
+    var P = [].slice.call(sl.querySelector(".paneller").content.children), panel = sl.querySelector(".panel");
+    sl.addEventListener("click", function (e) {
+      var n = e.target.closest(".nokta");
+      if (!n) { if (e.target.closest(".panel")) { panel.classList.remove("acik"); sl.querySelectorAll(".nokta").forEach(function (x) { x.classList.remove("secili"); }); e.stopPropagation(); } return; }
+      e.stopPropagation();
+      var p = P[+n.dataset.panel];
+      sl.querySelectorAll(".nokta").forEach(function (x) { x.classList.toggle("secili", x === n); });
+      panel.querySelector(".pn-ust").textContent = p.dataset.ad; panel.querySelector(".pn-ic").innerHTML = p.innerHTML; panel.classList.add("acik");
+    });
+  });
+
+  /* kartlar: tıklayınca ayrıntı paneli */
+  tuval.querySelectorAll('[data-tur="kartlar"]').forEach(function (sl) {
+    var panel = sl.querySelector(".panel");
+    sl.addEventListener("click", function (e) {
+      var kart = e.target.closest(".kart");
+      if (kart) {
+        e.stopPropagation();
+        var acik = kart.classList.contains("secili");
+        sl.querySelectorAll(".kart").forEach(function (k) { k.classList.remove("secili"); });
+        if (acik) { panel.classList.remove("acik"); return; }
+        kart.classList.add("secili");
+        panel.querySelector(".pn-ust").textContent = kart.querySelector(".tur").textContent + " · " + kart.querySelector("h3").textContent;
+        panel.querySelector(".pn-ic").innerHTML = kart.querySelector(".detay").innerHTML;
+        panel.classList.add("acik");
+      } else if (panel.classList.contains("acik")) { e.stopPropagation(); panel.classList.remove("acik"); sl.querySelectorAll(".kart").forEach(function (k) { k.classList.remove("secili"); }); }
+    });
+  });
+
+  /* alıntı: harf harf yazılır, 9 sn sonra yanıp kül olur, yenisi doğar */
+  function alintiBaslat(sl) {
+    if (sl._z) return; sl._z = 1;
+    var L = JSON.parse(sl.querySelector(".sozler").textContent), k = 0, m = sl.querySelector(".al-metin"), c = sl.querySelector(".al-ceviri"), y = sl.querySelector(".al-kaynak");
+    function yaz(s) { m.textContent = ""; c.textContent = s.ceviri; y.textContent = s.kaynak; if (azalt) { m.textContent = s.metin; return; } var n = 0; (function adim() { m.innerHTML = s.metin.slice(0, ++n).replace(/&/g, "&amp;").replace(/</g, "&lt;") + "<i></i>"; if (n < s.metin.length) setTimeout(adim, 40 + Math.random() * 40); else setTimeout(function () { m.textContent = s.metin; }, 1200); })(); }
+    function kul(sonra) {
+      var t = m.textContent; m.textContent = "";
+      var son = 0;
+      Array.from(t).forEach(function (ch, j) { var sp = document.createElement("span"); sp.className = "harfi"; sp.textContent = ch; m.appendChild(sp);
+        var g = j * 25 + Math.random() * 300; son = Math.max(son, g + 1700);
+        sp.animate([{ color: getComputedStyle(m).color }, { color: "#ff9a3a", textShadow: "0 0 12px #ff6a1a", offset: .2 }, { color: "#8a3a1a", offset: .4 }, { color: "#5a5550", transform: "none", opacity: 1, offset: .55 }, { color: "#3a3835", transform: "translate(" + ((Math.random() - .5) * 40) + "px," + (60 + Math.random() * 90) + "px) rotate(" + ((Math.random() - .5) * 120) + "deg) scale(.6)", opacity: 0 }], { duration: 1700, delay: g, easing: "ease-in", fill: "forwards" }); });
+      [c, y].forEach(function (x) { x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, fill: "forwards" }); });
+      setTimeout(function () { c.getAnimations().concat(y.getAnimations()).forEach(function (a) { a.cancel(); }); sonra(); }, son + 200);
+    }
+    yaz(L[0]);
+    if (!azalt) setInterval(function () { if (!sl.classList.contains("aktif")) return; k = (k + 1) % L.length; kul(function () { yaz(L[k]); }); }, 9000);
+  }
+
+  /* harita: duraklar yol boyunca; yolcu ışık seçilen durağa yürür */
+  function haritaKur(sl) {
+    if (sl._h) return; sl._h = 1;
+    var D = JSON.parse(sl.querySelector(".duraklar").textContent), kagit = sl.querySelector(".kagit"), W = 1380, H = 494, n = D.length;
+    var P = D.map(function (d, j) { return [100 + j * ((W - 200) / (n - 1)), H / 2 + (j % 2 ? 1 : -1) * (84 + 16 * Math.sin(j * 1.9))]; });
+    var yol = "M" + P[0].join(" ");
+    for (var j = 0; j < n - 1; j++) { var a = P[Math.max(0, j - 1)], b = P[j], c = P[j + 1], d = P[Math.min(n - 1, j + 2)]; yol += "C" + (b[0] + (c[0] - a[0]) / 6) + " " + (b[1] + (c[1] - a[1]) / 6) + " " + (c[0] - (d[0] - b[0]) / 6) + " " + (c[1] - (d[1] - b[1]) / 6) + " " + c[0] + " " + c[1]; }
+    kagit.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '"><defs><pattern id="ht" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><line y2="5" stroke="#6a4a24" stroke-width=".8" opacity=".35"/></pattern><mask id="hm"><path class="maske" d="' + yol + '" pathLength="1" fill="none" stroke="#fff" stroke-width="24"/></mask><radialGradient id="yg"><stop offset="0" stop-color="#fff2c0"/><stop offset=".4" stop-color="#ffb040" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a20" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect x="14" y="14" width="' + (W - 28) + '" height="' + (H - 28) + '" fill="none" stroke="#6a4a24" stroke-width="1" opacity=".5"/>' +
+      '<path d="M14 ' + (H - 70) + 'q120 -40 240 -6t260 -10t300 8t280 -14t272 10V' + (H - 14) + 'H14z" fill="url(#ht)"/>' +
+      '<g transform="translate(' + (W - 90) + ' 80)" opacity=".6"><circle r="40" fill="none" stroke="#6a4a24"/><path d="M0 -46L7 0L0 46L-7 0Z" fill="#8a2a1a"/><path d="M-46 0L0 -6L46 0L0 6Z" fill="#6a4a24"/></g>' +
+      '<path class="yol" d="' + yol + '" fill="none" stroke="#8a2a1a" stroke-width="3" mask="url(#hm)"/><g class="yolcu"><circle r="20" fill="url(#yg)"/><circle r="6" fill="#fff6d8" stroke="#8a2a1a" stroke-width="2"/></g></svg>' +
+      D.map(function (d, j) { return '<button class="durak' + (j % 2 ? "" : " yukari") + '" data-i="' + j + '" style="left:' + (P[j][0] / W * 100) + "%;top:" + (P[j][1] / H * 100) + '%"><span class="muhur">' + ["I", "II", "III", "IV", "V", "VI"][j] + '</span><span class="etiket"><b>' + d.yil + "</b><span>" + d.ad + "</span></span></button>"; }).join("");
+    var yolEl = kagit.querySelector(".yol"), Lb = yolEl.getTotalLength(), uz = P.map(function (p) { var en = 1e9, u = 0; for (var l = 0; l <= Lb; l += 4) { var q = yolEl.getPointAtLength(l), dd = (q.x - p[0]) * (q.x - p[0]) + (q.y - p[1]) * (q.y - p[1]); if (dd < en) { en = dd; u = l; } } return u; });
+    var yc = kagit.querySelector(".yolcu"), konum = 0, ac = sl.querySelector(".durak-acik");
+    function sec(j) {
+      kagit.querySelectorAll(".durak").forEach(function (b, k) { b.classList.toggle("secili", k === j); b.classList.toggle("gecildi", k < j); });
+      ac.innerHTML = "<b>" + D[j].ad + "</b>" + D[j].metin;
+      var bas = konum, hedef = uz[j], t0 = performance.now(), sure = azalt ? 1 : 1200;
+      (function adim(t) { var k = Math.min(1, (t - t0) / sure), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; konum = bas + (hedef - bas) * e; var q = yolEl.getPointAtLength(konum); yc.setAttribute("transform", "translate(" + q.x + " " + q.y + ")"); if (k < 1) requestAnimationFrame(adim); })(t0);
+    }
+    kagit.addEventListener("click", function (e) { var b = e.target.closest(".durak"); if (b) { e.stopPropagation(); sec(+b.dataset.i); } });
+    var p0 = yolEl.getPointAtLength(0); yc.setAttribute("transform", "translate(" + p0.x + " " + p0.y + ")");
+    setTimeout(function () { sec(0); }, azalt ? 0 : 1800);
+  }
+
+  /* gezinme */
+  function git(j) {
+    j = Math.max(0, Math.min(S.length - 1, j));
+    S.forEach(function (s, k) { s.classList.toggle("aktif", k === j); s.classList.toggle("gecmis", k < j); });
+    i = j;
+    var sl = S[j];
+    if (sl.dataset.tur === "son") alintiBaslat(sl);
+    if (sl.dataset.tur === "harita") haritaKur(sl);
+    tuval.querySelector(".ilerleme").style.transform = "scaleX(" + ((j + 1) / S.length) + ")";
+    tuval.querySelector(".sayfa").textContent = "Pl. " + sl.dataset.pl + " / V";
+    history.replaceState(null, "", "#" + (j + 1));
+  }
+  addEventListener("keydown", function (e) {
+    if (["ArrowRight", "PageDown", " "].indexOf(e.key) > -1) { git(i + 1); e.preventDefault(); }
+    else if (["ArrowLeft", "PageUp"].indexOf(e.key) > -1) git(i - 1);
+    else if (e.key === "Home") git(0); else if (e.key === "End") git(S.length - 1);
+    else if (e.key === "t" || e.key === "T") { var g = document.documentElement.classList.toggle("gunduz"); document.querySelectorAll("img[data-gunduz]").forEach(function (im) { if (!im.dataset.gece) im.dataset.gece = im.getAttribute("src"); im.src = g ? im.dataset.gunduz : im.dataset.gece; }); }
+    else if (e.key === "f" || e.key === "F") { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen(); }
+  });
+  tuval.addEventListener("click", function (e) { if (e.target.closest("button, a, .panel, .kart")) return; var r = tuval.getBoundingClientRect(); git(e.clientX > r.left + r.width / 3 ? i + 1 : i - 1); });
+  git((parseInt(location.hash.slice(1), 10) || 1) - 1);
+
+  /* toz ve ateş böcekleri */
+  var cv = tuval.querySelector(".toz"), cx = cv.getContext("2d"), T = [];
+  cv.width = 1600; cv.height = 900;
+  for (var n = 0; n < 60; n++) T.push({ x: Math.random() * 1600, y: Math.random() * 900, r: .6 + Math.random() * 1.8, vx: (Math.random() - .5) * .15, vy: -(.05 + Math.random() * .25), f: Math.random() * 6.28, b: Math.random() < .18 });
+  function toz(t) {
+    cx.clearRect(0, 0, 1600, 900);
+    var gun = document.documentElement.classList.contains("gunduz");
+    T.forEach(function (p) {
+      p.x += p.vx + Math.sin(t / 3000 + p.f) * .12; p.y += p.vy; p.f += .01;
+      if (p.y < -10) { p.y = 910; p.x = Math.random() * 1600; }
+      var a = p.b ? .35 + .45 * Math.max(0, Math.sin(t / 700 + p.f * 3)) : .12 + .12 * Math.sin(t / 900 + p.f);
+      cx.beginPath(); cx.arc(p.x, p.y, p.b ? p.r * 1.6 : p.r, 0, 6.283);
+      cx.fillStyle = gun ? "rgba(140,90,30," + (a * .6).toFixed(2) + ")" : (p.b ? "rgba(255,226,140," : "rgba(255,236,200,") + a.toFixed(2) + ")";
+      if (p.b && !gun) { cx.shadowColor = "#ffd27a"; cx.shadowBlur = 12; } else cx.shadowBlur = 0;
+      cx.fill();
+    });
+    requestAnimationFrame(toz);
+  }
+  if (!azalt) requestAnimationFrame(toz);
+
+  /* imleç ışığı, paralaks, kart eğilmesi */
+  var imlec = tuval.querySelector(".imlec");
+  addEventListener("pointermove", function (e) {
+    var r = tuval.getBoundingClientRect(), k = r.width / 1600, x = (e.clientX - r.left) / k, y = (e.clientY - r.top) / k;
+    imlec.style.setProperty("--ix", x.toFixed(0) + "px"); imlec.style.setProperty("--iy", y.toFixed(0) + "px");
+    tuval.style.setProperty("--mx", ((x / 1600) * 2 - 1).toFixed(3)); tuval.style.setProperty("--my", ((y / 900) * 2 - 1).toFixed(3));
+    var kart = e.target.closest && e.target.closest(".kart");
+    tuval.querySelectorAll(".kart").forEach(function (c) { if (c !== kart) { c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
+    if (kart && !azalt) { var b = kart.getBoundingClientRect(), px = (e.clientX - b.left) / b.width - .5, py = (e.clientY - b.top) / b.height - .5; kart.style.setProperty("--ry", (px * 8).toFixed(2) + "deg"); kart.style.setProperty("--rx", (-py * 8).toFixed(2) + "deg"); }
+  });
+})();
+</script>
+</body>
+</html>

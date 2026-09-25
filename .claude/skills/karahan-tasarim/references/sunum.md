@@ -74,3 +74,14 @@ Sürekli: yıldız pırıltısı, logo alevi, kor çerçeve, huzme — hepsi yav
 - [ ] Alıntıların kaynağı ve çevirisi var
 - [ ] Ayırıcılar "·", tarihler "Temmuz 2026" biçiminde
 - [ ] Harici font/CDN yok; logo ve maskot değiştirilmemiş
+
+## Varyant: Gustave Doré gravür modeli (Karahan istedi, Eylül 2026)
+Aynı dünya, 19. yüzyıl ağaç gravürü diliyle. Çalışan örnek: `assets/sunum-dore-ornek.html` ("Işığın Tarihi", 5 levha).
+- **Her çizim oymadır:** dolgu yerine çizgi. `--oyma` / `--oyma-2` / `--oyma-3` renkleri; `<pattern>` ile tek yönlü tarama (yarı gölge) ve çapraz tarama (derin gölge).
+  En parlak yer **hiç çizilmemiş** alandır (ışığın merkezi boş bırakılır, çevresi ışınlarla sıklaşır).
+- **Gece:** gece kütüphanesinde altın mürekkeple oyulmuş levha. **Gündüz (T):** krem kâğıda koyu sepya mürekkep; Doré'nin kendi baskısı gibi.
+- **Kitap levhası çerçevesi:** tuvalin içinde çift çizgi + köşe süsleri, hafif yatay oyma dokusu; slaytlar "Pl. I … V" diye numaralanır,
+  levha altında italik künye (ör. "Cennet · Canto XXXI").
+- **Hareketli motifler:** yavaş dönen ışın demeti, zıt yönlerde dönen basık "melek halkaları" (Göksel Gül), süzülen taranmış bulut kıyıları,
+  ışığın karşısında küçük siluetler (yüce duygusu), gravür kalemiyle satır satır oyulan çizgiler, küre üzerinde dolaşan ışık ve kayan gölge (chiaroscuro).
+- Diğer kurallar aynen geçerli: kendini çizen logo (ışığın merkezinde), başlık üstü hareketli SVG, tıklanınca açılan paneller, kül olan alıntılar, harita.

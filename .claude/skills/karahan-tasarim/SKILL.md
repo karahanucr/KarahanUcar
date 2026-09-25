@@ -57,6 +57,7 @@ Logo biçimi/rengi değişmez, yalnızca maskeyle açılır. Kapanış slaytınd
 | Hazır bileşen tarifleri (kor çerçeve, parıldayan nesne, kül alıntı, pirinç levha, kitap sırtı, akış listesi, harita, sandık, yörünge, terimce…) | `references/bilesenler.md` |
 | **Siteye yeni oda/alt sayfa**, içerik, harita, sözlükçe ekleme | `references/site-alt-sayfa.md` |
 | **Sunum / slayt / poster** | `references/sunum.md` + `assets/sunum-sablonu.html` |
+| Sunum, **Gustave Doré / gravür** modeliyle | `references/sunum.md` › Doré varyantı + `assets/sunum-dore-ornek.html` |
 | Hazır CSS değişkenleri ve çekirdek bileşenler | `assets/tokens.css` |
 
 ## Çalışma sırası
