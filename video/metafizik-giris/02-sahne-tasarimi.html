@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metafiziğe Giriş · Sahne Tasarımı</title>
+<!-- Video senaryo kurgusu: altyazı canlı örneği, stil kılavuzu, 32 sahne (zaman, kaynak, altyazı, görsel, Google Flow promptu). Tek dosya, harici bağımlılık yok. -->
+<style>
+:root { --bg: #16120f; --bg-2: #211b16; --bg-3: #2a221b; --line: rgba(232,189,98,.22); --gold: #E8BD62; --gold-3: #FFE7A8; --ivory: #EDE6D0; --muted: #A9A38F; --mor: #C8B0FF;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ivory); font: 16px/1.6 var(--sans); }
+.wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+header { padding: 56px 0 28px; text-align: center; border-bottom: 1px solid var(--line); }
+.ust { font: 600 12px/1 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--gold); }
+h1 { font: 500 clamp(30px, 5vw, 50px)/1.1 var(--serif); margin: 14px 0 10px; }
+h2 { font: 500 clamp(24px, 3.4vw, 32px)/1.2 var(--serif); margin: 0 0 14px; }
+h3 { font: 500 21px/1.25 var(--serif); }
+.alt { color: var(--muted); max-width: 720px; margin-inline: auto; }
+.ayir { color: var(--gold); opacity: .6; margin-inline: .4em; }
+section.blok { padding: 44px 0 10px; }
+.blok > .wrap > p { color: var(--muted); max-width: 820px; margin-bottom: 14px; }
+b { color: var(--ivory); }
+
+/* ── CANLI ÖRNEK: 16:9 video karesi ── */
+.kare { position: relative; aspect-ratio: 16 / 9; width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0,0,0,.5); container-type: inline-size;
+  background: radial-gradient(ellipse at 50% 42%, #1c1430, #0c0818 60%, #040208); }
+.kare svg.fon { position: absolute; inset: 0; width: 100%; height: 100%; }
+.don { transform-origin: 800px 420px; animation: don var(--s) linear infinite; } .ters { animation-direction: reverse; }
+@keyframes don { to { transform: rotate(360deg); } }
+.yildiz { animation: pir var(--t) ease-in-out infinite; animation-delay: var(--g); }
+@keyframes pir { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.dag { animation: suz 7s ease-in-out infinite alternate; } @keyframes suz { to { transform: translateY(-14px); } }
+/* bölüm etiketi (sol üst) */
+.v-bolum { position: absolute; left: 4.5%; top: 6%; font: 600 1.25cqw/1 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: rgba(232,189,98,.85); display: flex; align-items: center; gap: .8em; opacity: 0; transition: opacity 1s; }
+.v-bolum::before { content: ""; width: 2.4em; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.v-bolum.gor { opacity: 1; }
+/* altyazı: odalardaki alıntılar gibi */
+.v-alt { position: absolute; left: 0; right: 0; bottom: 0; padding: 7% 6% 6.2%; background: linear-gradient(transparent, rgba(8,5,14,.55) 45%, rgba(8,5,14,.75)); }
+.v-onceki { font: italic 500 2.25cqw/1.35 var(--serif); color: rgba(255,231,168,.42); min-height: 1.35em; transition: opacity .6s; max-width: 74%; }
+.v-satir { font: italic 500 3.05cqw/1.32 var(--serif); color: #FFE7A8; min-height: 1.32em; max-width: 74%; text-shadow: 0 2px 14px rgba(0,0,0,.85); }
+.v-satir i { display: inline-block; width: .12em; height: .9em; margin-inline-start: .12em; vertical-align: -.1em; background: var(--mor); animation: imlec 1s steps(1) infinite; }
+@keyframes imlec { 50% { opacity: 0; } }
+.harfi { display: inline-block; white-space: pre; }
+/* alıntı kartı: özgün dil + çeviri + kaynak */
+.v-alinti { position: absolute; inset: 0; display: grid; place-content: center; padding: 0 8%; text-align: center; opacity: 0; transition: opacity 1.2s; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(6,4,12,.82), rgba(6,4,12,.55) 70%, rgba(6,4,12,.35)); }
+.v-alinti.gor { opacity: 1; }
+.v-al-ozgun { font: italic 500 4.4cqw/1.25 var(--serif); color: #FFE7A8; text-shadow: 0 0 30px rgba(232,189,98,.35); }
+.v-al-ceviri { margin-top: .8cqw; font: 500 2.2cqw/1.4 var(--sans); color: var(--ivory); }
+.v-al-kaynak { margin-top: .6cqw; font: 600 1.15cqw/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
+.v-al-cizgi { width: 22cqw; height: 1px; margin: 1.6cqw auto 0; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+/* bölüm kartı: madalyon roma rakamı */
+.v-kart { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 1.6cqw; opacity: 0; transition: opacity 1s; background: radial-gradient(ellipse at center, rgba(12,8,24,.4), rgba(4,2,8,.9)); }
+.v-kart.gor { opacity: 1; }
+.madalyon { position: relative; width: 11cqw; height: 11cqw; border-radius: 50%; display: grid; place-items: center; font: 500 5.4cqw/1 var(--serif); color: var(--gold); border: 2px solid rgba(232,189,98,.65); background: radial-gradient(circle at 35% 30%, rgba(255,226,160,.2), rgba(232,189,98,.05) 70%); }
+.madalyon::after { content: ""; position: absolute; inset: -1cqw; border-radius: 50%; border: 2px dashed rgba(200,176,255,.45); animation: don 28s linear infinite; }
+.madalyon::before { content: ""; position: absolute; inset: -1cqw; border-radius: 50%; background: radial-gradient(circle at 50% 0, #FFE7A8 0 .35cqw, rgba(255,226,160,.5) .5cqw, transparent .8cqw); animation: don 6.5s linear infinite; }
+.v-kart-ad { font: 500 4cqw/1.1 var(--serif); color: var(--ivory); }
+.v-kart-alt { font: 600 1.2cqw/1 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--mor); }
+.kontrol { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.kontrol button { font: 500 14px var(--sans); color: var(--ivory); background: var(--bg-2); border: 1px solid var(--line); border-radius: 999px; padding: 7px 16px; cursor: pointer; }
+.kontrol button:hover { border-color: var(--gold); color: var(--gold-3); }
+.notlar { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 22px; }
+.not { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; font-size: 14.5px; color: var(--muted); }
+.not h3 { font-size: 18px; color: var(--gold-3); margin-bottom: 6px; }
+
+/* ── kaynak rozetleri ve akış ── */
+.rozet { display: inline-block; font: 600 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+.r-flow { background: rgba(200,176,255,.14); color: #d9c8ff; border: 1px solid rgba(200,176,255,.45); }
+.r-site { background: rgba(232,189,98,.12); color: var(--gold-3); border: 1px solid rgba(232,189,98,.45); }
+.r-var { background: rgba(140,200,160,.12); color: #bfe6c8; border: 1px solid rgba(140,200,160,.4); }
+.cubuk { display: flex; height: 26px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); margin: 10px 0 6px; }
+.cubuk span { display: block; height: 100%; border-right: 1px solid rgba(0,0,0,.35); }
+.cubuk .flow { background: linear-gradient(#8f74d9, #6a52b0); } .cubuk .site { background: linear-gradient(#e8bd62, #b88a2e); } .cubuk .var { background: linear-gradient(#7fbf93, #4f8a62); }
+.olcek { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.lejant { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin-top: 8px; }
+.lejant span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 6px; vertical-align: -1px; background: var(--c); }
+
+/* ── sahne kartları ── */
+.bolum-bas { display: flex; align-items: center; gap: 14px; margin: 38px 0 14px; }
+.bolum-bas .no { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 500 20px var(--serif); color: var(--gold); border: 1px solid rgba(232,189,98,.6); flex: none; }
+.bolum-bas h2 { margin: 0; } .bolum-bas small { display: block; font-size: 13px; color: var(--muted); letter-spacing: .08em; }
+.sahne { display: grid; grid-template-columns: 120px 1fr; gap: 18px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-2); margin-bottom: 12px; }
+.s-sol { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.s-no { font: 500 26px/1 var(--serif); color: var(--gold); }
+.s-zaman { font: 500 13px var(--sans); color: var(--muted); letter-spacing: .04em; }
+.s-ad { margin-bottom: 6px; }
+.s-alt { font: italic 500 16.5px/1.5 var(--serif); color: var(--gold-3); border-left: 2px solid rgba(200,176,255,.5); padding-left: 12px; margin: 8px 0 10px; }
+.s-alt q { quotes: none; }
+.s-gorsel { color: var(--muted); font-size: 15px; }
+.s-gorsel b { color: var(--ivory); font-weight: 600; }
+details { margin-top: 10px; }
+summary { cursor: pointer; font-size: 13.5px; color: #d9c8ff; letter-spacing: .04em; }
+summary:hover { color: #fff; }
+.prompt { position: relative; margin-top: 8px; padding: 36px 14px 12px; background: #120e0b; border: 1px solid rgba(200,176,255,.25); border-radius: 8px; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #ddd3f0; white-space: pre-wrap; word-break: break-word; }
+.prompt-ad { position: absolute; left: 14px; top: 10px; font: 600 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #d9c8ff; }
+.kopya { position: absolute; right: 8px; top: 8px; font: 600 11px var(--sans); color: var(--gold-3); background: var(--bg-3); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; cursor: pointer; }
+.stil { white-space: pre-wrap; }
+footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); margin-top: 40px; }
+@media (max-width: 640px) { .sahne { grid-template-columns: 1fr; gap: 8px; } .s-sol { flex-direction: row; align-items: center; flex-wrap: wrap; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="ust">Video · sahne ve animasyon tasarımı · onay taslağı</p>
+    <h1>Neden Hiçbir Şey Değil de Bir Şey Var?</h1>
+    <p class="alt">Metafiziğe giriş · 10 dakika · seslendirme yok, sahne sahne altyazı · 32 sahne<span class="ayir">·</span>Google Flow + sitenin animasyonları + kabin videosu</p>
+  </div>
+</header>
+
+<section class="blok">
+  <div class="wrap">
+    <h2>1 · Altyazı görünümü (canlı örnek)</h2>
+    <p>Altyazı, odalardaki alıntıların diliyle yazılır: italik serif, açık altın, harf harf belirir, ucunda mor bir imleç yanar. Yeni satır gelince önceki satır yukarı kayıp söner;
+      bir paragraf bitince satır <b>yanıp kül olur</b>. Özgün dildeki alıntılar ortada büyük bir <b>alıntı kartı</b> olarak gelir; bölüm geçişlerinde dönen yörüngeli <b>madalyon kartı</b> çıkar.
+      Sol üstte küçük bir bölüm etiketi izleyiciye nerede olduğunu söyler.</p>
+    <div class="kare" id="kare">
+      <svg class="fon" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="n1"><stop offset="0" stop-color="#7a4aff" stop-opacity=".18"/><stop offset="1" stop-color="#7a4aff" stop-opacity="0"/></radialGradient>
+          <linearGradient id="altin" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff0b0"/><stop offset=".5" stop-color="#e8b840"/><stop offset="1" stop-color="#8a6a18"/></linearGradient>
+          <radialGradient id="hale"><stop offset="0" stop-color="#ffd870" stop-opacity=".28"/><stop offset="1" stop-color="#ffd870" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="1120" cy="300" r="520" fill="url(#n1)"/>
+        <g id="yildizlar"></g>
+        <g opacity=".4"><g class="don" style="--s:90s"><ellipse cx="800" cy="420" rx="300" ry="96" fill="none" stroke="#c8b0ff" stroke-dasharray="3 9"/></g><g class="don ters" style="--s:130s"><ellipse cx="800" cy="420" rx="420" ry="134" fill="none" stroke="#c8b0ff" stroke-dasharray="3 9"/></g></g>
+        <g class="dag"><g transform="translate(330 470)"><circle cy="-50" r="170" fill="url(#hale)"/><ellipse rx="150" ry="22" fill="#4a3a2a"/><path d="M-110 -6L-40 -120L0 -70L40 -150L110 -6Z" fill="url(#altin)"/><path d="M40 -150L60 -110L20 -90Z" fill="#fff4c8" opacity=".8"/></g></g>
+        <g transform="translate(1180 330)"><path id="kup" fill="none" stroke="#f0dca0" stroke-width="2" stroke-linejoin="round"/></g>
+      </svg>
+      <div class="v-bolum" id="vBolum">IV · Bulmaca 3 · Altın dağ</div>
+      <div class="v-alinti" id="vAlinti"><p class="v-al-ozgun"></p><p class="v-al-ceviri"></p><p class="v-al-kaynak"></p><div class="v-al-cizgi"></div></div>
+      <div class="v-kart" id="vKart"><div class="madalyon">IV</div><p class="v-kart-ad">Dört bulmaca</p><p class="v-kart-alt">Argümanlar · 2:50</p></div>
+      <div class="v-alt"><p class="v-onceki" id="vOnceki"></p><p class="v-satir" id="vSatir"></p></div>
+    </div>
+    <div class="kontrol"><button data-git="0">Bölüm kartı</button><button data-git="1">Altyazı satırları</button><button data-git="2">Paragraf sonu: kül</button><button data-git="3">Alıntı kartı</button></div>
+    <div class="notlar">
+      <div class="not"><h3>Okunabilirlik</h3>Altyazının boyu, 1080p'de yaklaşık 40 px. Bir satır en çok iki satıra kırılır ve 3,5–5 sn ekranda kalır. Altında ince, koyu bir eğim var; Flow kliplerinin parlak yerlerinde bile okunur.</div>
+      <div class="not"><h3>Ritim</h3>990 kelime 10 dakikaya yayılıyor, yani dakikada yaklaşık 100 kelime. Harfler saniyede yaklaşık 35 karakter hızla yazılıyor. Paragraf aralarında 1–2 sn boş, nefes alan görüntü bırakılıyor.</div>
+      <div class="not"><h3>Ses</h3>Yapay ses yok. Flow kliplerinin kendi ortam sesleri (ateş, rüzgâr, deniz, kıvılcım) ve sakin bir müzik zemini kullanılıyor. Promptlarda konuşma, yazı ve logo açıkça yasaklandı.</div>
+    </div>
+  </div>
+</section>
+
+<section class="blok">
+  <div class="wrap">
+    <h2>2 · Görsel dil ve üretim</h2>
+    <p><b>Kurzgesagt × metafizik odası.</b> Düz, geometrik, yumuşak geçişli vektör çizimler. Gece mor boşluğu (#0c0818 → #1c1430), mor vurgu #C8B0FF, sıcak altın #E8BD62/#FFE7A8.
+      Işık hep bir kaynaktan gelir ve hafifçe nefes alır. Kamera yavaş: süzülme, ağır yaklaşma, ama ani hareket yok. Filozoflar şirin, büyük başlı, sade yüzlü Kurzgesagt karakterleri gibi.</p>
+    <div class="cubuk" id="cubuk"></div>
+    <div class="olcek"><span>0:00</span><span>2:30</span><span>5:00</span><span>7:30</span><span>10:00</span></div>
+    <div class="lejant"><span style="--c:#8f74d9">Google Flow klibi</span><span style="--c:#e8bd62">Sitenin animasyonu (ben hazırlarım)</span><span style="--c:#7fbf93">Mevcut video (kabin)</span></div>
+    <div class="notlar">
+      <div class="not"><h3>Google Flow · 34 klip</h3>34 × 8 sn = 4:32 görüntü; Flow sahneleri toplam 6:12. Aradaki fark, klipleri hafifçe yavaşlatarak (0,8×), uzun tutarak ve Flow'daki <i>uzatma</i> özelliğiyle kapanır. Her promptun başında aynı <b>stil kılavuzu</b> var; Flow'daki hazır karakterlerin ve sahnelerin varsa, onları referans olarak eklersin.</div>
+      <div class="not"><h3>Sitenin animasyonları · 11 sahne</h3>Metafizik odası, kendini çizen logo, adım adım okuma çizimleri, harita, terazi, kül olan alıntılar. Bunları kodla kurup kare kare videoya çeviririm; renkleri ve hızları Flow klipleriyle eşleşir.</div>
+      <div class="not"><h3>Montaj</h3>Klipler + site animasyonları + altyazı katmanı + müzik. Montajı ffmpeg ile ben yaparım. Sen Flow çıktılarını yüklersin; sonunda 1080p MP4 ve ayrı bir .srt altyazı dosyası teslim ederim.</div>
+    </div>
+    <details open><summary>Stil kılavuzu (her Flow promptunun başına eklenir)</summary>
+      <div class="prompt stil" id="stil"></div></details>
+  </div>
+</section>
+
+<section class="blok">
+  <div class="wrap">
+    <h2>3 · Sahneler</h2>
+    <p>Her sahnede: zaman · kaynak · o sahnede akan altyazı · görsel ve hareket · Flow sahnelerinde kopyalanabilir İngilizce prompt (stil kılavuzu otomatik eklenir).</p>
+    <div id="sahneler"></div>
+  </div>
+</section>
+
+<footer><div class="wrap">Karahan Uçar · Düşüncenin Eşiği · Metafiziğe Giriş videosu · sahne tasarımı taslak 1<span class="ayir">·</span>MERAK · AKIL · ANLAM</div></footer>
+
+<script>
+var STIL = "STYLE: Flat 2D vector animation in the style of Kurzgesagt: clean geometric shapes, soft gradients, subtle grain texture, gentle glow and rim light, rounded friendly characters with big heads and simple faces. Palette: deep night indigo-violet void (#0c0818 to #1c1430), violet accent #C8B0FF, warm gold #E8BD62 and pale gold #FFE7A8, ivory highlights; light always comes from one glowing source and softly breathes. Calm, wondrous, cozy mood. Slow smooth camera, no cuts, 16:9. Absolutely no text, letters, numbers, subtitles, logos or watermarks in the image. No dialogue or speech; only soft ambient sound.";
+
+/* [bölüm, no, başlangıç, bitiş, kaynak (flow/site/var), ad, altyazı, görsel, prompt(flow)] */
+var B = {
+  I: ["Hook", "0:00 – 0:42"], II: ["Tanıtım", "0:42 – 1:32"], III: ["Bağlam: Metafizik nedir?", "1:32 – 2:52"], IV: ["Dört bulmaca", "2:52 – 7:02"],
+  V: ["Günümüz ve sen", "7:02 – 8:52"], VI: ["Merak uyandıran soru", "8:52 – 9:30"], VII: ["Kapanış", "9:30 – 10:00"] };
+var S = [
+ ["I", 1, 0, 8, "flow", "Hiçlikte tek bir ışık", "Hiçbir şey olmayabilirdi.",
+  "Tam karanlık. Ortada çok küçük, altın bir ışık noktası belirir, titrer ve nefes alır. Ses: derin bir sessizlik, sonra çok hafif bir çınlama.",
+  "Total darkness. In the exact center a tiny warm golden point of light slowly ignites, flickers and breathes, faint violet haze appears around it. Static camera, extremely slow push-in."],
+ ["I", 2, 8, 22, "flow", "Işıktan evrene, evrenden kabine", "Ne yıldızlar, ne bu oda, ne bu cümle, ne de onu dinleyen sen. · Sadece… hiçbir şey. Işık yok, zaman yok, soru soracak kimse yok. · Ama bir şey var. Hem de çok şey.",
+  "Işık noktası patlamadan, yumuşakça açılır: yıldızlar, mor bulutsular, dönen bir galaksi. Kamera dalarak karlı bir ormana, oradan da ışığı yanan tek bir kabin penceresine iner. İki klip: (a) evrenin doğuşu, (b) ormana ve pencereye iniş.",
+  "(a) The single golden point gently blooms into a universe: stars appear one by one, violet nebulae unfold, a spiral galaxy slowly turns. Camera drifts forward through the stars.\n(b) Continuous descent from the starry sky into a snowy pine forest at night under a full moon, toward one small wooden cabin with a warmly lit window; snow falls softly. Slow aerial glide ending close to the glowing window."],
+ ["I", 3, 22, 34, "flow", "Leibniz ve soru (1714)", "1714'te Gottfried Leibniz bu durumu en sade hâliyle sordu. · [ALINTI KARTI] « Pourquoi il y a plutôt quelque chose que rien ? » · Neden hiçbir şey değil de bir şey var?",
+  "Mum ışığında bir çalışma odası; büyük peruklu, şirin bir Leibniz tüy kalemle yazıyor, sonra başını kaldırıp pencereden yıldızlara bakıyor. Üstüne <b>alıntı kartı</b> biner (Fransızca özgün + çeviri + \"Leibniz · Doğanın ve Lütfun İlkeleri, 1714\").",
+  "A cozy 18th-century study at night lit by a single candle. A cute flat cartoon Gottfried Leibniz with a huge curly baroque wig writes with a quill on parchment, pauses, then slowly lifts his head and looks out of the window at the starry sky with wonder. Candle flame flickers, dust motes float in the light."],
+ ["I", 4, 34, 42, "site", "Başlık: kendini çizen logo", "Üç yüz yıl geçti. Hâlâ herkesin kabul ettiği bir cevap yok. · Bu videoda o soruya, ve onun açtığı kapıdan girilen bütün o tuhaf odalara bakacağız.",
+  "Mor boşlukta logo kendini çizer (sol hilal · sağ hilal · gövde · en son taban). Altında başlık harf aralığı açılarak belirir: <b>Neden Hiçbir Şey Değil de Bir Şey Var?</b> · üstte küçük etiket \"Metafiziğe giriş\". Kor çizgi soldan sağa süzülür.", ""],
+ ["II", 5, 42, 60, "var", "Kabin: Düşüncenin Eşiği", "Merhaba, ben Karahan. · Burası Düşüncenin Eşiği: karlı bir gecede, ormanın içinde bir kütüphane.",
+  "Sitedeki kabin animasyonu (Seedance, son sürüm): maskot okuyor, şömine titriyor, gramofondan notalar çıkıyor, kar yağıyor. 8 sn'lik video dikişsiz döngüyle iki kez döner; kamera CSS ile çok yavaş yaklaşır.", ""],
+ ["II", 6, 60, 78, "site", "Metafizik odasının kapısı", "Bu kütüphanenin en garip odası, metafizik odası. Orada hiçbir şey yere düşmez. · Kusursuz cisimler havada döner, var olmayan bir altın dağ asılı durur, bir kare yuvarlak olmaya çalışır.",
+  "Sitedeki metafizik odasının canlı kaydı: dönen beş Platon cismi, havada salınan altın dağ, köşeleri yuvarlaklaşıp sivrilen kare, çarpışan bilardo topları. Kamera yavaşça içeri süzülür; parıldayan nesneler sırayla yanar.", ""],
+ ["II", 7, 78, 92, "site", "Yolculuğun haritası", "Bugün o odaya birlikte gireceğiz. · Önce metafiziğin ne olduğunu, sonra onu iki bin beş yüz yıldır uykusuz bırakan dört bulmacayı göreceğiz. · Metafizik, uzak bir göğün değil, tam da senin hakkında.",
+  "Sitenin harita bileşeni: parşömen üzerinde kesik çizgili yol çizilir; dört mühür durak sırayla yanar: <b>gemi · gül · altın dağ · kum saati</b>; sonunda beşinci durakta küçük bir insan silueti (\"sen\"). Yolcu ışık duraktan durağa yürür.", ""],
+ ["III", 8, 92, 116, "flow", "Rodos'ta bir kütüphane", "Önce adından başlayalım. \"Metafizik\" kelimesi bir felsefecinin değil, bir kütüphanecinin icadı olabilir. · Geleneğe göre Aristoteles'in yazılarını düzenleyen Rodoslu Andronikos, doğa üzerine kitapların arkasına koyduğu metinlere bir ad verir: ta meta ta physika, yani \"fizikten sonrakiler\". · Raftaki bir yer bilgisi, zamanla bir anlam kazanır: fiziğin ötesindekiler.",
+  "Antik bir kütüphane, yağ kandilleri, raflarda tomarlar. Sevimli bir kütüphaneci (Andronikos) bir tomarı, üzerinde fizik kitaplarının durduğu rafın hemen arkasına yerleştirir; tomar mor bir ışıkla parlar ve raf sonsuz bir yıldız boşluğuna açılır. Üç klip.",
+  "(a) An ancient Greek library at night lit by oil lamps, wooden shelves full of papyrus scrolls in round holders, a marble column, warm golden light. Slow dolly along the shelves.\n(b) A cute flat cartoon ancient librarian in a simple chiton carefully places one scroll on the shelf right behind a row of other scrolls, then steps back, satisfied.\n(c) The placed scroll begins to glow soft violet; the back of the shelf dissolves into an infinite starry violet void that opens behind it. Slow push-in."],
+ ["III", 9, 116, 134, "flow", "Aristoteles: varlık olarak varlık", "Aristoteles'in kendisi bu alanı daha cesur tanımlar: \"varlık olarak varlığı\" inceleyen bilim. · [ALINTI KARTI] « ἔστιν ἐπιστήμη τις ἣ θεωρεῖ τὸ ὂν ᾗ ὄν » · Metafizik Γ 1, 1003a21",
+  "Şirin, sakallı bir Aristoteles bir sütunlu avluda yürür (peripatetik), elinde bir taş, bir yaprak ve bir yıldızı sırayla havaya kaldırır; üçü de aynı altın halkayla çevrelenir: hepsi \"var\". İki klip.",
+  "A cute flat cartoon Aristotle with a short beard and a simple robe walks slowly through a sunlit colonnade at dusk. He holds up a small stone, then a green leaf, then a tiny glowing star; each object, as he holds it, gets surrounded by the same thin glowing golden ring. Gentle tracking shot."],
+ ["III", 10, 134, 172, "site", "Katmanlar: fizik, kimya, biyoloji… ve altında", "Fizik, şeylerin nasıl hareket ettiğini sorar. Kimya, neyden yapıldıklarını. Biyoloji, nasıl yaşadıklarını. · Metafizik ise hepsinden önce gelen soruyu sorar: var olmak ne demek? Ve tam olarak ne vardır? · Sayılar var mı? Zaman akıyor mu? Sen, dün yatağa giren kişiyle aynı kişi misin? · Bunlar laboratuvarda ölçülemez. Ama her ölçüm, sessizce bunlara bir cevap vermiş olarak başlar.",
+  "<b>Adım adım okuma</b> çizimi (Tegmark sayfasındaki gibi katman katman yanan SVG): iç içe halkalar: <b>biyoloji</b> (yaprak) → <b>kimya</b> (molekül) → <b>fizik</b> (yörünge) dışta; altta, hepsini taşıyan mor bir zemin: <b>metafizik</b>. Sorular (sayı, kum saati, ayna) zeminden kabarcık gibi yükselir. En sonda bir ölçü cetvelinin altından ince bir kök zemine iner.", ""],
+ ["IV", 11, 172, 196, "flow", "Bulmaca 1: Theseus'un gemisi", "[BÖLÜM KARTI — IV — Dört bulmaca] · Plutarkhos bir gemiden söz eder. Kahraman Theseus'un gemisi Atina limanında yüzyıllarca korunur. · Çürüyen her tahta, yenisiyle değiştirilir. Bir gün eski tahtaların hiçbiri kalmaz. · Bu hâlâ Theseus'un gemisi mi?",
+  "Antik Atina limanı, gün batımından geceye. Ahşap bir kadırga; tahtalar tek tek sökülüp yenisiyle değiştirilir; eski tahtalar koyu, yeniler parlak altın. Zaman hızlanır (gölgeler kayar, mevsimler değişir) ve sonunda bütün gemi altın tahtalardan oluşur. Üç klip.",
+  "(a) An ancient Athenian harbor at golden hour, a small wooden Greek galley with a single sail moored at a stone pier, calm water reflecting the light. Slow pan.\n(b) Time-lapse: weathered dark planks of the galley are removed one by one by little workers and replaced with new planks that glow warm gold; shadows sweep, seasons pass, snow then sun.\n(c) The whole galley now made entirely of glowing golden planks rests at the pier under the stars. Slow orbit around the ship."],
+ ["IV", 12, 196, 214, "flow", "Hobbes'un ikinci gemisi", "On yedinci yüzyılda Thomas Hobbes soruyu daha da zorlaştırır: Ya biri sökülen bütün eski tahtaları toplayıp bir gemi daha yaparsa? · Şimdi limanda iki gemi var. Hangisi Theseus'unki?",
+  "Bir depoda biriken eski koyu tahtalardan ikinci bir gemi yapılır. Son karede iki gemi yan yana: biri altın, biri koyu ahşap; aralarında havada mor bir soru işareti biçiminde dönen ışık. İki klip.",
+  "(a) In a dim old warehouse a pile of dark weathered planks; little cartoon shipwrights assemble them back into a complete old galley.\n(b) Wide shot of the harbor at night: two identical galleys side by side, one made of glowing golden planks, the other of dark old planks; between them a soft violet light hovers and slowly rotates. Static camera."],
+ ["IV", 13, 214, 238, "site", "Üç cevap", "Bir cevap: süreklilik önemlidir; tahta tahta değişen gemi aynı gemidir. · Başka bir cevap: aslolan parçalardır; eski tahtalardan yapılan gemi asıl gemidir. · Üçüncü, daha cüretkâr bir cevap: nesneler zamanda uzanan solucanlar gibidir. · Ve dikkat: bu soru sadece gemiler için sorulmuyor.",
+  "Üç kart sırayla açılır (sunumlardaki hareketli simgeli kartlar): <b>Süreklilik</b> (zincir halinde değişen tahtalar), <b>Parçalar</b> (tahtalar mıknatıs gibi eski gemiye döner), <b>Zaman solucanı</b> (zaman çizgisi boyunca uzanan mor solucan, üzerinde sırayla yanan dilimler). Son satırda kartlar kararır, ortada küçük bir insan silueti belirir.", ""],
+ ["IV", 14, 238, 256, "flow", "Bulmaca 2: İki kırmızı gül", "Önünde iki kırmızı gül var. İki ayrı çiçek. Ama ortak bir şeyleri var: ikisi de kırmızı. · Peki bu ortak şey, bu \"kırmızılık\", nerede?",
+  "Koyu bir masada iki kırmızı gül. Her ikisinden de ince kırmızı bir ışık şeridi yükselir, yukarıda tek bir kırmızı ışık küresinde birleşir. Kamera yukarı, yıldızlı bir \"formlar göğüne\" doğru kalkar. İki klip.",
+  "(a) Two red roses side by side in small glass vases on a dark wooden table, softly lit from one side. Very slow push-in.\n(b) From each rose a thin ribbon of red light rises and both ribbons merge above into one calm glowing red sphere that floats upward into a starry violet sky full of floating perfect geometric shapes. Camera tilts up following it."],
+ ["IV", 15, 256, 278, "site", "Platon · Aristoteles · Ockham", "Platon'a göre zamanın ve mekânın dışında, değişmeyen formlar âlemindedir. Güller ona katılır, sonra solar; kırmızılığın kendisi ise solmaz. · Aristoteles itiraz eder: kırmızılık vardır ama yalnızca kırmızı şeylerin içinde. · Ortaçağda Ockham'lı William daha keskin bir bıçak çeker: yalnızca tek tek şeyler vardır; \"kırmızılık\" bizim onları toplamak için kullandığımız bir addır.",
+  "Üç sütunlu adım adım çizim. <b>Platon</b>: kırmızı küre gülün üstünde, ayrı bir katta; gül solar, küre parlamaya devam eder. <b>Aristoteles</b>: küre gülün içine iner, onunla birlikte nefes alır. <b>Ockham</b>: bir usturanın ışık çizgisi küreyi keser; geriye yalnızca iki tekil gül ve aralarında asılı bir ad etiketi kalır.", ""],
+ ["IV", 16, 278, 298, "flow", "\"Üç\"ü kim gördü?", "Bu, kuru bir kelime kavgası değil. Sayılar da tümel gibidir: hiç kimse \"üç\"ü görmedi, ama bütün fizik onunla yazılır. · Matematik keşfedilir mi, icat mı edilir? İşte aynı soru, başka bir kıyafetle.",
+  "Üç elma, üç yıldız, üç kuş art arda; her üçlü aynı üç altın ışık noktasına dönüşür; noktalar bir üçgen kurar ve üçgen bir gezegenin yörüngesine, oradan da dönen bir galaksinin kollarına karışır. İki klip.",
+  "(a) Three red apples on a table, then three stars in the sky, then three small birds on a branch; each group of three transforms into the same three tiny glowing golden dots. Smooth morphing transitions.\n(b) The three golden dots connect into a glowing triangle that rotates and expands into the orbit of a planet around a star, which then pulls out to reveal a slowly turning spiral galaxy. Slow pull-back."],
+ ["IV", 17, 298, 314, "flow", "Bulmaca 3: Altın dağ", "Şimdi altın bir dağ düşün. Düşünebildin, değil mi? Parlıyor bile. · Ama altın dağ yok. O hâlde düşüncen neyle ilgiliydi?",
+  "Gözleri kapalı şirin bir karakterin başının üstünde bir düşünce balonu; içinde altın bir dağ parlar. Balon \"pof\" diye söner, altın dağ ise havada asılı kalır ve sitedeki metafizik odasının altın dağına (salınan, haleli) bağlanır.",
+  "A cute flat cartoon person sitting cross-legged with eyes closed in a dark violet void; above their head a soft round thought bubble appears containing a small shining mountain made of pure gold, sparkling. The bubble gently pops into sparkles, but the golden mountain remains floating alone in the void. Static camera."],
+ ["IV", 18, 314, 330, "flow", "Meinong'un ormanı", "Alexius Meinong'a göre altın dağ bir nesnedir; yalnızca var olmayan bir nesne. Hatta yuvarlak kare bile, var olmasa da, bir nesnedir.",
+  "Yarı saydam, soluk bir ormanda var olmayan nesneler dolaşır: altın dağ, köşeleri bir yuvarlaklaşıp bir sivrilen bir kare, bir tekboynuz, uçan bir at. Hepsi hayalet gibi yarı saydam. Kamera aralarında süzülür. İki klip.",
+  "A whimsical translucent forest in a violet void where ghostly, semi-transparent impossible objects drift calmly: a small golden mountain, a square whose corners keep softening into a circle and sharpening back, a unicorn, a winged horse; all are pale and see-through like gentle ghosts. Camera glides slowly between them."],
+ ["IV", 19, 330, 346, "site", "Russell'ın makası", "1905'te Bertrand Russell bu kalabalıktan rahatsız olur. · Ona göre \"altın dağ\" bir şeyin adı değil, gizli bir cümledir: \"Hem altın hem dağ olan bir şey vardır.\" Ve bu cümle yanlıştır. Hepsi bu.",
+  "Tipografik animasyon: \"altın dağ\" sözcükleri ortada; ince bir çizgi onları açar ve içinden mantık formülü çıkar: <b>∃x (Altın(x) ∧ Dağ(x))</b>. Formülün yanında küçük bir terazi \"yanlış\" tarafına iner; hayalet nesneler tek tek kül olup dökülür.", ""],
+ ["IV", 20, 346, 358, "site", "Quine: Ne vardır?", "Kırk üç yıl sonra W. V. Quine meseleyi bir soruya indirir. · [ALINTI KARTI] « What is there? … Everything. » · Kimse buna itiraz etmez. Tartışma, \"her şey\"in içinde nelerin olduğu üzerinedir.",
+  "Odalardaki gibi büyük alıntı kartı: İngilizce özgün harf harf yazılır, altında çeviri ve \"Quine · On What There Is, 1948\". Son cümleyle kart yanıp kül olur.", ""],
+ ["IV", 21, 358, 374, "flow", "Bulmaca 4: Zamanın nehri", "Son bulmaca, en yakınımızdakisi: zaman. · Bize zaman akıyormuş gibi gelir. Gelecek gelir, şimdi olur, geçmişe kayar.",
+  "Gece göğünde altın ışıktan bir nehir akar; içinde küçük anlar (bir doğum günü pastası, bir tren, bir yaprak) yüzer, kameranın önünden geçip geride kaybolur. İki klip.",
+  "A river made of flowing golden light winds through a starry violet night landscape. Small glowing moments float along the current: a birthday cake with candles, a tiny train, a falling autumn leaf, a paper boat; they drift toward the camera, pass by and fade behind. Slow low-angle tracking shot along the river."],
+ ["IV", 22, 374, 400, "site", "Şimdicilik ve blok evren", "1908'de J. M. E. McTaggart iki tür zaman dili ayırır. Birincisi geçmiş, şimdi ve gelecekle konuşur. İkincisi yalnızca \"önce\" ve \"sonra\" der. · Şimdicilere göre yalnızca şimdi vardır: geçmiş artık yoktur, gelecek henüz yoktur. · Blok evren görüşüne göre ise geçmiş, şimdi ve gelecek eşit derecede gerçektir; zaman, bütün hâlinde duran bir manzaradır. · Einstein'ın görelilik kuramı, eşzamanlılığı gözlemciye bağlayarak bu ikinci görüşe destek verir gibi görünür.",
+  "İki yarım ekran (sunumdaki karşıtlık slaytı gibi, ortada salınan terazi): solda <b>şimdicilik</b> (karanlıkta yalnızca ilerleyen tek bir parlak dilim), sağda <b>blok evren</b> (bütün dilimleri aynı anda yanan, ekmek somunu gibi mor bir blok). Einstein satırında blok hafifçe eğilir; farklı açılardan kesilen dilimler gösterilir.", ""],
+ ["IV", 23, 400, 422, "flow", "Hâlâ orada duran bir yaz günü", "Eğer haklıysa, çocukluğunun bir yaz günü hâlâ orada, zamanın haritasında bir yerde duruyor. · [ALINTI KARTI] « Si nemo ex me quaerat, scio; si quaerenti explicare velim, nescio. » · Kimse sormazsa bilirim. Soran birine açıklamak istersem, bilmem. — Augustinus, İtiraflar XI, 14",
+  "Kamera devasa, yarı saydam bir zaman bloğunun içinde süzülür; dilimlerden birinde güneşli bir yaz günü: bir çocuk uçurtma uçuruyor. Dilim sıcak ışıkla parlar, diğerleri soluk mor. İki klip.",
+  "Inside a vast translucent violet crystal block made of thin stacked glass slices, the camera glides slowly along. In one slice a sunny summer afternoon is preserved and gently alive: a small child flying a red kite on a green hill, warm golden light. The other slices are pale and quiet. Dreamy, nostalgic."],
+ ["V", 24, 422, 438, "flow", "O gemi sensin", "[BÖLÜM KARTI — V — Günümüz ve sen] · Belki şöyle düşünüyorsun: güzel bulmacalar, ama benim hayatımla ne ilgisi var? · Theseus'un gemisine geri dönelim. Çünkü o gemi sensin.",
+  "Altın tahtalı gemi limanda; tahtalar havalanır, dönerek yeniden dizilir ve ayakta duran bir insan silueti olur. Siluet başını çevirip kameraya bakar. İki klip.",
+  "The golden-planked Greek galley at night; its planks gently lift into the air one by one, swirl slowly and reassemble into the standing silhouette of a person made of glowing golden planks, who then turns their head toward the camera. Slow push-in."],
+ ["V", 25, 438, 456, "flow", "Yedi yaşındaki sen", "Bedenindeki maddenin büyük kısmı yıllar içinde yenilenir. Düşüncelerin, zevklerin, hatıraların değişir. · Yedi yaşındaki çocuk ile şimdi bu videoyu izleyen kişi aynı kişi mi? Seni sen yapan ne: beden mi, hafıza mı, bir tür süreklilik mi?",
+  "Bir koridor boyunca aynı kişinin hayat evreleri (çocuk, genç, yetişkin) sırayla yürür; aralarında ince altın ışık iplikleri (anılar) uzanır, bazıları kopar, bazıları yeniden bağlanır. İki klip.",
+  "A long softly lit corridor in a violet void; the same cute flat character appears at different ages walking in a row: a child of seven, a teenager, an adult. Thin threads of golden light connect their heads; some threads fade and break, new ones appear. Slow lateral tracking shot."],
+ ["V", 26, 456, 480, "flow", "Parfit'in ışınlanma makinesi", "Derek Parfit bunu bir düşünce deneyiyle sınar: Bir ışınlanma makinesi bedenini burada tarar, yok eder ve Mars'ta birebir aynısını kurar. · Mars'ta uyanan kişi senin anılarına, senin sesine, senin korkularına sahip. O sen misin, yoksa bugün ölen birinin mükemmel bir kopyası mı?",
+  "Retro-fütürist bir ışınlanma kabini; altın tarama çizgisi bedeni baştan aşağı tarar, beden ışık parçacıklarına dağılır. Kızıl Mars'ta aynı kabin; parçacıklar birleşir, aynı kişi gözlerini açar. Üç klip.",
+  "(a) A retro-futuristic teleportation booth in a clean lab, a cute flat character steps inside; a horizontal golden scanning line slowly passes from head to toe.\n(b) The character dissolves into thousands of small glowing particles that stream upward and vanish.\n(c) On a red Martian plain under a dusky sky an identical booth; particles stream in and assemble into the same character, who opens their eyes and looks at their own hands. Slow push-in."],
+ ["V", 27, 480, 494, "flow", "Dijital ikiz", "Bu artık sadece bilimkurgu değil. Bir yapay zekânın bir insanın yazışmalarıyla eğitildiği, dijital ikizlerin konuşulduğu bir dünyadayız.",
+  "Binlerce küçük mesaj balonu (boş, yazısız) bir girdap gibi döner ve bir yüz biçimi alır; yüz göz kırpar. Karşısında gerçek kişi, aynaya bakar gibi ona bakar.",
+  "Thousands of small blank glowing chat bubbles swirl in a violet void like a flock of birds and gradually assemble into the shape of a human face made of bubbles, which slowly blinks. Opposite it, a cute flat character looks at the bubble-face as if looking into a mirror. Static camera, slow swirl."],
+ ["V", 28, 494, 512, "flow", "Cüzdandaki metafizik", "Ve metafizik bir de cüzdanında: Elindeki banknot bir kâğıt parçası. Ama hepimiz onu para saydığımız için para. · John Searle'ün dediği gibi, bazı şeyler yalnızca biz onlara inandığımız sürece vardır: paralar, sınırlar, şirketler, evlilikler.",
+  "Bir el yazısız, desensiz bir banknotu tutar. Çevredeki küçük karakterlerin başlarından ince ışık çizgileri banknota uzanır; banknot ancak çizgiler bağlandıkça altın parlar. Sonra aynı ışık ağı bir sınır çizgisine, bir binaya, iki yüzüğe uzanır. İki klip.",
+  "(a) A hand holds a plain banknote with no text or numbers. Around it many tiny cartoon people appear; thin golden light threads extend from each of their heads to the note, and the note glows brighter as more threads connect.\n(b) The same golden network of threads now also connects to a dotted border line on a map, a small office building and two wedding rings floating in the violet void. Slow pull-back revealing the network."],
+ ["V", 29, 512, 532, "site", "Carnap ve Quine: terazi", "Ne vardır sorusu, aslında ne kadar çok şeyi birlikte var ettiğimizi de soruyor. · Bir de en eski itiraz var: Belki bütün bunlar anlamsızdır. Rudolf Carnap öyle düşündü; Quine ona, bilimin bile sessizce ontoloji yaptığını göstererek cevap verdi. · Yani metafizikten kaçmaya çalışırken bile, bir metafizik seçmiş oluyoruz.",
+  "Çağdaş metafizik sunumundaki <b>terazi</b> animasyonu: sol kefede Carnap (\"anlamsız\"), sağda Quine (\"bilim de ontoloji yapar\"); terazi önce Carnap'a, sonra Quine'a eğilir. Son satırda iki kefe birden altın bir zemine oturur.", ""],
+ ["VI", 30, 532, 570, "flow", "Düğmeye basar mısın?", "[BÖLÜM KARTI — VI — Soru] · O hâlde sana bir soru bırakayım. · Işınlanma makinesinin önündesin. Mars'ta seni sevdiklerin bekliyor. Yolculuk bir saniye sürecek; ama buradaki beden kalmayacak. · Düğmeye basar mısın? · Cevabın ne olursa olsun, ona bir gerekçe vermek zorundasın. Ve o gerekçe, senin metafiziğin. · Yorumlara yaz: basar mısın, basmaz mısın, ve neden?",
+  "İzleyicinin gözünden: ışınlanma kabininin önünde, büyük, yuvarlak, nabız gibi atan altın bir düğme. Kabin camında Mars'ta el sallayan küçük siluetler belirir. \"Düğmeye basar mısın?\" satırında 3 sn tam sessizlik ve yalnızca nabız atan düğme. Üç klip (son klip yavaş tutulur).",
+  "(a) First-person view: standing in front of a retro-futuristic teleportation booth in a quiet dim lab; on a pedestal a large round golden button softly pulses like a heartbeat.\n(b) In the booth's glass, a reflection-like window shows a red Martian landscape where small cute silhouettes of loved ones wave warmly.\n(c) Extreme slow push-in toward the pulsing golden button until it fills most of the frame; everything else falls into soft violet darkness."],
+ ["VII", 31, 570, 588, "flow", "Işığa geri dönüş", "[BÖLÜM KARTI — VII — Kapanış] · Metafizik, kesin cevaplar vermekten çok, soruların altındaki zemini görünür kılar. · Leibniz'in sorusu hâlâ açık: neden hiçbir şey değil de bir şey var? · Belki hiçbir zaman bilemeyeceğiz. Ama sormak, var olan o \"bir şey\"in en tuhaf ve en güzel parçasının, yani bizim, yaptığı bir şey.",
+  "Açılışın tersi: kabin penceresinden geri çekiliş, karlı orman, gökyüzü, galaksi, yıldızlar; her şey yeniden tek bir altın ışık noktasına toplanır. İki klip.",
+  "(a) Starting at the warmly lit window of the snowy forest cabin, the camera slowly pulls back and rises above the pine forest into the night sky full of stars.\n(b) Continuing the pull-back through stars and violet nebulae, the whole universe gently gathers and shrinks into one tiny breathing golden point of light in total darkness."],
+ ["VII", 32, 588, 600, "site", "Kapanış: logo ve slogan", "Düşüncenin Eşiği'nde, bir sonraki odada görüşmek üzere. · Merak · Akıl · Anlam.",
+  "Işık noktası logoya dönüşür; logo kendini çizer ve alev gibi titrer. Altında <b>MERAK · AKIL · ANLAM</b> ve karahanucar.com. Son 2 sn kararma.", ""]
+];
+
+function sure(s) { var m = Math.floor(s / 60), x = s % 60; return m + ":" + String(x).padStart(2, "0"); }
+var RENK = { flow: "flow", site: "site", var: "var" }, AD = { flow: "Google Flow", site: "Site animasyonu", var: "Mevcut video" };
+document.getElementById("stil").textContent = STIL;
+var cub = document.getElementById("cubuk");
+S.forEach(function (s) { var sp = document.createElement("span"); sp.className = RENK[s[4]]; sp.style.width = ((s[3] - s[2]) / 600 * 100) + "%"; sp.title = s[1] + " · " + s[5]; cub.appendChild(sp); });
+var kap = document.getElementById("sahneler"), son = "";
+S.forEach(function (s) {
+  if (s[0] !== son) { son = s[0]; var b = B[s[0]]; kap.insertAdjacentHTML("beforeend", '<div class="bolum-bas"><span class="no">' + s[0] + '</span><div><h2>' + b[0] + '</h2><small>' + b[1] + '</small></div></div>'); }
+  var alt = s[6].split(" · ").map(function (x) { return x.replace(/</g, "&lt;"); }).join('<br>');
+  var klipler = s[8] ? s[8].split("\n") : [];
+  var pr = s[4] === "flow" ? '<details><summary>Google Flow promptları · ' + klipler.length + ' klip (İngilizce, her biri ayrı kopyalanır)</summary>' + klipler.map(function (k, j) {
+    var harf = (k.match(/^\(([a-z])\)\s*/) || [])[1] || "", metin = k.replace(/^\([a-z]\)\s*/, "");
+    return '<div class="prompt"><span class="prompt-ad">Klip ' + String(s[1]).padStart(2, "0") + (harf || (klipler.length > 1 ? "abc"[j] : "")) + '</span><button class="kopya">Kopyala</button><span class="metin">' + (STIL + "\n\nSCENE: " + metin).replace(/</g, "&lt;") + '</span></div>'; }).join("") + '</details>' : "";
+  kap.insertAdjacentHTML("beforeend", '<article class="sahne"><div class="s-sol"><span class="s-no">' + String(s[1]).padStart(2, "0") + '</span><span class="s-zaman">' + sure(s[2]) + " – " + sure(s[3]) + " · " + (s[3] - s[2]) + ' sn</span><span class="rozet r-' + s[4] + '">' + AD[s[4]] + '</span></div><div><h3 class="s-ad">' + s[5] + '</h3><p class="s-alt">' + alt + '</p><p class="s-gorsel">' + s[7] + '</p>' + pr + '</div></article>');
+});
+kap.addEventListener("click", function (e) {
+  var b = e.target.closest(".kopya"); if (!b) return;
+  var t = b.parentNode.querySelector(".metin").textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { b.textContent = "Kopyalandı"; setTimeout(function () { b.textContent = "Kopyala"; }, 1600); }, function () {});
+});
+
+/* ── canlı örnek ── */
+(function () {
+  var azalt = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var y = document.getElementById("yildizlar"), s = "";
+  for (var i = 0; i < 110; i++) s += '<circle class="yildiz" cx="' + (Math.random() * 1600).toFixed(0) + '" cy="' + (Math.random() * 900).toFixed(0) + '" r="' + (.6 + Math.random() * 1.6).toFixed(1) + '" fill="#fff" style="--t:' + (2 + Math.random() * 4).toFixed(1) + 's;--g:-' + (Math.random() * 5).toFixed(1) + 's"/>';
+  y.innerHTML = s;
+  /* dönen ikosahedron yerine sade bir küp */
+  var V = [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]], E = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]], kup = document.getElementById("kup");
+  (function don(t) { var a = t / 2600, b = t / 4100, P = V.map(function (v) { var x = v[0] * Math.cos(a) + v[2] * Math.sin(a), z = -v[0] * Math.sin(a) + v[2] * Math.cos(a), yy = v[1] * Math.cos(b) - z * Math.sin(b); return [(x * 70).toFixed(1), (yy * 70).toFixed(1)]; });
+    kup.setAttribute("d", E.map(function (e) { return "M" + P[e[0]].join(" ") + "L" + P[e[1]].join(" "); }).join("")); if (!azalt) requestAnimationFrame(don); })(0);
+
+  var satir = document.getElementById("vSatir"), onceki = document.getElementById("vOnceki"), bol = document.getElementById("vBolum"), kart = document.getElementById("vKart"), al = document.getElementById("vAlinti");
+  var SATIRLAR = ["Şimdi altın bir dağ düşün.", "Düşünebildin, değil mi? Parlıyor bile.", "Ama altın dağ yok.", "O hâlde düşüncen neyle ilgiliydi?"];
+  var zaman = [], adim = 0;
+  function temizle() { zaman.forEach(clearTimeout); zaman = []; satir.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); }); }
+  function bekle(f, ms) { zaman.push(setTimeout(f, ms)); }
+  function yaz(t, sonra) { var n = 0; if (azalt) { satir.textContent = t; bekle(sonra, 2500); return; }
+    (function a() { satir.innerHTML = t.slice(0, ++n).replace(/</g, "&lt;") + "<i></i>"; if (n < t.length) bekle(a, 28 + Math.random() * 20); else bekle(function () { satir.textContent = t; bekle(sonra, 2600); }, 600); })(); }
+  function kaydir(t) { onceki.textContent = t; onceki.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 500 }); satir.textContent = ""; }
+  function kul(sonra) {
+    var t = satir.textContent; satir.textContent = ""; var bit = 0;
+    Array.from(t).forEach(function (ch, j) { var sp = document.createElement("span"); sp.className = "harfi"; sp.textContent = ch; satir.appendChild(sp); var g = j * 22 + Math.random() * 260; bit = Math.max(bit, g + 1700);
+      sp.animate([{ color: "#FFE7A8" }, { color: "#ff9a3a", textShadow: "0 0 12px #ff6a1a", offset: .2 }, { color: "#8a3a1a", offset: .4 }, { color: "#5a5550", transform: "none", opacity: 1, offset: .55 }, { color: "#3a3835", transform: "translate(" + ((Math.random() - .5) * 40) + "px," + (40 + Math.random() * 70) + "px) rotate(" + ((Math.random() - .5) * 120) + "deg) scale(.6)", opacity: 0 }], { duration: 1700, delay: g, easing: "ease-in", fill: "forwards" }); });
+    onceki.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, fill: "forwards" });
+    bekle(function () { onceki.getAnimations().forEach(function (a) { a.cancel(); }); onceki.textContent = ""; satir.textContent = ""; sonra(); }, bit + 200);
+  }
+  function sahne(k) {
+    temizle(); adim = k; kart.classList.remove("gor"); al.classList.remove("gor"); bol.classList.remove("gor"); onceki.textContent = ""; satir.textContent = "";
+    if (k === 0) { kart.classList.add("gor"); bekle(function () { sahne(1); }, 3800); }
+    else if (k === 1) { bol.classList.add("gor"); var j = 0; (function sonraki() { if (j > 0) kaydir(SATIRLAR[j - 1]); if (j >= SATIRLAR.length) { satir.textContent = SATIRLAR[SATIRLAR.length - 1]; onceki.textContent = SATIRLAR[SATIRLAR.length - 2]; return bekle(function () { sahne(2); }, 200); } yaz(SATIRLAR[j++], sonraki); })(); }
+    else if (k === 2) { bol.classList.add("gor"); onceki.textContent = SATIRLAR[2]; satir.textContent = SATIRLAR[3]; bekle(function () { kul(function () { bekle(function () { sahne(3); }, 700); }); }, 900); }
+    else if (k === 3) { bol.classList.add("gor"); al.classList.add("gor"); var oz = al.querySelector(".v-al-ozgun"), c = al.querySelector(".v-al-ceviri"), y = al.querySelector(".v-al-kaynak"); c.textContent = ""; y.textContent = ""; var t = "« What is there? … Everything. »", n = 0;
+      (function a() { oz.textContent = t.slice(0, ++n); if (n < t.length) bekle(a, 55); else bekle(function () { c.textContent = "Ne vardır? Her şey."; y.textContent = "W. V. Quine · On What There Is · 1948"; bekle(function () { sahne(0); }, 4200); }, 500); })(); }
+  }
+  document.querySelector(".kontrol").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) sahne(+b.dataset.git); });
+  sahne(0);
+})();
+</script>
+</body>
+</html>
